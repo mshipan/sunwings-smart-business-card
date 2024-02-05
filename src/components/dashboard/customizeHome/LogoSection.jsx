@@ -16,6 +16,7 @@ const LogoSection = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -59,6 +60,7 @@ const LogoSection = () => {
               icon: "success",
               confirmButtonText: "OK",
             });
+            reset();
           }
         }
       } else {
