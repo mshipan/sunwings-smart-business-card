@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdDashboard, MdDashboardCustomize, MdMenu } from "react-icons/md";
 import "./DashboardLayout.css";
 import { useState } from "react";
+import vismo from "../assets/images/vismo.jpg";
+
 const DashboardLayout = () => {
   const [sidebarHidden, setSidebarHidden] = useState(true);
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const DashboardLayout = () => {
           </Link>
           <ul className="side-menu top ml-2">{topMenuItems}</ul>
 
-          <ul className="side-menu">
+          {/* <ul className="side-menu">
             <li>
               <a href="#">
                 <i className="bx bxs-cog"></i>
@@ -63,19 +65,19 @@ const DashboardLayout = () => {
                 <span className="text">Logout</span>
               </a>
             </li>
-          </ul>
+          </ul> */}
         </section>
         {/* <!-- SIDEBAR --> */}
 
         {/* <!-- CONTENT --> */}
         <section id="content" className={sidebarHidden ? "expanded" : ""}>
           {/* <!-- NAVBAR --> */}
-          <nav>
+          <nav className="flex items-center justify-between">
             <MdMenu
               className="bx bx-menu text-4xl md:text-2xl"
               onClick={handleSidebarToggle}
             />
-            <a href="#" className="nav-link">
+            {/* <a href="#" className="nav-link">
               Categories
             </a>
             <form action="#">
@@ -91,9 +93,9 @@ const DashboardLayout = () => {
             <a href="#" className="notification">
               <i className="bx bxs-bell"></i>
               <span className="num">8</span>
-            </a>
+            </a> */}
             <a href="#" className="profile">
-              <img src="img/people.png" />
+              <img src={vismo} />
             </a>
           </nav>
           {/* <!-- NAVBAR --> */}
@@ -265,7 +267,7 @@ const DashboardLayout = () => {
         </Link>
         <ul className="side-menu top ml-2">{topMenuItems}</ul>
 
-        <ul className="side-menu">
+        {/* <ul className="side-menu">
           <li>
             <a href="#">
               <i className="bx bxs-cog"></i>
@@ -278,37 +280,37 @@ const DashboardLayout = () => {
               <span className="text">Logout</span>
             </a>
           </li>
-        </ul>
+        </ul> */}
       </section>
       {/* <!-- SIDEBAR --> */}
 
       {/* <!-- CONTENT --> */}
       <section id="content" className={sidebarHidden ? "expanded" : ""}>
         {/* <!-- NAVBAR --> */}
-        <nav>
+        <nav className="flex items-center justify-between">
           <MdMenu
             className="bx bx-menu text-4xl md:text-2xl"
             onClick={handleSidebarToggle}
           />
-          <a href="#" className="nav-link">
+          {/* <a href="#" className="nav-link">
             Categories
-          </a>
-          <form action="#">
+          </a> */}
+          {/* <form action="#">
             <div className="form-input">
               <input type="search" placeholder="Search..." />
               <button type="submit" className="search-btn">
                 <i className="bx bx-search"></i>
               </button>
             </div>
-          </form>
-          <input type="checkbox" id="switch-mode" hidden />
-          <label htmlFor="switch-mode" className="switch-mode"></label>
-          <a href="#" className="notification">
+          </form> */}
+          {/* <input type="checkbox" id="switch-mode" hidden /> */}
+          {/* <label htmlFor="switch-mode" className="switch-mode"></label> */}
+          {/* <a href="#" className="notification">
             <i className="bx bxs-bell"></i>
             <span className="num">8</span>
-          </a>
+          </a> */}
           <a href="#" className="profile">
-            <img src="img/people.png" />
+            <img src={vismo} />
           </a>
         </nav>
         {/* <!-- NAVBAR --> */}

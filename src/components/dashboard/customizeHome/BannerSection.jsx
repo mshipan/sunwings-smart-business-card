@@ -16,6 +16,7 @@ const BannerSection = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -58,6 +59,7 @@ const BannerSection = () => {
               icon: "success",
               confirmButtonText: "OK",
             });
+            reset();
           }
         }
       } else {
