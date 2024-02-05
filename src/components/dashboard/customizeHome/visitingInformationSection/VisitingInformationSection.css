@@ -1,0 +1,19 @@
+.visiting_contain {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 1rem;
+}
+.visiting_contain input {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .visiting_contain {
+    width: 100%;
+  }
+  .visiting_contain input {
+    height: 2.4rem;
+    font-size: 0.9rem;
+  }
+}
