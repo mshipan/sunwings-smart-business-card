@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/info_card_logo.png";
-import banner from "../../assets/images/banner-1.webp";
+import { useGetLogoQuery } from "../../redux/features/allApis/logoApi";
+import { useGetBannerQuery } from "../../redux/features/allApis/bannerApi";
 
 const Header = () => {
+  const { data: allLogo } = useGetLogoQuery();
+
+  const logo = allLogo?.[0].logo;
+
+  const { data: allBanner } = useGetBannerQuery();
+  const banner = allBanner?.[0].banner;
+
   return (
     <header className="header">
       <div className="header_top">

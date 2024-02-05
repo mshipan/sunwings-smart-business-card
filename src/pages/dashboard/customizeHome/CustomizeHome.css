@@ -33,7 +33,7 @@
     gap: .6rem;
 }
 .custom_logo{
-    max-width: 300px;
+    max-width: 150px;
 }
 
 @media (max-width: 991px) {

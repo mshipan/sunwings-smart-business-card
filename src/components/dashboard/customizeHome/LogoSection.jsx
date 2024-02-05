@@ -1,11 +1,15 @@
 import { useState } from "react";
-import logo from "../../../assets/images/info_card_logo.png";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import {
+  useGetLogoQuery,
+  useUpdateLogoMutation,
+} from "../../../redux/features/allApis/logoApi";
 
 const LogoSection = () => {
   const [loading, setLoading] = useState(false);
   const img_host_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
-  const baseUrl = import.meta.env.VITE_BASE_API_URL;
+  // const baseUrl = import.meta.env.VITE_BASE_API_URL;
 
   const img_host_url = `https://api.imgbb.com/1/upload?key=${img_host_token}`;
 
@@ -14,6 +18,14 @@ const LogoSection = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { data: allLogo } = useGetLogoQuery();
+  // Access the first element's id of the array
+  const id = allLogo?.[0]._id;
+  const logo = allLogo?.[0].logo;
+  // console.log(id);
+
+  const [updateLogo] = useUpdateLogoMutation();
 
   const onSubmit = async (data) => {
     try {
@@ -35,28 +47,43 @@ const LogoSection = () => {
         if (logoUrl) {
           data.logo = logoUrl;
 
-          const postResponse = await fetch(`${baseUrl}/logo`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+          const result = await updateLogo({
+            id: id,
+            data: data,
           });
 
-          if (postResponse.ok) {
-            console.log("Logo uploaded to MongoDB successfully.");
-          } else {
-            console.error("Failed to upload logo to MongoDB.");
+          if (result.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Logo Updated Successfully!",
+              text: "Press OK to continue",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
           }
         }
       } else {
-        console.error("Error uploading logo to ImgBB:", response.statusText);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error uploading logo to Image Host Server.",
+          text: `${response.statusText}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
 
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error("Error uploading logo to MongoDB:", error);
+
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error uploading logo.",
+        text: `${error}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 
