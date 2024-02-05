@@ -6,7 +6,7 @@ const VisitingInformationSection = () => {
       <form>
         <div className="form-control p-6">
           <h1 className="u_text_26">Visiting Infomation</h1>
-          <div className="visiting_contain mt-3">
+          <div className="visiting_contain1 mt-3">
             <input
               type="text"
               name="subTitle"
