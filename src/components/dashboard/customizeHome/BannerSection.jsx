@@ -89,7 +89,7 @@ const BannerSection = () => {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-6">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control p-6">
           <h1 className="u_text_26">Banner</h1>
@@ -102,13 +102,13 @@ const BannerSection = () => {
                 type="file"
                 name="banner"
                 {...register("banner", { required: true })}
-                className="file-input w-full max-w-xs bg-white"
+                className="file-input w-full max-w-md bg-white"
               />
               <button className="U_btn" type="submit" disabled={loading}>
                 {loading ? "Uploading..." : "Submit"}
               </button>
             </div>
-            <div className="custom_logo">
+            <div className="custom_banner">
               <img src={banner} alt="Banner" />
             </div>
           </div>
