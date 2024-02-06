@@ -2,7 +2,7 @@ import "./CustomizeHome.css";
 
 import LogoSection from "../../../components/dashboard/customizeHome/LogoSection";
 import BannerSection from "../../../components/dashboard/customizeHome/BannerSection";
-import VisitingInformationSection from "../../../components/dashboard/customizeHome/visitingInformationSection/VisitingInformationSection";
+import StandardCardSection from "../../../components/dashboard/customizeHome/StandardCardSection";
 
 const CustomizeHome = () => {
   return (
@@ -15,7 +15,10 @@ const CustomizeHome = () => {
       <BannerSection />
 
       {/* Visiting Information Section */}
-      <VisitingInformationSection/>
+      {/* <VisitingInformationSection/> */}
+
+      {/* Standard Card Section */}
+      <StandardCardSection />
     </div>
   );
 };
