@@ -93,6 +93,7 @@ const StandardCardSection = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control p-6">
           <h1 className="u_text_26">Standard Card Images</h1>
+
           <div className="flex flex-col-reverse md:flex-col gap-5 h-auto">
             <div className="custom_update_item">
               {errors.standardCardImage && (

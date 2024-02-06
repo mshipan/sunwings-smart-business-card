@@ -1,9 +1,15 @@
-import nfcImg2 from "../../assets/images/demo/5.jpeg";
 import nfcImg1 from "../../assets/images/demo-card/1.jpeg";
 import { FaAddressCard } from "react-icons/fa";
 import { FaPenToSquare, FaQrcode } from "react-icons/fa6";
+import { useGetAllStanndardCardImageQuery } from "../../redux/features/allApis/standardCardImageApi";
 
 const VisitingInformation = () => {
+  const { data: allCardInfo } = useGetAllStanndardCardImageQuery();
+
+  const latestImage =
+    allCardInfo && allCardInfo.length > 0
+      ? allCardInfo[allCardInfo.length - 1]?.standardCardImage
+      : null;
   return (
     <section className="visiting_information">
       <div className="container-fluid">
@@ -33,7 +39,7 @@ const VisitingInformation = () => {
           {/* <!-- start NFC QR --> */}
           <div className="NFC_QR">
             <div className="nfc_img_2">
-              <img src={nfcImg2} alt="NFC-QR-1" />
+              <img src={latestImage} alt="NFC-QR-1" />
             </div>
             <div className="nfc_img_1">
               <img src={nfcImg1} alt="NFC-QR-2" />
