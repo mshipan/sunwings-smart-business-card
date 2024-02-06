@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Swiper, SwiperSlide } from "swiper/react";
 import {
   useCreateStanndardCardImageMutation,
   useGetAllStanndardCardImageQuery,
 } from "../../../redux/features/allApis/standardCardImageApi";
+
+import "swiper/css";
+import "swiper/css/pagination";
+
+import { Autoplay, Pagination } from "swiper/modules";
 
 const StandardCardSection = () => {
   const [loading, setLoading] = useState(false);
@@ -21,9 +27,6 @@ const StandardCardSection = () => {
   } = useForm();
 
   const { data: allCardInfo } = useGetAllStanndardCardImageQuery();
-  // Access the first element's id of the array
-  const standardCardImage = allCardInfo?.[0].standardCardImage;
-  // console.log(id);
 
   const [createStandardCardImage] = useCreateStanndardCardImageMutation();
 
@@ -84,12 +87,13 @@ const StandardCardSection = () => {
       });
     }
   };
+
   return (
     <div className="mt-10">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control p-6">
           <h1 className="u_text_26">Standard Card Images</h1>
-          <div className="update_logo">
+          <div className="flex flex-col-reverse md:flex-col gap-5 h-auto">
             <div className="custom_update_item">
               {errors.standardCardImage && (
                 <span className="text-red-600">This Field is required.</span>
@@ -98,14 +102,47 @@ const StandardCardSection = () => {
                 type="file"
                 name="standardCardImage"
                 {...register("standardCardImage", { required: true })}
-                className="file-input w-full max-w-md bg-white"
+                className="file-input w-full max-w-xl bg-white border border-black"
               />
               <button className="U_btn" type="submit" disabled={loading}>
                 {loading ? "Uploading..." : "Submit"}
               </button>
             </div>
-            <div className="custom_logo">
-              <img src={standardCardImage} alt="" />
+
+            <div className="h-60">
+              <Swiper
+                spaceBetween={30}
+                pagination={false}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                loop={true}
+                breakpoints={{
+                  // when window width is <= 640px
+                  640: {
+                    slidesPerView: 1,
+                  },
+                  767: {
+                    slidesPerView: 3,
+                  },
+                  991: {
+                    slidesPerView: 3,
+                  },
+                }}
+                modules={[Autoplay, Pagination]}
+                className="mySwiper"
+              >
+                {allCardInfo?.map((cardInfo, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={cardInfo.standardCardImage}
+                      alt=""
+                      className="h-56"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
         </div>
