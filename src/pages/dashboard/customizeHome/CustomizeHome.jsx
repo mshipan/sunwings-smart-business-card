@@ -2,8 +2,7 @@ import "./CustomizeHome.css";
 
 import LogoSection from "../../../components/dashboard/customizeHome/LogoSection";
 import BannerSection from "../../../components/dashboard/customizeHome/BannerSection";
-import VisitingInformationSection from "../../../components/dashboard/customizeHome/visitingInformationSection/VisitingInformationSection";
-import NfcVideoCardInfo from "../../../components/dashboard/customizeHome/nfcVideoCardInfo/NfcVideoCardInfo";
+import StandardCardSection from "../../../components/dashboard/customizeHome/StandardCardSection";
 
 const CustomizeHome = () => {
   return (
@@ -16,9 +15,10 @@ const CustomizeHome = () => {
       <BannerSection />
 
       {/* Visiting Information Section */}
-      <VisitingInformationSection/>
-      {/* NFC Card Ifo Section */}
-      <NfcVideoCardInfo/>
+      {/* <VisitingInformationSection/> */}
+
+      {/* Standard Card Section */}
+      <StandardCardSection />
     </div>
   );
 };
