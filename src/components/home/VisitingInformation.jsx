@@ -1,14 +1,19 @@
-import nfcImg1 from "../../assets/images/demo-card/1.jpeg";
 import { FaAddressCard } from "react-icons/fa";
 import { FaPenToSquare, FaQrcode } from "react-icons/fa6";
 import { useGetAllStanndardCardImageQuery } from "../../redux/features/allApis/standardCardImageApi";
+import { useGetAllPremiumCardImageQuery } from "../../redux/features/allApis/premiumCardImageApi";
 
 const VisitingInformation = () => {
-  const { data: allCardInfo } = useGetAllStanndardCardImageQuery();
+  const { data: allStandardCardInfo } = useGetAllStanndardCardImageQuery();
+  const { data: allPremiumCardInfo } = useGetAllPremiumCardImageQuery();
 
-  const latestImage =
-    allCardInfo && allCardInfo.length > 0
-      ? allCardInfo[allCardInfo.length - 1]?.standardCardImage
+  const latestStandardImage =
+    allStandardCardInfo && allStandardCardInfo.length > 0
+      ? allStandardCardInfo[allStandardCardInfo.length - 1]?.standardCardImage
+      : null;
+  const latestPremiumImage =
+    allPremiumCardInfo && allPremiumCardInfo.length > 0
+      ? allPremiumCardInfo[allPremiumCardInfo.length - 1]?.premiumCardImage
       : null;
   return (
     <section className="visiting_information">
@@ -39,10 +44,10 @@ const VisitingInformation = () => {
           {/* <!-- start NFC QR --> */}
           <div className="NFC_QR">
             <div className="nfc_img_2">
-              <img src={latestImage} alt="NFC-QR-1" />
+              <img src={latestStandardImage} alt="NFC-QR-1" />
             </div>
             <div className="nfc_img_1">
-              <img src={nfcImg1} alt="NFC-QR-2" />
+              <img src={latestPremiumImage} alt="NFC-QR-2" />
             </div>
           </div>
 

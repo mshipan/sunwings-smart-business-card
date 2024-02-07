@@ -1,6 +1,8 @@
 import logo from "../assets/images/info_card_logo.png";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { MdDashboard, MdDashboardCustomize, MdMenu } from "react-icons/md";
+import { MdDashboard, MdMenu } from "react-icons/md";
+import { FaAddressCard } from "react-icons/fa";
+import { LuImagePlus } from "react-icons/lu";
 import "./DashboardLayout.css";
 import { useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
@@ -24,12 +26,24 @@ const DashboardLayout = () => {
       </li>
       <li>
         <NavLink
-          to="customize-home"
+          to="add-images"
           className={({ isActive }) => isActive && "topNavActive"}
         >
           <div className="flex items-center gap-2">
-            <MdDashboardCustomize />
-            <span>Customize HomePage</span>
+            <LuImagePlus />
+            <span>Add Images</span>
+          </div>
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="all-cards"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaAddressCard />
+            <span>All Cards</span>
           </div>
         </NavLink>
       </li>
