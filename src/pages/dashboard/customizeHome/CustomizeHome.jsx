@@ -3,6 +3,7 @@ import "./CustomizeHome.css";
 import LogoSection from "../../../components/dashboard/customizeHome/LogoSection";
 import BannerSection from "../../../components/dashboard/customizeHome/BannerSection";
 import StandardCardSection from "../../../components/dashboard/customizeHome/StandardCardSection";
+import PremiumCardSection from "../../../components/dashboard/customizeHome/PremiumCardSection";
 
 const CustomizeHome = () => {
   return (
@@ -19,6 +20,9 @@ const CustomizeHome = () => {
 
       {/* Standard Card Section */}
       <StandardCardSection />
+
+      {/* Premium Card Section */}
+      <PremiumCardSection />
     </div>
   );
 };
