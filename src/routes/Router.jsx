@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 import CustomizeHome from "../pages/dashboard/customizeHome/CustomizeHome";
 import AllCards from "../pages/dashboard/allCards/AllCards";
+import Registration from "../pages/registration/Registration";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         element: <AllCards />,
       },
     ],
+  },
+  {
+    path: "/registration",
+    element: <Registration />,
   },
 ]);
 

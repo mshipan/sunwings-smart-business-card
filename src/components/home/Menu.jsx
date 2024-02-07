@@ -15,8 +15,7 @@ const Menu = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="btn1" to="javascript:void(0)">
-                    <i className="m_icon fa-regular fa-address-book"></i>
+                  <Link className="btn1" to="/registration">
                     প্রোফাইল তৈরি করুন
                   </Link>
                 </li>
