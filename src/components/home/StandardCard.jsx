@@ -22,86 +22,114 @@ const StandardCard = () => {
               <h2 className="text_26 mt-4">কার্ডের ফিচার সমূহ</h2>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">
                   1 NFC চিপ ও QR Code প্রিন্টেড প্লাস্টিক (PVC) কার্ড
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">ভার্চুয়াল প্রোফাইল এক্সেস</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">কন্টাক্ট ডিটেইলস ফোন বুকে সেভ করার অপশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">প্রোফাইল পিকচার, কভার ফটো অপশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">আনলিমিটেড কাস্টম কন্টাক্ট ও সোশ্যাল লিংক</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">
                   QR Code ডাউনলোড ও যেকোন যায়গায় ব্যবহারের সুবিধা
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">
                   4 গ্যালারী ইমেজ ডিসপ্লে অপশন ( 10 প্রিমিয়ামে এভাইলেবল )
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">কাস্টমাইজ কার্ড ডিজাইন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">1 থিম এক্সেস ( 8 থিম এভাইলেবল )</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">
                   প্রডাক্ট এবং সার্ভিস ডিসপ্লে সেকশন ( প্রিমিয়ামে এভাইলেবল )
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">
                   পোর্টফলিও ডিসপ্লে সেকশন ( প্রিমিয়ামে এভাইলেবল )
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">
                   টেস্টিমনিয়ালস স্লাইডার অপশন ( প্রিমিয়ামে এভাইলেবল )
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">
                   প্রয়োজন অনুযায়ী যেকোন কাস্টম সেকশন ( প্রিমিয়ামে এভাইলেবল )
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">
                   কাস্টম Javascript/CSS ( প্রিমিয়ামে এভাইলেবল )
                 </p>
@@ -127,76 +155,104 @@ const StandardCard = () => {
               <h2 className="text_26 mt-4">কার্ডের ফিচার সমূহ</h2>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">
                   1 NFC চিপ ও QR Code প্রিন্টেড প্লাস্টিক (PVC) কার্ড
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">ভার্চুয়াল প্রোফাইল এক্সেস</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">কন্টাক্ট ডিটেইলস ফোন বুকে সেভ করার অপশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">প্রোফাইল পিকচার, কভার ফটো অপশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">আনলিমিটেড কাস্টম কন্টাক্ট ও সোশ্যাল লিংক</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">10 টা গ্যালারী ইমেজ ডিসপ্লে অপশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">
                   QR Code ডাউনলোড ও যেকোন যায়গায় ব্যবহারের সুবিধা
                 </p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">কাস্টমাইজ কার্ড ডিজাইন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleCheck className="p_icon" />
+                <div>
+                  <FaRegCircleCheck className="p_icon" />
+                </div>
                 <p className="text">প্রডাক্ট এবং সার্ভিস ডিসপ্লে সেকশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">৮ প্রিমেড প্রিমিয়াম থিম এক্সেস</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">পোর্টফলিও ডিসপ্লে সেকশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">টেস্টিমনিয়ালস স্লাইডার অপশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">প্রয়োজন অনুযায়ী যেকোন কাস্টম সেকশন</p>
               </div>
               {/* <!-- NFC_card_words --> */}
               <div className="NFC_card_words stander_card_item">
-                <FaRegCircleXmark className="p_icon" />
+                <div>
+                  <FaRegCircleXmark className="p_icon" />
+                </div>
                 <p className="text">কাস্টম Javascript/CSS</p>
               </div>
               <div className="nfc_img_contain card_price">
