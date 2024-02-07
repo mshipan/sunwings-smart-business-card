@@ -8,7 +8,7 @@ import PremiumCardSection from "../../../components/dashboard/customizeHome/Prem
 const CustomizeHome = () => {
   return (
     <div>
-      <h1 className="text_db_36">Customize home</h1>
+      <h1 className="text_db_36">Customize Images</h1>
       {/* Logo Section */}
       <LogoSection />
 
