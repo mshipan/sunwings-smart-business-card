@@ -17,6 +17,7 @@
   display: none;
 }
 
+.registration select,
 .registration input,
 .registration textarea {
   padding: 8px 15px 8px 15px;
@@ -33,18 +34,19 @@
   letter-spacing: 1px;
 }
 
+.registration select:focus,
 .registration input:focus,
 .registration textarea:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid #ddb000;
+  border: 1px solid #ff7c15;
   outline-width: 0;
 }
 
 .registration .action-button {
   width: 100px;
-  background: #d69a02;
+  background: #ff7c15;
   font-weight: bold;
   color: white;
   border: 0 none;
@@ -57,7 +59,7 @@
 
 .registration .action-button:hover,
 .registration .action-button:focus {
-  background-color: #ffb700;
+  background-color: #e47d2d;
 }
 
 .registration .action-button-previous {
@@ -79,7 +81,7 @@
 }
 
 .card {
-  background: #ddb000;
+  background: #ff7c15;
 }
 
 .fieldlabels {
