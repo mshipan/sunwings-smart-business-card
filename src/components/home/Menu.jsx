@@ -22,7 +22,7 @@ const Menu = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="btn1" to="order.html">
+                  <Link className="btn1" to="/order">
                     <span className="flex items-center justify-center gap-2">
                       <FaCartShopping className="m_icon"/>
                       কার্ড অর্ডার করুন

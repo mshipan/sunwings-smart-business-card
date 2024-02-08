@@ -1,0 +1,18 @@
+.your_order_item{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #fcfbfb;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .your_order_item img{
+    max-width: 100px;
+  }
+  .order_text h2{
+    margin-bottom: 6px;
+  }
+  .order_text span{
+    font-size: 22px;
+  }
