@@ -1,9 +1,15 @@
-
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/info_card_logo.png"
+import Footer from "../../components/shared/Footer";
 
 const Login = () => {
   return (
     <div>
-
+      <div className="flex flex-col items-center justify-center gap-4">
+        <Link to="/">
+          <img src={logo} alt="Logo" className="w-56" />
+        </Link>
+      </div>
       <div class="registration">
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -51,7 +57,9 @@ const Login = () => {
           </div>
         </div>
       </div>
-
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };
