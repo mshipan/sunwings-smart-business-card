@@ -3,12 +3,20 @@ import { useGetLogoQuery } from "../../redux/features/allApis/logoApi";
 import { useGetBannerQuery } from "../../redux/features/allApis/bannerApi";
 
 const Header = () => {
-  const { data: allLogo } = useGetLogoQuery();
+  const { data: allLogo, isLoading, isError } = useGetLogoQuery();
 
   const logo = allLogo?.[0].logo;
 
   const { data: allBanner } = useGetBannerQuery();
   const banner = allBanner?.[0].banner;
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error during Fetch...</p>;
+  }
 
   return (
     <header className="header">

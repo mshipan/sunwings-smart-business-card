@@ -438,7 +438,12 @@ const Registration = () => {
                             <span>
                               {errors.pwd && (
                                 <span className="text-red-600 text-sm italic">
-                                  This field is required.
+                                  {errors.pwd.type === "required" &&
+                                    "This field is required"}
+                                  {errors.pwd.type === "minLength" &&
+                                    "Password must be at least 6 characters long"}
+                                  {errors.pwd.type === "pattern" &&
+                                    "Password must contain at least one uppercase, one lowercase letter, one number and one special character"}
                                 </span>
                               )}
                             </span>
@@ -448,6 +453,9 @@ const Registration = () => {
                             name="pwd"
                             {...register("pwd", {
                               required: true,
+                              minLength: 6,
+                              pattern:
+                                /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                             })}
                             placeholder="Password"
                           />
@@ -460,7 +468,10 @@ const Registration = () => {
                             <span>
                               {errors.cpwd && (
                                 <span className="text-red-600 text-sm italic">
-                                  This field is required.
+                                  {errors.cpwd.type === "required" &&
+                                    "This field is required"}
+                                  {errors.cpwd.type === "validate" &&
+                                    errors.cpwd.message}
                                 </span>
                               )}
                             </span>
@@ -468,7 +479,12 @@ const Registration = () => {
                           <input
                             type="password"
                             name="cpwd"
-                            {...register("cpwd", { required: true })}
+                            {...register("cpwd", {
+                              required: true,
+                              validate: (value) =>
+                                value === watch("pwd") ||
+                                "Password do not match",
+                            })}
                             placeholder="Confirm Password"
                           />
                         </div>
