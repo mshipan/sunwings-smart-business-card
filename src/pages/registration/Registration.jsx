@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Registration.css";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useFieldArray, useForm } from "react-hook-form";
 import logo from "../../assets/images/info_card_logo.png";
 import Footer from "../../components/shared/Footer";
+import { AuthContext } from "../../providers/AuthProvider";
+import { FaXmark } from "react-icons/fa6";
+import { BiSolidPlusCircle } from "react-icons/bi";
 const Registration = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -28,7 +34,55 @@ const Registration = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    // createUser(data.email, data.password)
+    //   .then((result) => {
+    //     const loggedUser = result.user;
+    //     console.log(loggedUser);
+    //     updateUserProfile(data.name, data.photoURL).then(() => {
+    //       const newUser = {
+    //         name: data.name,
+    //         email: data.email,
+    //         photo: data.photoURL,
+    //         // ToDO: here i would be put password: data.password if needed
+    //         dob: data.dob,
+    //         gender: data.gender,
+    //         country: data.country,
+    //         phone: data.phone,
+    //       };
+    //       fetch("https://travlerz-server-production.up.railway.app/users", {
+    //         method: "POST",
+    //         headers: {
+    //           "content-type": "application/json",
+    //         },
+    //         body: JSON.stringify(newUser),
+    //       })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //           if (data.insertedId) {
+    //             Swal.fire({
+    //               position: "center",
+    //               icon: "success",
+    //               title: "Registration Successfull",
+    //               showConfirmButton: false,
+    //               timer: 1500,
+    //             });
+    //             reset();
+    //             navigate("/");
+    //           }
+    //         });
+    //     });
+    //   })
+    //   .catch((error) => console.log(error));
   };
+
+  const {
+    fields: socialMediaFields,
+    append: appendSocialMedia,
+    remove: removeSocialMedia,
+  } = useFieldArray({
+    control,
+    name: "socialMedia",
+  });
 
   return (
     <div>
@@ -221,52 +275,118 @@ const Registration = () => {
                             <option value="english">English</option>
                           </select>
                         </div>
-                        {/* gender */}
-                        <div className="form-control border-0 p-0">
-                          <label htmlFor="gender" className="fieldlabels">
-                            Gender: <span className="text-red-600 mr-1">*</span>
-                            <span>
-                              {errors.gender && (
-                                <span className="text-red-600 text-sm italic">
-                                  This field is required.
-                                </span>
-                              )}
-                            </span>
-                          </label>
-                          <select
-                            name="gender"
-                            {...register("gender", {
-                              required: true,
-                            })}
-                            className="p-2 border"
-                          >
-                            <option value="">Select One</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                          </select>
-                        </div>
+
                         {/* social media */}
                         <div className="form-control border-0 p-0">
                           <label htmlFor="socialMedia" className="fieldlabels">
-                            Social Media:{" "}
+                            Social Media Links:{" "}
                             <span className="text-red-600 mr-1">*</span>
-                            <span>
-                              {errors.socialMedia && (
-                                <span className="text-red-600 text-sm italic">
-                                  This field is required.
-                                </span>
-                              )}
-                            </span>
                           </label>
-                          <input
-                            type="text"
-                            name="socialMedia"
-                            {...register("socialMedia", {
-                              required: true,
-                            })}
-                            placeholder="Social Media"
-                          />
+
+                          {/* {errors.socialMedia && errors.socialMedia[0] && (
+                            <span className="text-red-600 text-sm italic">
+                              This field is required.
+                            </span>
+                          )} */}
+
+                          {errors.socialMedia && errors.socialMedia[0] && (
+                            <span className="text-red-600 text-sm italic">
+                              {errors.socialMedia[0]?.link?.type ===
+                                "required" && "This field is required."}
+                            </span>
+                          )}
+
+                          {errors.socialMedia &&
+                            errors.socialMedia[0]?.link?.type === "pattern" && (
+                              <span className="text-red-600 text-sm italic">
+                                Invalid URL format
+                              </span>
+                            )}
+
+                          <div className="flex items-center gap-2 mb-1">
+                            <input
+                              type="text"
+                              name={`socialMedia[0].link`}
+                              placeholder={`SocialMedia 1`}
+                              {...register(`socialMedia[0].link`, {
+                                required: true,
+                                pattern: {
+                                  value: /^(ftp|http|https):\/\/[^ "]+$/,
+                                  message: "Invalid URL format",
+                                },
+                              })}
+                              className="m-0"
+                            />
+
+                            {/* Button to remove the first social media input field (disabled initially) */}
+                            <button
+                              type="button"
+                              onClick={() => removeSocialMedia(0)}
+                              className="border border-[#131D4E] p-2 "
+                              title="Remove"
+                              disabled={socialMediaFields.length === 1} // Disable if there's only one social media field
+                            >
+                              <FaXmark className="text-[#131D4E] text-lg" />
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-1 gap-1 form-control border-0 p-0">
+                            {socialMediaFields.slice(1).map((field, index) => (
+                              <div key={field.id}>
+                                {errors.socialMedia &&
+                                  errors.socialMedia[index] && (
+                                    <span className="text-red-600 text-sm italic">
+                                      This field is required.
+                                    </span>
+                                  )}
+
+                                <div className="flex flex-col justify-between gap-3">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="text"
+                                      name={`socialMedia[${index + 1}].link`}
+                                      placeholder={`SocialMedia ${index + 2}`}
+                                      defaultValue={field.socialMedia}
+                                      className="m-0"
+                                      {...register(
+                                        `socialMedia[${index + 1}].link`,
+                                        {
+                                          required: true,
+                                          pattern: {
+                                            value:
+                                              /^(ftp|http|https):\/\/[^ "]+$/,
+                                            message: "Invalid URL format",
+                                          },
+                                        }
+                                      )}
+                                    />
+
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        removeSocialMedia(index + 1)
+                                      }
+                                      className="border border-[#131D4E] p-2 "
+                                      title="Remove"
+                                    >
+                                      <FaXmark className="text-[#131D4E] text-lg" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
+
+                        <button
+                          type="button"
+                          onClick={() => appendSocialMedia({ link: "" })}
+                          className="p-1 mt-3 bg-[#ff7c15] hover:bg-[#e47d2d] text-white"
+                          title="Add more"
+                        >
+                          <BiSolidPlusCircle className="text-black text-lg inline-block" />{" "}
+                          Add more
+                        </button>
                       </div>
                       <input
                         type="button"
@@ -392,11 +512,11 @@ const Registration = () => {
                               htmlFor="agree_regi"
                             >
                               I agree to the{" "}
-                              <span className="text-[#ff7c15] hover:underline">
+                              <span className="text-[#ff7c15] hover:underline font-semibold">
                                 <Link to="/">privacy policy</Link>
                               </span>
                               <span> and </span>
-                              <span className="text-[#ff7c15] hover:underline">
+                              <span className="text-[#ff7c15] hover:underline font-semibold">
                                 <Link to="/">terms and conditions.</Link>
                               </span>
                             </label>
