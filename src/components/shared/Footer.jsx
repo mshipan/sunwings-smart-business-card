@@ -5,8 +5,7 @@ const Footer = () => {
     <footer className="footer_area">
       <div className="container">
         <p>
-          Copyright © 2024 |{" "}
-          <Link to="index.html">Sun Wings Smart Business Card</Link>
+          Copyright © 2024 | <Link to="/">Sun Wings Smart Business Card</Link>
         </p>
       </div>
     </footer>
