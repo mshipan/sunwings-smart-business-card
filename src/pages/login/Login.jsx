@@ -52,6 +52,14 @@ const Login = () => {
                     />
                   </fieldset>
                 </form>
+                <div className="my-1">
+                  <p className="text-lg">
+                    Don't have an account? Please{" "}
+                    <span className="text-white underline">
+                      <Link to="/registration">Register.</Link>
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
