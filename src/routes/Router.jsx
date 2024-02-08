@@ -5,6 +5,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import CustomizeHome from "../pages/dashboard/customizeHome/CustomizeHome";
 import AllCards from "../pages/dashboard/allCards/AllCards";
 import Registration from "../pages/registration/Registration";
+import Login from "../pages/login/Login";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/registration",
     element: <Registration />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
