@@ -1,5 +1,9 @@
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FaCartShopping } from "react-icons/fa6";
+import { FaAddressBook } from "react-icons/fa6";
+import { FaAddressCard } from "react-icons/fa";
+import { RiLoginBoxFill } from "react-icons/ri";
 
 const Menu = () => {
   return (
@@ -10,13 +14,19 @@ const Menu = () => {
             <nav className="menu_area">
               <ul>
                 <li>
-                  <Link className="btn1" to="order.html">
-                    কার্ড অর্ডার করুন
+                  <Link className="btn1" to="demo-card.html">
+                    <span className="flex items-center justify-center gap-2">
+                      <FaAddressCard className="m_icon"/>
+                      ডেমো কার্ড ডিজাইন
+                    </span>
                   </Link>
                 </li>
                 <li>
-                  <Link className="btn1" to="/registration">
-                    প্রোফাইল তৈরি করুন
+                  <Link className="btn1" to="order.html">
+                    <span className="flex items-center justify-center gap-2">
+                      <FaCartShopping className="m_icon"/>
+                      কার্ড অর্ডার করুন
+                    </span>
                   </Link>
                 </li>
               </ul>
@@ -26,15 +36,19 @@ const Menu = () => {
             <nav className="menu_area">
               <ul>
                 <li>
-                  <Link className="btn1" to="demo-card.html">
-                    <i className="m_icon fa-solid fa-id-card"></i>
-                    ডেমো কার্ড ডিজাইন
+                  <Link className="btn1" to="/registration">
+                    <span className="flex items-center justify-center gap-2">
+                      <FaAddressBook className="m_icon"/>
+                      প্রোফাইল তৈরি করুন
+                    </span>
                   </Link>
                 </li>
                 <li>
-                  <Link className="btn1" to="javascript:void(0)">
-                    <i className="m_icon fa-regular fa-address-book"></i>
-                    প্রোফাইল তৈরি করুন
+                  <Link className="btn1" to="/login">
+                    <span className="flex items-center justify-center gap-2">
+                      <RiLoginBoxFill className="m_icon"/>
+                      লগইন করুন
+                    </span>
                   </Link>
                 </li>
               </ul>
