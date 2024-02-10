@@ -7,11 +7,12 @@ import Footer from "../../components/shared/Footer";
 import { AuthContext } from "../../providers/AuthProvider";
 import { FaXmark } from "react-icons/fa6";
 import { BiSolidPlusCircle } from "react-icons/bi";
+import countryData from "../../assets/country_dial_info.json";
+
 const Registration = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const { createUser, updateUserProfile } = useContext(AuthContext);
-
   const {
     register,
     handleSubmit,
@@ -33,6 +34,8 @@ const Registration = () => {
   };
 
   const onSubmit = (data) => {
+    const fullNumber = data.countryCode + "," + data.phone;
+    data.phone = fullNumber;
     console.log(data);
     // createUser(data.email, data.password)
     //   .then((result) => {
@@ -158,18 +161,51 @@ const Registration = () => {
                             <span>
                               {errors.phone && (
                                 <span className="text-red-600 text-sm italic">
-                                  This field is required.
+                                  {errors.phone.type === "required" &&
+                                    "This field is required."}
+                                  {errors.phone.type === "pattern" &&
+                                    "Invalid phone number format."}
                                 </span>
                               )}
                             </span>
+                            <br />
+                            <span className="text-xs leading-3 text-red-500 italic">
+                              Be carefull ! Double check your phone number
+                              before submit.
+                            </span>
                           </label>
+                          <div className="flex items-center w-full">
+                            <select
+                              id="country"
+                              name="countryCode"
+                              {...register("countryCode", { required: true })}
+                              className="countrySelect"
+                            >
+                              <option value="">Select Country</option>
+                              {countryData.map((country) => (
+                                <option
+                                  key={country.isoCode}
+                                  value={country.dialCode}
+                                >
+                                  {country.isoCode} ({country.dialCode})
+                                </option>
+                              ))}
+                            </select>
 
-                          <input
-                            type="text"
-                            name="phone"
-                            {...register("phone", { required: true })}
-                            placeholder="Contact No."
-                          />
+                            <input
+                              type="text"
+                              name="phone"
+                              {...register("phone", {
+                                required: true,
+                                pattern: {
+                                  value:
+                                    /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/i,
+                                },
+                              })}
+                              placeholder="Contact No."
+                              className="countryInput"
+                            />
+                          </div>
                         </div>
 
                         {/* what's app number */}
@@ -180,7 +216,10 @@ const Registration = () => {
                             <span>
                               {errors.whatsAppNo && (
                                 <span className="text-red-600 text-sm italic">
-                                  This field is required.
+                                  {errors.whatsAppNo.type === "required" &&
+                                    "This field is required."}
+                                  {errors.whatsAppNo.type === "pattern" &&
+                                    `${errors.whatsAppNo.message}`}
                                 </span>
                               )}
                             </span>
@@ -189,7 +228,13 @@ const Registration = () => {
                           <input
                             type="text"
                             name="whatsAppNo"
-                            {...register("whatsAppNo", { required: true })}
+                            {...register("whatsAppNo", {
+                              required: true,
+                              pattern: {
+                                value: /^\d{10,}$/,
+                                message: "Invalid WhatsApp number format.",
+                              },
+                            })}
                             placeholder="What's App No."
                           />
                         </div>
