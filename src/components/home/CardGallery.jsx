@@ -3,12 +3,14 @@ import "react-awesome-lightbox/build/style.css";
 import { useState } from "react";
 import { useGetAllStanndardCardImageQuery } from "../../redux/features/allApis/standardCardImageApi";
 import { useGetAllPremiumCardImageQuery } from "../../redux/features/allApis/premiumCardImageApi";
+import { Link } from "react-router-dom";
 
 const CardGallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [officeLightboxOpen, setOfficeLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [officeLightboxIndex, setOfficeLightboxIndex] = useState(0);
+  const route = window.location.pathname;
 
   const { data: allStandardCardInfo, isLoading: standardCardsLoading } =
     useGetAllStanndardCardImageQuery();
@@ -78,12 +80,15 @@ const CardGallery = () => {
               </div>
             )}
           </div>
-
-          <div className="all_card_view">
-            <a href="demo-card.html" className="btn4">
-              <span>সকল কার্ড দেখুন</span>
-            </a>
-          </div>
+          {route === "/demo-card" ? (
+            <></>
+          ) : (
+            <div className="all_card_view">
+              <Link to="/demo-card" className="btn4">
+                <span>সকল কার্ড দেখুন</span>
+              </Link>
+            </div>
+          )}
 
           <div className="offices_id_card_heading">
             <h2 className="text_36">ডেমো এম্পলয়ি অফিস আইডি কার্ড ডিজাইন</h2>
