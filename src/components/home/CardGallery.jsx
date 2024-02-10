@@ -1,16 +1,8 @@
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
-
-import demoCard1 from "../../assets/images/demo-card/normal/1.jpeg";
-import demoCard2 from "../../assets/images/demo-card/normal/2.jpeg";
-import demoCard3 from "../../assets/images/demo-card/normal/3.jpeg";
-import demoCard4 from "../../assets/images/demo-card/normal/4.jpeg";
-import officeId1 from "../../assets/images/offices-id/1.jpeg";
-import officeId2 from "../../assets/images/offices-id/2.jpeg";
-import officeId3 from "../../assets/images/offices-id/3.jpeg";
-import officeId4 from "../../assets/images/offices-id/4.jpeg";
-import officeId5 from "../../assets/images/offices-id/5.jpeg";
 import { useState } from "react";
+import { useGetAllStanndardCardImageQuery } from "../../redux/features/allApis/standardCardImageApi";
+import { useGetAllPremiumCardImageQuery } from "../../redux/features/allApis/premiumCardImageApi";
 
 const CardGallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -18,22 +10,23 @@ const CardGallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [officeLightboxIndex, setOfficeLightboxIndex] = useState(0);
 
-  const demoCardImages = [demoCard1, demoCard2, demoCard3, demoCard4];
+  const { data: allStandardCardInfo, isLoading: standardCardsLoading } =
+    useGetAllStanndardCardImageQuery();
 
-  const officeIdImages = [
-    officeId1,
-    officeId2,
-    officeId3,
-    officeId4,
-    officeId5,
-  ];
+  const { data: allPremiumCardInfo, isLoading: premiumCardsLoading } =
+    useGetAllPremiumCardImageQuery();
 
-  const demoImages = demoCardImages.map((url, index) => ({
-    url,
+  if (standardCardsLoading || premiumCardsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const demoImages = allStandardCardInfo?.map((url, index) => ({
+    url: url.standardCardImage,
     title: `Demo Card ${index + 1}`,
   }));
-  const officeImages = officeIdImages.map((url, index) => ({
-    url,
+
+  const officeImages = allPremiumCardInfo?.map((url, index) => ({
+    url: url.premiumCardImage,
     title: `Office Id Card ${index + 1}`,
   }));
 
