@@ -1,7 +1,33 @@
 import "./Profile.css";
 import { Link } from "react-router-dom";
 import profileImage from "../../assets/images/demo/vismo-1.jpeg";
+import img1 from "../../assets/images/demo/5.jpeg";
+import img2 from "../../assets/images/demo/6.jpeg";
+import img3 from "../../assets/images/demo/7.jpeg";
+import img4 from "../../assets/images/demo-card/4.jpeg";
+import img5 from "../../assets/images/demo/vismo.jpeg";
+import img6 from "../../assets/images/demo/5.jpeg";
+import img7 from "../../assets/images/demo-card/5.jpeg";
+import img8 from "../../assets/images/demo/5.jpeg";
+import img9 from "../../assets/images/demo/6.jpeg";
+import img10 from "../../assets/images/demo/7.jpeg";
 
+import {
+  FaFacebook,
+  FaLinkedin,
+  FaWhatsapp,
+  FaTwitter,
+  FaPhone,
+  FaEnvelope,
+  FaInstagram,
+  FaYoutube,
+  FaTiktok,
+  FaSnapchat,
+  FaMapMarkerAlt,
+  FaRegStar,
+} from "react-icons/fa";
+
+import { TbWorldWww } from "react-icons/tb";
 const Profile = () => {
   return (
     <section className="profile_demo1_area">
@@ -22,22 +48,22 @@ const Profile = () => {
           <ul className="social">
             <li>
               <Link to="https://www.facebook.com/" target="_blank">
-                <i className="fa-brands fa-facebook-f"></i>
+                <FaFacebook />
               </Link>
             </li>
             <li>
               <Link to="https://www.linkedin.com/" target="_blank">
-                <i className="fa-brands fa-linkedin"></i>
+                <FaLinkedin />
               </Link>
             </li>
             <li>
               <Link to="https://web.whatsapp.com/" target="_blank">
-                <i className="fa-brands fa-whatsapp"></i>
+                <FaWhatsapp />
               </Link>
             </li>
             <li>
               <Link to="https://twitter.com/" target="_blank">
-                <i className="fa-brands fa-twitter"></i>
+                <FaTwitter />
               </Link>
             </li>
           </ul>
@@ -63,72 +89,100 @@ const Profile = () => {
                 <h2 className="text_26">Contact</h2>
                 <ul className="contact">
                   <li>
-                    <a href="javascript:void(0)">
-                      <i className="demo_icon fa-solid fa-phone"></i>
-                      +880-1737-300000
-                    </a>
+                    <Link to="javascript:void(0)">
+                      <div className="flex flex-row items-center">
+                        <FaPhone className="demo_icon" />
+                        +880-1737-300000
+                      </div>
+                    </Link>
                   </li>
                   <li>
                     <Link to="https://mail.google.com/mail/" target="_blank">
-                      <i className="demo_icon fa-regular fa-envelope"></i>
-                      example0000@gmail.com
+                      <div className="flex flex-row items-center">
+                        <FaEnvelope className="demo_icon" />
+                        example0000@gmail.com
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://www.facebook.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-facebook-f"></i>
-                      Facebook
+                      <div className="flex flex-row items-center">
+                        <FaFacebook className="demo_icon" />
+                        Facebook
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://web.whatsapp.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-whatsapp"></i>
-                      WhatsApp
+                      <div className="flex flex-row items-center">
+                        <FaWhatsapp className="demo_icon" />
+                        WhatsApp
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://www.linkedin.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-linkedin-in"></i>
-                      Linkedin
+                      <div className="flex flex-row items-center">
+                        <FaLinkedin className="demo_icon" />
+                        Linkedin
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://twitter.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-twitter"></i>Twitter
+                      <div className="flex flex-row items-center">
+                        <FaTwitter className="demo_icon" />
+                        Twitter
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://www.instagram.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-instagram"></i>
-                      Instagram
+                      <div className="flex flex-row items-center">
+                        <FaInstagram className="demo_icon" />
+                        Instagram
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://www.youtube.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-youtube"></i>YouTube
+                      <div className="flex flex-row items-center">
+                        <FaYoutube className="demo_icon" />
+                        YouTube
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://www.tiktok.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-tiktok"></i>Tiktok
+                      <div className="flex flex-row items-center">
+                        <FaTiktok className="demo_icon" />
+                        Tiktok
+                      </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="https://accounts.snapchat.com/" target="_blank">
-                      <i className="demo_icon fa-brands fa-snapchat"></i>
-                      Snapchat
+                      <div className="flex flex-row items-center">
+                        <FaSnapchat className="demo_icon" />
+                        Snapchat
+                      </div>
                     </Link>
                   </li>
                   <li>
-                    <a href="javascript:void(0)">
-                      <i className="demo_icon fa-solid fa-globe"></i>Website
-                    </a>
+                    <Link to="https://accounts.snapchat.com/" target="_blank">
+                      <div className="flex flex-row items-center">
+                        <TbWorldWww className="demo_icon" />
+                        Website
+                      </div>
+                    </Link>
                   </li>
                   <li>
-                    <a href="javascript:void(0)">
-                      <i className="demo_icon fa-solid fa-location-dot"></i>
-                      Location
-                    </a>
+                    <Link to="https://accounts.snapchat.com/" target="_blank">
+                      <div className="flex flex-row items-center">
+                        <FaMapMarkerAlt className="demo_icon" />
+                        Location
+                      </div>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -177,19 +231,19 @@ const Profile = () => {
               {/* <!-- image wrapper --> */}
               <div className="image-wrapper">
                 <a href="assets/images/demo/5.jpeg" data-fancybox="gallery">
-                  <img className="image-1" src="assets/images/demo/5.jpeg" />
+                  <img className="image-1" src={img1} />
                 </a>
               </div>
               {/* <!-- image wrapper --> */}
               <div className="image-wrapper">
                 <a href="assets/images/demo/6.jpeg" data-fancybox="gallery">
-                  <img className="image-1" src="assets/images/demo/6.jpeg" />
+                  <img className="image-1" src={img2} />
                 </a>
               </div>
               {/* <!-- image wrapper --> */}
               <div className="image-wrapper">
                 <a href="assets/images/demo/7.jpeg" data-fancybox="gallery">
-                  <img className="image-1" src="assets/images/demo/7.jpeg" />
+                  <img className="image-1" src={img3} />
                 </a>
               </div>
               {/* <!-- image wrapper --> */}
@@ -198,10 +252,7 @@ const Profile = () => {
                   href="assets/images/demo-card/4.jpeg"
                   data-fancybox="gallery"
                 >
-                  <img
-                    className="image-1"
-                    src="assets/images/demo-card/4.jpeg"
-                  />
+                  <img className="image-1" src={img4} />
                 </a>
               </div>
             </div>
@@ -216,22 +267,22 @@ const Profile = () => {
               <div className="swiper-wrapper">
                 <div className="swiper-slide">
                   <div className="testimonial_contain">
-                    <img src="assets/images/demo/vismo.jpeg" alt="" />
+                    <img src={img5} alt="" />
                     <ul>
                       <li>
-                        <i className="fa-solid fa-star"></i>
+                        <FaRegStar />
                       </li>
                       <li>
-                        <i className="fa-solid fa-star"></i>
+                        <FaRegStar />
                       </li>
                       <li>
-                        <i className="fa-solid fa-star"></i>
+                        <FaRegStar />
                       </li>
                       <li>
-                        <i className="fa-solid fa-star"></i>
+                        <FaRegStar />
                       </li>
                       <li>
-                        <i className="fa-solid fa-star"></i>
+                        <FaRegStar />
                       </li>
                     </ul>
                     <h2>Testimonials</h2>
@@ -244,7 +295,7 @@ const Profile = () => {
                 </div>
                 <div className="swiper-slide">
                   <div className="testimonial_contain">
-                    <img src="assets/images/demo/5.jpeg" alt="" />
+                    <img src={img6} alt="" />
                     <ul>
                       <li>
                         <i className="fa-solid fa-star"></i>
@@ -272,7 +323,7 @@ const Profile = () => {
                 </div>
                 <div className="swiper-slide">
                   <div className="testimonial_contain">
-                    <img src="assets/images/demo-card/5.jpeg" alt="" />
+                    <img src={img7} alt="" />
                     <ul>
                       <li>
                         <i className="fa-solid fa-star"></i>
@@ -313,7 +364,7 @@ const Profile = () => {
             <div className="products_wraper">
               {/* <!-- product single item --> */}
               <div className="product_single_item">
-                <img src="assets/images/demo/5.jpeg" alt="" />
+                <img src={img8} alt="" />
                 <div className="product_contain">
                   <h2>Branded Card</h2>
                   <p>
@@ -327,7 +378,7 @@ const Profile = () => {
               </div>
               {/* <!-- product single item --> */}
               <div className="product_single_item">
-                <img src="assets/images/demo/6.jpeg" alt="" />
+                <img src={img9} alt="" />
                 <div className="product_contain">
                   <h2>Standard Card</h2>
                   <p>
@@ -341,7 +392,7 @@ const Profile = () => {
               </div>
               {/* <!-- product single item --> */}
               <div className="product_single_item">
-                <img src="assets/images/demo/7.jpeg" alt="" />
+                <img src={img10} alt="" />
                 <div className="product_contain">
                   <h2>Premium Card</h2>
                   <p>
