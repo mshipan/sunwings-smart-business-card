@@ -64,7 +64,7 @@ const CardGallery = () => {
                     src={image.url}
                     alt={image.title}
                     style={{ width: "100%", height: "auto" }}
-                    className="image-wrapper"
+                    className="image-wrapper p-0"
                   />
                 </div>
               ))}
@@ -103,7 +103,7 @@ const CardGallery = () => {
                     src={image.url}
                     alt={image.title}
                     style={{ width: "100%", height: "auto" }}
-                    className="image-wrapper"
+                    className="image-wrapper p-0"
                   />
                 </div>
               ))}
