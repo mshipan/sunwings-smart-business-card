@@ -400,14 +400,14 @@ button{
 
 /* start footer area css
 ***************************/
-.footer_area{
+.footer_profile_area{
   margin-top: 10px;
   text-align: center;
   color: #ffffff;
   padding: 20px 10px;
   background: #f89d00;
 }
-.footer_area a{
+.footer_profile_area a{
   font-weight: 600;
   color: #ffffff;
 }

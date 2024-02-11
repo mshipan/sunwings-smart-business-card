@@ -409,7 +409,7 @@ const Profile = () => {
           {/* <!-- end Products --> */}
 
           {/* <!-- start footre area --> */}
-          <footer className="footer_area">
+          <footer className="footer_profile_area">
             <p>
               Copyright © 2024 |{" "}
               <a href="index.html">Sun Wings Smart Business Card</a>
