@@ -10,6 +10,7 @@ import { BiSolidPlusCircle } from "react-icons/bi";
 import countryData from "../../assets/country_dial_info.json";
 import Swal from "sweetalert2";
 import { useCreateAuserMutation } from "../../redux/features/allApis/usersApi";
+import { BeatLoader } from "react-spinners";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Registration = () => {
         createUser(data.email, data.pwd)
           .then((result) => {
             const loggedUser = result.user;
-            console.log(loggedUser);
+
             updateUserProfile(data.fullName, data.profileImage, data.phone)
               .then(() => {
                 const newUser = {
@@ -657,12 +658,18 @@ const Registration = () => {
                           </div>
                         </div>
                       </div>
-                      <input
+                      <button
                         type="submit"
                         className="next action-button"
                         disabled={loading}
-                        value={loading ? "Loading..." : "Submit"}
-                      />
+                      >
+                        {loading ? (
+                          <BeatLoader color="#ffff" size={15} />
+                        ) : (
+                          "Submit"
+                        )}
+                      </button>
+
                       <input
                         type="button"
                         name="previous"
