@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { BeatLoader } from "react-spinners";
+import MobileBottomNav from "../../components/shared/MobileBottomNav";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -131,6 +132,7 @@ const Login = () => {
       </div>
       <div>
         <Footer />
+        <MobileBottomNav />
       </div>
     </div>
   );
