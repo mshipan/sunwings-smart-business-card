@@ -12,10 +12,7 @@ const StartFreeTrial = () => {
           দেখুন
         </h2>
         <div className="free_trial_btn">
-          <Link
-            to="javascript:void(0)"
-            className="btn2 flex items-center justify-center gap-2"
-          >
+          <Link to="/" className="btn2 flex items-center justify-center gap-2">
             <FaAddressCard className="trial_icon" />
             <p>ফ্রি ট্রায়াল দেখতে রেজিস্টার করুন</p>
           </Link>
@@ -24,7 +21,7 @@ const StartFreeTrial = () => {
           <Link to="https://www.facebook.com/sunwingsinfocard">
             <FaSquareFacebook />
           </Link>
-          <Link to="javascript:void(0)">
+          <Link to="/">
             <FaLinkedin />
           </Link>
           <Link to="https://wa.me/+8801793457630">

@@ -6,7 +6,7 @@ import "react-vertical-timeline-component/style.min.css";
 import { FaRegCircle } from "react-icons/fa";
 const TimeLineArea = () => {
   return (
-    <VerticalTimeline lineColor="rgb(33, 150, 243)" animate="true">
+    <VerticalTimeline lineColor="rgb(33, 150, 243)" animate={true}>
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}

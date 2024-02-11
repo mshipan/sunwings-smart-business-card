@@ -1,8 +1,42 @@
-import { Link } from "react-router-dom";
-import logo from "../../assets/images/info_card_logo.png"
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../assets/images/info_card_logo.png";
 import Footer from "../../components/shared/Footer";
+import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { signIn } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const onSubmit = (data) => {
+    signIn(data.email, data.pwd)
+      .then((result) => {
+        const loggedUser = result.user;
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "LoggedIn Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
   return (
     <div>
       <div className="flex flex-col items-center justify-center gap-4">
@@ -10,51 +44,132 @@ const Login = () => {
           <img src={logo} alt="Logo" className="w-56" />
         </Link>
       </div>
-      <div class="registration">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
-              <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2 class="text_36 mb-3 text-white">লগইন করুন</h2>
-                <form>
-                  <fieldset class="p-4">
-                    <div class="form-card">
-                      <label class="fieldlabels">Email: *</label>
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                      />
-                      <label class="fieldlabels">Contact No.: *</label>
-                      <input
-                        type="text"
-                        name="phone"
-                        placeholder="Contact No."
-                      />
-                      <label class="fieldlabels">User Name: *</label>
-                      <input
-                        type="text"
-                        name="userName"
-                        placeholder="User Name eg. vismo123"
-                      />
-                      <label class="fieldlabels">Password: *</label>
-                      <input
-                        type="password"
-                        name="pwd"
-                        placeholder="Password"
-                      />
+      <div className="registration">
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+              <div className="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2 className="text_36 mb-3 text-white">লগইন করুন</h2>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <fieldset className="p-4">
+                    <div className="form-card">
+                      <p className="text-red-600">{errorMessage}</p>
+                      {/* email */}
+                      <div className="form-control border-0 p-0">
+                        <label htmlFor="email" className="fieldlabels">
+                          Email: <span className="text-red-600 mr-1">*</span>
+                          <span>
+                            {errors.email && (
+                              <span className="text-red-600 text-sm italic">
+                                {errors.email.type === "required"
+                                  ? "This field is required."
+                                  : "Invalid email address"}
+                              </span>
+                            )}
+                          </span>
+                        </label>
+
+                        <input
+                          type="email"
+                          name="email"
+                          {...register("email", {
+                            required: true,
+                            pattern: /^\S+@\S+\.\S+$/,
+                          })}
+                          placeholder="Email Address"
+                        />
+                      </div>
+                      {/* contact no */}
+                      {/* <div className="form-control border-0 p-0">
+                        <label htmlFor="phone" className="fieldlabels">
+                          Contact No.:{" "}
+                          <span className="text-red-600 mr-1">*</span>
+                          <span>
+                            {errors.phone && (
+                              <span className="text-red-600 text-sm italic">
+                                {errors.phone.type === "required" &&
+                                  "This field is required."}
+                                {errors.phone.type === "pattern" &&
+                                  "Invalid phone number format."}
+                              </span>
+                            )}
+                          </span>
+                          <br />
+                          <span className="text-xs leading-3 text-red-500 italic">
+                            Be carefull ! Double check your phone number before
+                            submit.
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          name="phone"
+                          {...register("phone", {
+                            required: true,
+                            pattern: {
+                              value:
+                                /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/i,
+                            },
+                          })}
+                          placeholder="Contact No."
+                          className="countryInput"
+                        />
+                      </div> */}
+                      {/* userName */}
+                      {/* <div className="form-control border-0 p-0">
+                        <label htmlFor="userName" className="fieldlabels">
+                          User Name:{" "}
+                          <span className="text-red-600 mr-1">*</span>
+                          <span>
+                            {errors.userName && (
+                              <span className="text-red-600 text-sm italic">
+                                This field is required.
+                              </span>
+                            )}
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          name="userName"
+                          {...register("userName", {
+                            required: true,
+                          })}
+                          placeholder="User Name eg. vismo123"
+                        />
+                      </div> */}
+                      {/* password */}
+                      <div className="form-control border-0 p-0">
+                        <label htmlFor="pwd" className="fieldlabels">
+                          Password: <span className="text-red-600 mr-1">*</span>
+                          <span>
+                            {errors.pwd && (
+                              <span className="text-red-600 text-sm italic">
+                                {errors.pwd.type === "required" &&
+                                  "This field is required"}
+                              </span>
+                            )}
+                          </span>
+                        </label>
+                        <input
+                          type="password"
+                          name="pwd"
+                          {...register("pwd", {
+                            required: true,
+                          })}
+                          placeholder="Password"
+                        />
+                      </div>
                     </div>
                     <input
-                      type="button"
+                      type="submit"
                       name="next"
-                      class="next action-button"
+                      className="next action-button"
                       value="Submit"
                     />
                   </fieldset>
                 </form>
                 <div className="my-1">
                   <p className="text-lg">
-                    Don't have an account? Please{" "}
+                    Don&apos;t have an account? Please{" "}
                     <span className="text-white underline">
                       <Link to="/registration">Register.</Link>
                     </span>
