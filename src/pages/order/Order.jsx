@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/info_card_logo.png";
 import Footer from "../../components/shared/Footer";
 import MobileBottomNav from "../../components/shared/MobileBottomNav";
-
+import selectCard from "../../assets/images/demo/6.jpeg";
 const Order = () => {
   return (
     <div>
