@@ -11,6 +11,7 @@ import countryData from "../../assets/country_dial_info.json";
 import Swal from "sweetalert2";
 import { useCreateAuserMutation } from "../../redux/features/allApis/usersApi";
 import { BeatLoader } from "react-spinners";
+import MobileBottomNav from "../../components/shared/MobileBottomNav";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -695,6 +696,7 @@ const Registration = () => {
       </div>
       <div>
         <Footer />
+        <MobileBottomNav />
       </div>
     </div>
   );

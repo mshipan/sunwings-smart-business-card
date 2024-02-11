@@ -6,6 +6,7 @@ import { LuImagePlus } from "react-icons/lu";
 import "./DashboardLayout.css";
 import { useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
+import MobileBottomNav from "../components/shared/MobileBottomNav";
 
 const DashboardLayout = () => {
   const [sidebarHidden, setSidebarHidden] = useState(true);
@@ -267,6 +268,7 @@ const DashboardLayout = () => {
           {/* <!-- MAIN --> */}
         </section>
         {/* <!-- CONTENT --> */}
+        <MobileBottomNav />
       </>
     );
   }
@@ -337,6 +339,7 @@ const DashboardLayout = () => {
         {/* <!-- MAIN --> */}
       </section>
       {/* <!-- CONTENT --> */}
+      <MobileBottomNav />
     </>
   );
 };
