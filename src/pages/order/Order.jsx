@@ -5,6 +5,7 @@ import Footer from "../../components/shared/Footer";
 import { MdCall } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+import selectCard from "../../assets/images/demo/6.jpeg";
 
 const Order = () => {
   return (
@@ -124,17 +125,16 @@ const Order = () => {
                 <h5 className="text_26 mb-4">আপনার অর্ডার</h5>
                 <div className="your_order_contain">
                   <div className="your_order_item">
-                    <img src="assets/images/demo-card/1.jpeg" alt="" />
+                    <img src={selectCard} alt="selectCard" />
                     <div className="order_text">
                       <h2 className="text">প্রিমিয়াম কার্ড ডিজাইন</h2>
                       <span>৯৯৯ টাকা</span>
                     </div>
                   </div>
-                  <div className="your_order_item">
+                  <div className="your_order_item d-flex ">
                     <h2 className="text">Subtotal</h2>
                     <div className="order_text">
-                      <h2 className="text">প্রিমিয়াম কার্ড ডিজাইন</h2>
-                      <span>৯৯৯ টাকা</span>
+                      <span>৯৯৯.00 ৳</span>
                     </div>
                   </div>
                   <button type="submit" className="btn3">
