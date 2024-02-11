@@ -79,7 +79,8 @@ const Profile = () => {
                   <a href="https://accounts.snapchat.com/" target="_blank"><i class="demo_icon fa-brands fa-snapchat"></i>Snapchat</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)"><i class="demo_icon fa-solid fa-globe"></i></i>Website</a>
+                  <a href="javascript:void(0)">
+                    <i class="demo_icon fa-solid fa-globe"></i>Website</a>
                 </li>
                 <li>
                   <a href="javascript:void(0)"><i class="demo_icon fa-solid fa-location-dot"></i>Location</a>
