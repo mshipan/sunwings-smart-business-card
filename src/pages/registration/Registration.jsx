@@ -71,7 +71,7 @@ const Registration = () => {
         createUser(data.email, data.pwd)
           .then((result) => {
             const loggedUser = result.user;
-
+            console.log(loggedUser)
             updateUserProfile(data.fullName, data.profileImage, data.phone)
               .then(() => {
                 const newUser = {
