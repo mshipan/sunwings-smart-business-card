@@ -1,39 +1,34 @@
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
-
-import demoCard1 from "../../assets/images/demo-card/normal/1.jpeg";
-import demoCard2 from "../../assets/images/demo-card/normal/2.jpeg";
-import demoCard3 from "../../assets/images/demo-card/normal/3.jpeg";
-import demoCard4 from "../../assets/images/demo-card/normal/4.jpeg";
-import officeId1 from "../../assets/images/offices-id/1.jpeg";
-import officeId2 from "../../assets/images/offices-id/2.jpeg";
-import officeId3 from "../../assets/images/offices-id/3.jpeg";
-import officeId4 from "../../assets/images/offices-id/4.jpeg";
-import officeId5 from "../../assets/images/offices-id/5.jpeg";
 import { useState } from "react";
+import { useGetAllStanndardCardImageQuery } from "../../redux/features/allApis/standardCardImageApi";
+import { useGetAllPremiumCardImageQuery } from "../../redux/features/allApis/premiumCardImageApi";
+import { Link } from "react-router-dom";
 
 const CardGallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [officeLightboxOpen, setOfficeLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [officeLightboxIndex, setOfficeLightboxIndex] = useState(0);
+  const route = window.location.pathname;
 
-  const demoCardImages = [demoCard1, demoCard2, demoCard3, demoCard4];
+  const { data: allStandardCardInfo, isLoading: standardCardsLoading } =
+    useGetAllStanndardCardImageQuery();
 
-  const officeIdImages = [
-    officeId1,
-    officeId2,
-    officeId3,
-    officeId4,
-    officeId5,
-  ];
+  const { data: allPremiumCardInfo, isLoading: premiumCardsLoading } =
+    useGetAllPremiumCardImageQuery();
 
-  const demoImages = demoCardImages.map((url, index) => ({
-    url,
+  if (standardCardsLoading || premiumCardsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const demoImages = allStandardCardInfo?.map((url, index) => ({
+    url: url.standardCardImage,
     title: `Demo Card ${index + 1}`,
   }));
-  const officeImages = officeIdImages.map((url, index) => ({
-    url,
+
+  const officeImages = allPremiumCardInfo?.map((url, index) => ({
+    url: url.premiumCardImage,
     title: `Office Id Card ${index + 1}`,
   }));
 
@@ -85,12 +80,15 @@ const CardGallery = () => {
               </div>
             )}
           </div>
-
-          <div className="all_card_view">
-            <a href="demo-card.html" className="btn4">
-              <span>সকল কার্ড দেখুন</span>
-            </a>
-          </div>
+          {route === "/demo-card" ? (
+            <></>
+          ) : (
+            <div className="all_card_view">
+              <Link to="/demo-card" className="btn4">
+                <span>সকল কার্ড দেখুন</span>
+              </Link>
+            </div>
+          )}
 
           <div className="offices_id_card_heading">
             <h2 className="text_36">ডেমো এম্পলয়ি অফিস আইডি কার্ড ডিজাইন</h2>

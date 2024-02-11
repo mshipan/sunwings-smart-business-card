@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBhEMDZ6RLfiDQ1DNEX7bALccr9Ow96oyk",
-  authDomain: "sunwings-smart-business-card.firebaseapp.com",
-  projectId: "sunwings-smart-business-card",
-  storageBucket: "sunwings-smart-business-card.appspot.com",
-  messagingSenderId: "949524206484",
-  appId: "1:949524206484:web:989a21eb952dca40877581",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
