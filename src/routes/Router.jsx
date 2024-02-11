@@ -8,6 +8,7 @@ import Registration from "../pages/registration/Registration";
 import Login from "../pages/login/Login";
 import Order from "../pages/order/Order";
 import DemoCard from "../pages/DemoCard";
+import Profile from "../pages/profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/order",
     element: <Order />,
+  },
+  {
+    path: "/user-profile",
+    element: <Profile />,
   },
 ]);
 
