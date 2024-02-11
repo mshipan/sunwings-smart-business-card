@@ -5,10 +5,12 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { BeatLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const { signIn } = useContext(AuthContext);
   const {
@@ -20,6 +22,7 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
+    setLoading(true);
     signIn(data.email, data.pwd)
       .then((result) => {
         const loggedUser = result.user;
@@ -31,6 +34,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        setLoading(false);
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -79,63 +83,7 @@ const Login = () => {
                           placeholder="Email Address"
                         />
                       </div>
-                      {/* contact no */}
-                      {/* <div className="form-control border-0 p-0">
-                        <label htmlFor="phone" className="fieldlabels">
-                          Contact No.:{" "}
-                          <span className="text-red-600 mr-1">*</span>
-                          <span>
-                            {errors.phone && (
-                              <span className="text-red-600 text-sm italic">
-                                {errors.phone.type === "required" &&
-                                  "This field is required."}
-                                {errors.phone.type === "pattern" &&
-                                  "Invalid phone number format."}
-                              </span>
-                            )}
-                          </span>
-                          <br />
-                          <span className="text-xs leading-3 text-red-500 italic">
-                            Be carefull ! Double check your phone number before
-                            submit.
-                          </span>
-                        </label>
-                        <input
-                          type="text"
-                          name="phone"
-                          {...register("phone", {
-                            required: true,
-                            pattern: {
-                              value:
-                                /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/i,
-                            },
-                          })}
-                          placeholder="Contact No."
-                          className="countryInput"
-                        />
-                      </div> */}
-                      {/* userName */}
-                      {/* <div className="form-control border-0 p-0">
-                        <label htmlFor="userName" className="fieldlabels">
-                          User Name:{" "}
-                          <span className="text-red-600 mr-1">*</span>
-                          <span>
-                            {errors.userName && (
-                              <span className="text-red-600 text-sm italic">
-                                This field is required.
-                              </span>
-                            )}
-                          </span>
-                        </label>
-                        <input
-                          type="text"
-                          name="userName"
-                          {...register("userName", {
-                            required: true,
-                          })}
-                          placeholder="User Name eg. vismo123"
-                        />
-                      </div> */}
+
                       {/* password */}
                       <div className="form-control border-0 p-0">
                         <label htmlFor="pwd" className="fieldlabels">
@@ -159,12 +107,13 @@ const Login = () => {
                         />
                       </div>
                     </div>
-                    <input
-                      type="submit"
-                      name="next"
-                      className="next action-button"
-                      value="Submit"
-                    />
+                    <button type="submit" className="next action-button">
+                      {loading ? (
+                        <BeatLoader color="#ffff" size={15} />
+                      ) : (
+                        "Submit"
+                      )}
+                    </button>
                   </fieldset>
                 </form>
                 <div className="my-1">
