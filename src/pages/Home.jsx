@@ -1,8 +1,6 @@
 import CardGallery from "../components/home/CardGallery";
 import Discount from "../components/home/Discount";
 import FaqQuestions from "../components/home/FaqQuestions";
-import Header from "../components/home/Header";
-import Menu from "../components/home/Menu";
 import NfcDemoCardProfile from "../components/home/NfcDemoCardProfile";
 import NfcVideoCard from "../components/home/NfcVideoCard";
 import StandardCard from "../components/home/StandardCard";
@@ -16,8 +14,6 @@ import WhatsApp from "../components/home/WhatsApp";
 const Home = () => {
   return (
     <div>
-      <Header />
-      <Menu />
       <VisitingInformation />
       <NfcVideoCard />
       <WhatIsNfcCard />

@@ -6,6 +6,8 @@ import CustomizeHome from "../pages/dashboard/customizeHome/CustomizeHome";
 import AllCards from "../pages/dashboard/allCards/AllCards";
 import Registration from "../pages/registration/Registration";
 import Login from "../pages/login/Login";
+import Order from "../pages/order/Order";
+import DemoCard from "../pages/DemoCard";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/demo-card",
+        element: <DemoCard />,
       },
     ],
   },
@@ -39,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/order",
+    element: <Order />,
   },
 ]);
 

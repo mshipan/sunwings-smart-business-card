@@ -8,15 +8,23 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { FaXmark } from "react-icons/fa6";
 import { BiSolidPlusCircle } from "react-icons/bi";
 import countryData from "../../assets/country_dial_info.json";
+import Swal from "sweetalert2";
+import { useCreateAuserMutation } from "../../redux/features/allApis/usersApi";
+import { BeatLoader } from "react-spinners";
 
 const Registration = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const img_host_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
+  const img_host_url = `https://api.imgbb.com/1/upload?key=${img_host_token}`;
+
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     control,
     formState: { errors },
   } = useForm();
@@ -33,49 +41,115 @@ const Registration = () => {
     setStep(step - 1);
   };
 
-  const onSubmit = (data) => {
-    const fullNumber = data.countryCode + "," + data.phone;
+  const [createAUser] = useCreateAuserMutation();
+
+  const onSubmit = async (data) => {
+    const fullNumber = data.countryCode + data.phone;
     data.phone = fullNumber;
-    console.log(data);
-    // createUser(data.email, data.password)
-    //   .then((result) => {
-    //     const loggedUser = result.user;
-    //     console.log(loggedUser);
-    //     updateUserProfile(data.name, data.photoURL).then(() => {
-    //       const newUser = {
-    //         name: data.name,
-    //         email: data.email,
-    //         photo: data.photoURL,
-    //         // ToDO: here i would be put password: data.password if needed
-    //         dob: data.dob,
-    //         gender: data.gender,
-    //         country: data.country,
-    //         phone: data.phone,
-    //       };
-    //       fetch("https://travlerz-server-production.up.railway.app/users", {
-    //         method: "POST",
-    //         headers: {
-    //           "content-type": "application/json",
-    //         },
-    //         body: JSON.stringify(newUser),
-    //       })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //           if (data.insertedId) {
-    //             Swal.fire({
-    //               position: "center",
-    //               icon: "success",
-    //               title: "Registration Successfull",
-    //               showConfirmButton: false,
-    //               timer: 1500,
-    //             });
-    //             reset();
-    //             navigate("/");
-    //           }
-    //         });
-    //     });
-    //   })
-    //   .catch((error) => console.log(error));
+
+    try {
+      const formData = new FormData();
+      formData.append("image", data.profileImage[0]);
+      formData.append("key", img_host_token);
+      setLoading(true);
+
+      const response = await fetch(img_host_url, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const imgResponse = await response.json();
+        const profileImageUrl = imgResponse?.data?.display_url;
+
+        if (profileImageUrl) {
+          data.profileImage = profileImageUrl;
+        }
+
+        // Register user with Firebase authentication
+        createUser(data.email, data.pwd)
+          .then((result) => {
+            const loggedUser = result.user;
+
+            updateUserProfile(data.fullName, data.profileImage, data.phone)
+              .then(() => {
+                const newUser = {
+                  name: data.fullName,
+                  email: data.email,
+                  phone: data.phone,
+                  whatsAppNo: data.whatsAppNo,
+                  address: data.address,
+                  dob: data.dob,
+                  preferedLanguage: data.preferedLanguage,
+                  gender: data.gender,
+                  socialMedia: data.socialMedia,
+                  userName: data.userName,
+                  pwd: data.pwd,
+                  profileImage: profileImageUrl,
+                  agree: data.agree,
+                };
+
+                // Save user data to database
+                createAUser(newUser)
+                  .then((result) => {
+                    if (result.data) {
+                      // Success message
+                      Swal.fire({
+                        title: "Registration Successful!",
+                        text: "Press OK to continue",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                      });
+                      reset(); // Reset form fields
+                      setLoading(false);
+                      navigate("/");
+                    } else {
+                      // Handle database save failure
+                      Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Error saving user data to database.",
+                        text: "Please try again later.",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    }
+                  })
+                  .catch((error) => {
+                    console.error("Error saving user data to database:", error);
+                    // Handle database save failure
+                    Swal.fire({
+                      position: "center",
+                      icon: "error",
+                      title: "Error saving user data to database.",
+                      text: "Please try again later.",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                  });
+              })
+              .catch((error) => {
+                console.error("Error updating user profile:", error);
+                // Handle updating user profile failure
+              });
+          })
+          .catch((error) => {
+            console.error("Error registering user:", error);
+            // Handle registering user failure
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      // Handle any errors
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error registering user.",
+        text: `${error}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   const {
@@ -584,11 +658,18 @@ const Registration = () => {
                           </div>
                         </div>
                       </div>
-                      <input
+                      <button
                         type="submit"
                         className="next action-button"
-                        value="Submit"
-                      />
+                        disabled={loading}
+                      >
+                        {loading ? (
+                          <BeatLoader color="#ffff" size={15} />
+                        ) : (
+                          "Submit"
+                        )}
+                      </button>
+
                       <input
                         type="button"
                         name="previous"

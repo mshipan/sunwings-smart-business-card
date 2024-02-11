@@ -14,17 +14,17 @@ const Menu = () => {
             <nav className="menu_area">
               <ul>
                 <li>
-                  <Link className="btn1" to="demo-card.html">
+                  <Link className="btn1" to="/demo-card">
                     <span className="flex items-center justify-center gap-2">
-                      <FaAddressCard className="m_icon"/>
+                      <FaAddressCard className="m_icon" />
                       ডেমো কার্ড ডিজাইন
                     </span>
                   </Link>
                 </li>
                 <li>
-                  <Link className="btn1" to="order.html">
+                  <Link className="btn1" to="/order">
                     <span className="flex items-center justify-center gap-2">
-                      <FaCartShopping className="m_icon"/>
+                      <FaCartShopping className="m_icon" />
                       কার্ড অর্ডার করুন
                     </span>
                   </Link>
@@ -38,7 +38,7 @@ const Menu = () => {
                 <li>
                   <Link className="btn1" to="/registration">
                     <span className="flex items-center justify-center gap-2">
-                      <FaAddressBook className="m_icon"/>
+                      <FaAddressBook className="m_icon" />
                       প্রোফাইল তৈরি করুন
                     </span>
                   </Link>
@@ -46,7 +46,7 @@ const Menu = () => {
                 <li>
                   <Link className="btn1" to="/login">
                     <span className="flex items-center justify-center gap-2">
-                      <RiLoginBoxFill className="m_icon"/>
+                      <RiLoginBoxFill className="m_icon" />
                       লগইন করুন
                     </span>
                   </Link>
