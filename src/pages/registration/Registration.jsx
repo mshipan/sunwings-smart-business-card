@@ -7,16 +7,18 @@ import Footer from "../../components/shared/Footer";
 import { AuthContext } from "../../providers/AuthProvider";
 import { FaXmark } from "react-icons/fa6";
 import { BiSolidPlusCircle } from "react-icons/bi";
-import countryData from "../../assets/country_dial_info.json";
 import Swal from "sweetalert2";
 import { useCreateAuserMutation } from "../../redux/features/allApis/usersApi";
 import { BeatLoader } from "react-spinners";
 import MobileBottomNav from "../../components/shared/MobileBottomNav";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const Registration = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [phone1, setPhone1] = useState("");
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const img_host_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
   const img_host_url = `https://api.imgbb.com/1/upload?key=${img_host_token}`;
@@ -44,9 +46,12 @@ const Registration = () => {
 
   const [createAUser] = useCreateAuserMutation();
 
+  const handlePhoneChange = (value) => {
+    setPhone1(value);
+  };
+
   const onSubmit = async (data) => {
-    const fullNumber = data.countryCode + data.phone;
-    data.phone = fullNumber;
+    data.phone = phone1;
 
     try {
       const formData = new FormData();
@@ -71,7 +76,7 @@ const Registration = () => {
         createUser(data.email, data.pwd)
           .then((result) => {
             const loggedUser = result.user;
-            console.log(loggedUser)
+
             updateUserProfile(data.fullName, data.profileImage, data.phone)
               .then(() => {
                 const newUser = {
@@ -233,16 +238,6 @@ const Registration = () => {
                           <label htmlFor="phone" className="fieldlabels">
                             Contact No.:{" "}
                             <span className="text-red-600 mr-1">*</span>
-                            <span>
-                              {errors.phone && (
-                                <span className="text-red-600 text-sm italic">
-                                  {errors.phone.type === "required" &&
-                                    "This field is required."}
-                                  {errors.phone.type === "pattern" &&
-                                    "Invalid phone number format."}
-                                </span>
-                              )}
-                            </span>
                             <br />
                             <span className="text-xs leading-3 text-red-500 italic">
                               Be carefull ! Double check your phone number
@@ -250,35 +245,21 @@ const Registration = () => {
                             </span>
                           </label>
                           <div className="flex items-center w-full">
-                            <select
-                              id="country"
-                              name="countryCode"
-                              {...register("countryCode", { required: true })}
-                              className="countrySelect"
-                            >
-                              <option value="">Select Country</option>
-                              {countryData.map((country) => (
-                                <option
-                                  key={country.isoCode}
-                                  value={country.dialCode}
-                                >
-                                  {country.isoCode} ({country.dialCode})
-                                </option>
-                              ))}
-                            </select>
-
                             <input
                               type="text"
                               name="phone"
-                              {...register("phone", {
-                                required: true,
-                                pattern: {
-                                  value:
-                                    /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/i,
-                                },
-                              })}
+                              {...register("phone")}
                               placeholder="Contact No."
-                              className="countryInput"
+                              className="hidden"
+                            />
+                            <PhoneInput
+                              country={"bd"}
+                              enableSearch={true}
+                              disableSearchIcon={true}
+                              value={phone1}
+                              onChange={handlePhoneChange}
+                              inputClass="phoneInput"
+                              containerClass="mb-3"
                             />
                           </div>
                         </div>
@@ -402,12 +383,6 @@ const Registration = () => {
                             Social Media Links:{" "}
                             <span className="text-red-600 mr-1">*</span>
                           </label>
-
-                          {/* {errors.socialMedia && errors.socialMedia[0] && (
-                            <span className="text-red-600 text-sm italic">
-                              This field is required.
-                            </span>
-                          )} */}
 
                           {errors.socialMedia && errors.socialMedia[0] && (
                             <span className="text-red-600 text-sm italic">
