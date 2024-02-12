@@ -1,22 +1,22 @@
-import { useState } from "react";
+// import { useState } from "react";
 import banner from "../../assets/images/banner-1.webp";
 import user from "../../assets/images/vismo.jpg";
-import { AiOutlineCamera } from "react-icons/ai";
+// import { AiOutlineCamera } from "react-icons/ai";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const EditProfile = () => {
-  const [selectedCover, setSelectedCover] = useState(null);
-  const [selectedProfileImg, setSelectedProfileImg] = useState(null);
+  //   const [selectedCover, setSelectedCover] = useState(null);
+  //   const [selectedProfileImg, setSelectedProfileImg] = useState(null);
 
-  const handleCoverPhotoChange = (event) => {
-    setSelectedCover(event.target.files[0]);
-  };
-  const handleProfilPhotoChange = (event) => {
-    setSelectedProfileImg(event.target.files[0]);
-  };
-  console.log(selectedCover);
-  console.log(selectedProfileImg);
+  //   const handleCoverPhotoChange = (event) => {
+  //     setSelectedCover(event.target.files[0]);
+  //   };
+  //   const handleProfilPhotoChange = (event) => {
+  //     setSelectedProfileImg(event.target.files[0]);
+  //   };
+  //   console.log(selectedCover);
+  //   console.log(selectedProfileImg);
   return (
     <div className="h-screen">
       <div>
