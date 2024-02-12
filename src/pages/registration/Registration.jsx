@@ -1,12 +1,10 @@
 import { useContext, useState } from "react";
 import "./Registration.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import logo from "../../assets/images/info_card_logo.png";
 import Footer from "../../components/shared/Footer";
 import { AuthContext } from "../../providers/AuthProvider";
-import { FaXmark } from "react-icons/fa6";
-import { BiSolidPlusCircle } from "react-icons/bi";
 import Swal from "sweetalert2";
 import { useCreateAuserMutation } from "../../redux/features/allApis/usersApi";
 import { BeatLoader } from "react-spinners";
@@ -28,7 +26,6 @@ const Registration = () => {
     handleSubmit,
     watch,
     reset,
-    control,
     formState: { errors },
   } = useForm();
 
@@ -158,14 +155,14 @@ const Registration = () => {
     }
   };
 
-  const {
-    fields: socialMediaFields,
-    append: appendSocialMedia,
-    remove: removeSocialMedia,
-  } = useFieldArray({
-    control,
-    name: "socialMedia",
-  });
+  // const {
+  //   fields: socialMediaFields,
+  //   append: appendSocialMedia,
+  //   remove: removeSocialMedia,
+  // } = useFieldArray({
+  //   control,
+  //   name: "socialMedia",
+  // });
 
   return (
     <div>
@@ -378,7 +375,7 @@ const Registration = () => {
                         </div>
 
                         {/* social media */}
-                        <div className="form-control border-0 p-0">
+                        {/* <div className="form-control border-0 p-0">
                           <label htmlFor="socialMedia" className="fieldlabels">
                             Social Media Links:{" "}
                             <span className="text-red-600 mr-1">*</span>
@@ -413,13 +410,14 @@ const Registration = () => {
                               className="m-0"
                             />
 
-                            {/* Button to remove the first social media input field (disabled initially) */}
+                            Button to remove the first social media input field disabled initially
                             <button
                               type="button"
                               onClick={() => removeSocialMedia(0)}
                               className="border border-[#131D4E] p-2 "
                               title="Remove"
-                              disabled={socialMediaFields.length === 1} // Disable if there's only one social media field
+                              disabled={socialMediaFields.length === 1} 
+                              Disable if there's only one social media field
                             >
                               <FaXmark className="text-[#131D4E] text-lg" />
                             </button>
@@ -481,7 +479,7 @@ const Registration = () => {
                         >
                           <BiSolidPlusCircle className="text-black text-lg inline-block" />{" "}
                           Add more
-                        </button>
+                        </button> */}
                       </div>
                       <input
                         type="button"

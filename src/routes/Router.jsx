@@ -9,6 +9,7 @@ import Login from "../pages/login/Login";
 import Order from "../pages/order/Order";
 import DemoCard from "../pages/DemoCard";
 import Profile from "../pages/profile/Profile";
+import EditProfile from "../pages/dashboard/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "all-cards",
         element: <AllCards />,
+      },
+      {
+        path: "edit-profile",
+        element: <EditProfile />,
       },
     ],
   },
