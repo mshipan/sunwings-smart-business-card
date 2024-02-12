@@ -1,0 +1,36 @@
+.profile_cover_img img{
+  max-height: 200px;
+  object-fit: cover;
+}
+.profile_img{
+  margin-top: -120px;
+  margin-left: 60px;
+}
+.profile_img img{
+  max-width: 140px;
+  height: 160px;
+}
+.text_ph{
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(37, 37, 37);
+}
+.text_p{
+  font-size: 16px;
+  font-family: 500;
+  color: #000000;
+}
+.text_contain{
+  padding: 20px;
+  background: #e8e7e7;
+}
+.text_title{
+  padding: 20px;
+  text-align: center;
+  background: #ffb700;
+}
+.table tr td{
+  padding: 10px 18px 10px 18px;
+  font-size: 16px;
+}

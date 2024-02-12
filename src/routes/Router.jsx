@@ -10,6 +10,7 @@ import Order from "../pages/order/Order";
 import DemoCard from "../pages/DemoCard";
 import Profile from "../pages/profile/Profile";
 import EditProfile from "../pages/dashboard/EditProfile";
+import DemoProfile from "../pages/profile/demo-profile/DemoProfile";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: "/user-profile",
     element: <Profile />,
+  },
+  {
+    path: "/demo-profile",
+    element: <DemoProfile />,
   },
 ]);
 

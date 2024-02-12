@@ -125,13 +125,38 @@ const Order = () => {
                     <img src={selectCard} alt="selectCard" />
                     <div className="order_text">
                       <h2 className="text">প্রিমিয়াম কার্ড ডিজাইন</h2>
-                      <span>৯৯৯ টাকা</span>
+                      <span>৯৯৯.00 ৳</span>
                     </div>
                   </div>
-                  <div className="your_order_item d-flex ">
-                    <h2 className="text">Subtotal</h2>
-                    <div className="order_text">
-                      <span>৯৯৯.00 ৳</span>
+                  <div className="subtotalItem mb-3">
+                    <div className="subtotalContain">
+                      <p>Subtotal</p>
+                      <div className="order_text ">
+                        <span>৯৯৯.00 ৳</span>
+                        <div class="form-check mt-2">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                          <label class="form-check-label" for="flexRadioDefault1">
+                            <span>ঢাকার বাহিরে: </span>
+                            <span>120.00 ৳</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="subtotalContain">
+                      <p>Shipping</p>
+                      <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          <span>ঢাকার ভিতরে:</span>
+                          <span>60.00 ৳</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="totalAmount">
+                      <div className="subtotalContain mt-1">
+                        <p>Total</p>
+                        <span>0000000000000 ৳</span>
+                      </div>
                     </div>
                   </div>
                   <button type="submit" className="btn3">
