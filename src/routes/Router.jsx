@@ -9,6 +9,7 @@ import Login from "../pages/login/Login";
 import Order from "../pages/order/Order";
 import DemoCard from "../pages/DemoCard";
 import Profile from "../pages/profile/Profile";
+import DemoProfile from "../pages/profile/demo-profile/DemoProfile";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/user-profile",
     element: <Profile />,
+  },
+  {
+    path: "/demo-profile",
+    element: <DemoProfile />,
   },
 ]);
 
