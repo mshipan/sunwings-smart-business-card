@@ -43,3 +43,64 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
   color: #ffffff;
 }
+
+/* start card gallery css 
+*****************************/
+.card_gallery{
+  padding: 80px 0;
+}
+.all_card_gallery{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+.image-wrapper img{
+  transition: all 360ms ease;
+}
+.image-wrapper img:hover{
+  border: 1px solid rgb(136, 136, 136);
+  transform: scale(1.03);
+}
+.offices_id_card_heading{
+  margin-top: 80px;
+}
+.offices_id_card{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 20px;
+  margin-top: 50px;
+}
+.all_card_gallery .image-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-top: 70%;
+  background: #ffffff;
+}
+.all_card_gallery .image-wrapper img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fancybox-image, .fancybox-spaceball {
+    padding: 44px;
+}
+
+/* media query */
+@media (max-width: 991px) {
+  .all_card_gallery{
+    grid-template-columns: repeat(3,1fr);
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .all_card_gallery{
+    grid-template-columns: repeat(2,1fr);
+    margin-top: 10px;
+  }
+}

@@ -6,6 +6,10 @@ import profileImg from "../../../assets/images/vismo.jpg";
 import { FaSquareFacebook, FaSquareXTwitter, FaTiktok } from "react-icons/fa6";
 import { IoLogoLinkedin, IoLogoYoutube } from "react-icons/io5";
 import { FaInstagram, FaSnapchat, FaGlobe, FaWhatsappSquare } from "react-icons/fa";
+import img1 from "../../../assets/images/demo/5.jpeg";
+import img2 from "../../../assets/images/demo/6.jpeg";
+import img3 from "../../../assets/images/demo/7.jpeg";
+import img4 from "../../../assets/images/demo-card/4.jpeg";
 
 const DemoProfile = () => {
   return (
@@ -366,6 +370,33 @@ const DemoProfile = () => {
                 </div>
               </div>
             </div>
+            {/* start gallery */}
+            <div className="gallery contact_info">
+              <h2 className="text_26">Gallery Images</h2>
+              <div className="all_card_gallery mt-0">
+                <div className="image-wrapper">
+                  <a href="assets/images/demo/5.jpeg" data-fancybox="gallery">
+                    <img className="image-1" src={img1} />
+                  </a>
+                </div>
+                <div className="image-wrapper">
+                  <a href="assets/images/demo/6.jpeg" data-fancybox="gallery">
+                    <img className="image-1" src={img2} />
+                  </a>
+                </div>
+                <div className="image-wrapper">
+                  <a href="assets/images/demo/7.jpeg" data-fancybox="gallery">
+                    <img className="image-1" src={img3} />
+                  </a>
+                </div>
+                <div className="image-wrapper">
+                  <a href="assets/images/demo-card/4.jpeg"data-fancybox="gallery">
+                    <img className="image-1" src={img4} />
+                  </a>
+                </div>
+              </div>
+            </div>
+            {/* end gallery */}
           </div>
         </div>
       </div>
