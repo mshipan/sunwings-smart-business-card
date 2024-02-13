@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-import './DemoProfile.css';
-import { FaCamera } from "react-icons/fa";
+import "./DemoProfile.css";
 import coverImg from "../../../assets/images/banner-1.webp";
 import profileImg from "../../../assets/images/vismo.jpg";
 import { FaSquareFacebook, FaSquareXTwitter, FaTiktok } from "react-icons/fa6";
@@ -18,26 +16,49 @@ const DemoProfile = () => {
         <div className="demo_profile_containe">
           <div className="row">
             <div className="profile_cover_img">
-              <img src={coverImg} alt="Cover-image"/>
+              <img src={coverImg} alt="Cover-image" />
             </div>
             <div className="profile_img">
-              <img src={profileImg} alt="" className="rounded mb-2 img-thumbnail"/>
+              <img
+                src={profileImg}
+                alt=""
+                className="rounded mb-2 img-thumbnail"
+              />
               <div className="">
-                <h2 className='text_ph'>Vismo Dev</h2>
-                <p className='text_p'>Expart Web Designer</p>
+                <h2 className="text_ph">Vismo Dev</h2>
+                <p className="text_p">Expart Web Designer</p>
               </div>
             </div>
             <div className="col-lg-3 mt-4">
+
               <div className="text_contain text-gray-600">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore quaerat tempora eos! Voluptate alias atque est nulla minus iure, corrupti distinctio ipsam maxime? Dignissimos exercitationem unde voluptate, earum natus temporibus!</p>
+
+              <div className="text_contain">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  Tempore quaerat tempora eos! Voluptate alias atque est nulla
+                  minus iure, corrupti distinctio ipsam maxime? Dignissimos
+                  exercitationem unde voluptate, earum natus temporibus!
+                </p>
+
               </div>
             </div>
             <div className="col-lg-9 mt-4">
               <div className="text_title">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat est animi delectus quos distinctio, temporibus odio a laboriosam id magnam? Ratione quas sunt tenetur voluptate beatae? A quod nobis aut.</p>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Repellat est animi delectus quos distinctio, temporibus odio a
+                  laboriosam id magnam? Ratione quas sunt tenetur voluptate
+                  beatae? A quod nobis aut.
+                </p>
               </div>
               <div className="text_contain">
+
                 <h2 className='text_ph text-gray-600'>About Me</h2>
+
+           
+
                 <div className="row mt-2">
                   <div className="col-md-6 table-responsive-sm">
                     <table className="table">
@@ -55,7 +76,7 @@ const DemoProfile = () => {
                           <td>: 01737351549</td>
                         </tr>
                         <tr>
-                          <td>What's App</td>
+                          <td>What&apos;s App</td>
                           <td>: 01737351549</td>
                         </tr>
                         <tr>
@@ -92,10 +113,12 @@ const DemoProfile = () => {
               <div className="text_contain">
                 <div className="row">
                   <div className="col-md-6">
+
                     <h2 className='text_ph text-gray-600'>Job Experience</h2>
                     <div className="row mt-2">
                       <div className="col-md-12">
                         <div className="job_experience contact_info mt-0 text-gray-600">
+
                           <ul>
                             <li>Company : SunWings Tours and Travels</li>
                             <li>Designation : Expert Web Designer</li>
@@ -106,7 +129,9 @@ const DemoProfile = () => {
                     </div>
                     <div className="row mt-3">
                       <div className="col-md-12">
+
                         <div className="job_experience contact_info mt-0 text-gray-600">
+
                           <ul>
                             <li>Company : SunWings Tours and Travels</li>
                             <li>Designation : Expert Web Designer</li>
@@ -117,10 +142,12 @@ const DemoProfile = () => {
                     </div>
                   </div>
                   <div className="col-md-6">
+
                     <h2 className='text_ph text-gray-600'>Education</h2>
                     <div className="row mt-2">
                       <div className="col-md-12">
                         <div className="job_experience contact_info mt-0 text-gray-600">
+
                           <ul>
                             <li>Certificate : Secoundary School Certificate</li>
                             <li>Institution : EUB</li>
@@ -131,7 +158,9 @@ const DemoProfile = () => {
                     </div>
                     <div className="row mt-3">
                       <div className="col-md-12">
+
                         <div className="job_experience contact_info mt-0 text-gray-600">
+
                           <ul>
                             <li>Certificate : Secoundary School Certificate</li>
                             <li>Institution : EUB</li>
