@@ -370,6 +370,7 @@ const DemoProfile = () => {
                 </div>
               </div>
             </div>
+
             {/* start gallery */}
             <div className="gallery contact_info">
               <h2 className="text_26">Gallery Images</h2>
@@ -397,6 +398,10 @@ const DemoProfile = () => {
               </div>
             </div>
             {/* end gallery */}
+
+            {/* contact us */}
+            
+            {/* contact us */}
           </div>
         </div>
       </div>
