@@ -45,6 +45,27 @@
   border-color: black;
 }
 
+.editProfilePhoneInput {
+  padding: 0.25rem;
+  border-radius: 0 !important;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border: 0 !important;
+  width: 100% !important;
+}
+
+.editProfilePhoneInput:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.editProfilePhoneContainer {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #ffb700;
+}
+
 @media (max-width: 991px) {
   .update_logo {
     align-items: start;
