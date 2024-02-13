@@ -99,7 +99,7 @@ const DashboardLayout = () => {
         {/* <!-- CONTENT --> */}
         <section id="content" className={sidebarHidden ? "expanded" : ""}>
           {/* <!-- NAVBAR --> */}
-          <nav className="flex items-center justify-between">
+          <nav className="flex items-center justify-between z-10">
             <MdMenu
               className="bx bx-menu text-4xl md:text-2xl"
               onClick={handleSidebarToggle}
