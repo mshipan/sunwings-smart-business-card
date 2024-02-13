@@ -4,8 +4,8 @@ import { FaCamera } from "react-icons/fa";
 import coverImg from "../../../assets/images/banner-1.webp";
 import profileImg from "../../../assets/images/vismo.jpg";
 import { FaSquareFacebook, FaSquareXTwitter, FaTiktok } from "react-icons/fa6";
-import { IoLogoLinkedin } from "react-icons/io5";
-import { FaInstagram, FaSnapchat, FaGlobe } from "react-icons/fa";
+import { IoLogoLinkedin, IoLogoYoutube } from "react-icons/io5";
+import { FaInstagram, FaSnapchat, FaGlobe, FaWhatsappSquare } from "react-icons/fa";
 
 const DemoProfile = () => {
   return (
@@ -222,7 +222,7 @@ const DemoProfile = () => {
                             <li>
                               <Link to="#">
                                 <div className="flex items-center gap-2 text-base text-gray-600">
-                                  <FaInstagram className='text-2xl gradient-instagram' />
+                                  <FaInstagram className='text-3xl gradient-instagram' />
                                   <span>https://www.instagram.com</span>
                                 </div>
                               </Link>
@@ -230,8 +230,32 @@ const DemoProfile = () => {
                             <li>
                               <Link to="#">
                                 <div className="flex items-center gap-2 text-base mt-2 text-gray-600">
-                                  <FaInstagram className='text-2xl gradient-instagram' />
+                                  <FaInstagram className='text-3xl gradient-instagram' />
                                   <span>https://www.instagram.com</span>
+                                </div>
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row mt-3">
+                      <div className="col-md-12">
+                        <div className="job_experience contact_info mt-0">
+                          <ul>
+                            <li>
+                              <Link to="#">
+                                <div className="flex items-center gap-2 text-base text-gray-600">
+                                  <FaWhatsappSquare className='text-3xl text-green-700' />
+                                  <span>https://www.whatsapp.com</span>
+                                </div>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="#">
+                                <div className="flex items-center gap-2 text-base mt-2 text-gray-600">
+                                  <FaWhatsappSquare className='text-3xl text-green-700' />
+                                  <span>https://www.whatsapp.com</span>
                                 </div>
                               </Link>
                             </li>
@@ -273,16 +297,16 @@ const DemoProfile = () => {
                             <li>
                               <Link to="#">
                                 <div className="flex items-center gap-2 text-base text-gray-600">
-                                  <FaSnapchat className='text-2xl text-yellow-400' />
-                                  <span>https://www.Tiktok.com</span>
+                                  <FaSnapchat className='text-3xl text-yellow-400' />
+                                  <span>https://www.snapchat.com</span>
                                 </div>
                               </Link>
                             </li>
                             <li>
                               <Link to="#">
                                 <div className="flex items-center gap-2 text-base mt-2 text-gray-600">
-                                  <FaSnapchat className='text-2xl text-yellow-400' />
-                                  <span>https://www.Tiktok.com</span>
+                                  <FaSnapchat className='text-3xl text-yellow-400' />
+                                  <span>https://www.snapchat.com</span>
                                 </div>
                               </Link>
                             </li>
@@ -297,7 +321,7 @@ const DemoProfile = () => {
                             <li>
                               <Link to="#">
                                 <div className="flex items-center gap-2 text-base text-gray-600">
-                                  <FaGlobe className='text-2xl text-black' />
+                                  <FaGlobe className='text-3xl text-black' />
                                   <span>https://www.website.com</span>
                                 </div>
                               </Link>
@@ -305,8 +329,32 @@ const DemoProfile = () => {
                             <li>
                               <Link to="#">
                                 <div className="flex items-center gap-2 text-base mt-2 text-gray-600">
-                                  <FaGlobe className='text-2xl text-black' />
+                                  <FaGlobe className='text-3xl text-black' />
                                   <span>https://www.website.com</span>
+                                </div>
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row mt-3">
+                      <div className="col-md-12">
+                        <div className="job_experience contact_info mt-0">
+                          <ul>
+                            <li>
+                              <Link to="#">
+                                <div className="flex items-center gap-2 text-base text-gray-600">
+                                  <IoLogoYoutube className='text-3xl text-red-600' />
+                                  <span>https://www.youtube.com</span>
+                                </div>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="#">
+                                <div className="flex items-center gap-2 text-base mt-2 text-gray-600">
+                                  <IoLogoYoutube className='text-3xl text-red-600' />
+                                  <span>https://www.youtube.com</span>
                                 </div>
                               </Link>
                             </li>
