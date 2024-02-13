@@ -1,5 +1,5 @@
 .profile_cover_img img{
-  max-height: 200px;
+  max-height: 300px;
   object-fit: cover;
 }
 .profile_img{
@@ -33,4 +33,13 @@
 .table tr td{
   padding: 10px 18px 10px 18px;
   font-size: 16px;
+}
+
+.gradient-instagram{
+  background: #f09433; 
+  background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+  background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+  color: #ffffff;
 }
