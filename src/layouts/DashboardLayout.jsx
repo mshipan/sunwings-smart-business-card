@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdDashboard, MdMenu } from "react-icons/md";
 import { FaAddressCard } from "react-icons/fa";
 import { LuImagePlus } from "react-icons/lu";
+import { RiProfileFill } from "react-icons/ri";
 import "./DashboardLayout.css";
 import { useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
@@ -48,6 +49,17 @@ const DashboardLayout = () => {
           </div>
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="edit-profile"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <RiProfileFill />
+            <span>Edit Profile</span>
+          </div>
+        </NavLink>
+      </li>
     </>
   );
 
@@ -87,7 +99,7 @@ const DashboardLayout = () => {
         {/* <!-- CONTENT --> */}
         <section id="content" className={sidebarHidden ? "expanded" : ""}>
           {/* <!-- NAVBAR --> */}
-          <nav className="flex items-center justify-between">
+          <nav className="flex items-center justify-between z-10">
             <MdMenu
               className="bx bx-menu text-4xl md:text-2xl"
               onClick={handleSidebarToggle}

@@ -7,6 +7,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { BeatLoader } from "react-spinners";
 import MobileBottomNav from "../../components/shared/MobileBottomNav";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,14 +28,18 @@ const Login = () => {
     signIn(data.email, data.pwd)
       .then((result) => {
         const loggedUser = result.user;
-
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "LoggedIn Successfully",
-          showConfirmButton: false,
-          timer: 1500,
+        toast.success("Login Successfull.", {
+          style: {
+            border: "1px solid #10f510",
+            padding: "16px",
+            color: "#10f510",
+          },
+          iconTheme: {
+            primary: "#10f510",
+            secondary: "#FFFAEE",
+          },
         });
+
         setLoading(false);
         navigate(from, { replace: true });
       })
