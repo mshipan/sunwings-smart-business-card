@@ -421,7 +421,29 @@ const DemoProfile = () => {
             {/* end gallery */}
 
             {/* contact us */}
-            
+            <div className="contact_profile">
+              <h2 className='text_ph text-gray-600 mb-3'>Contact</h2>
+              <form class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"/>
+                    <label for="floatingInput">Your Name</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"/>
+                    <label for="floatingInput">Your Email</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <textarea type="password" class="form-control" placeholder="Message" id="inputPassword4"/>
+                </div>
+                <div class="col-6">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
             {/* contact us */}
           </div>
         </div>
