@@ -1,9 +1,11 @@
 import logo from "../assets/images/info_card_logo.png";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdDashboard, MdMenu } from "react-icons/md";
-import { FaAddressCard } from "react-icons/fa";
+import { FaAddressCard, FaShareAltSquare } from "react-icons/fa";
 import { LuImagePlus } from "react-icons/lu";
 import { RiProfileFill } from "react-icons/ri";
+import { BsQrCode } from "react-icons/bs";
+import { FaPersonCircleQuestion } from "react-icons/fa6";
 import "./DashboardLayout.css";
 import { useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
@@ -57,6 +59,39 @@ const DashboardLayout = () => {
           <div className="flex items-center gap-2">
             <RiProfileFill />
             <span>Edit Profile</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="edit-qr-code"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <BsQrCode />
+            <span>QR Code</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="social-media"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaShareAltSquare />
+            <span>Social Media</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="user-inquiries"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaPersonCircleQuestion />
+            <span>User Inquiry</span>
           </div>
         </NavLink>
       </li>
