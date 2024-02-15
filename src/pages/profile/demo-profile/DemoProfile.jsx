@@ -395,26 +395,26 @@ const DemoProfile = () => {
             {/* start gallery */}
             <div className="gallery contact_info">
               <h2 className='text_ph text-gray-600'>Job Experience</h2>
-              <div className="all_card_gallery mt-0">
+              <div className="all_card_gallery mt-2">
                 <div className="image-wrapper">
-                  <a href="assets/images/demo/5.jpeg" data-fancybox="gallery">
+                  <Link href="#" data-fancybox="gallery">
                     <img className="image-1" src={img1} />
-                  </a>
+                  </Link>
                 </div>
                 <div className="image-wrapper">
-                  <a href="assets/images/demo/6.jpeg" data-fancybox="gallery">
+                  <Link data-fancybox="gallery">
                     <img className="image-1" src={img2} />
-                  </a>
+                  </Link>
                 </div>
                 <div className="image-wrapper">
-                  <a href="assets/images/demo/7.jpeg" data-fancybox="gallery">
+                  <Link data-fancybox="gallery">
                     <img className="image-1" src={img3} />
-                  </a>
+                  </Link>
                 </div>
                 <div className="image-wrapper">
-                  <a href="assets/images/demo-card/4.jpeg"data-fancybox="gallery">
+                  <Link data-fancybox="gallery">
                     <img className="image-1" src={img4} />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
