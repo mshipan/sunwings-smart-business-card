@@ -153,7 +153,7 @@ const EditProfile = () => {
                 <h2>Designation</h2>
               </div>
               <div>
-                <button onClick={openModal} className="bg-gray-500 px-3 py-2">
+                <button onClick={openModal} className="bg-[#ff7c15] px-3 py-2">
                   Edit Profile
                 </button>
               </div>
