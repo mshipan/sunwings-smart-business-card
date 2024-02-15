@@ -8,6 +8,7 @@ import img1 from "../../../assets/images/demo/5.jpeg";
 import img2 from "../../../assets/images/demo/6.jpeg";
 import img3 from "../../../assets/images/demo/7.jpeg";
 import img4 from "../../../assets/images/demo-card/4.jpeg";
+import { Link } from "react-router-dom";
 
 const DemoProfile = () => {
   return (
@@ -33,15 +34,6 @@ const DemoProfile = () => {
 
               <div className="text_contain text-gray-600">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore quaerat tempora eos! Voluptate alias atque est nulla minus iure, corrupti distinctio ipsam maxime? Dignissimos exercitationem unde voluptate, earum natus temporibus!</p>
-
-              <div className="text_contain">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Tempore quaerat tempora eos! Voluptate alias atque est nulla
-                  minus iure, corrupti distinctio ipsam maxime? Dignissimos
-                  exercitationem unde voluptate, earum natus temporibus!
-                </p>
-
               </div>
             </div>
             <div className="col-lg-9 mt-4">
@@ -402,27 +394,27 @@ const DemoProfile = () => {
 
             {/* start gallery */}
             <div className="gallery contact_info">
-              <h2 className="text_26">Gallery Images</h2>
-              <div className="all_card_gallery mt-0">
+              <h2 className='text_ph text-gray-600'>Job Experience</h2>
+              <div className="all_card_gallery mt-2">
                 <div className="image-wrapper">
-                  <a href="assets/images/demo/5.jpeg" data-fancybox="gallery">
+                  <Link href="#" data-fancybox="gallery">
                     <img className="image-1" src={img1} />
-                  </a>
+                  </Link>
                 </div>
                 <div className="image-wrapper">
-                  <a href="assets/images/demo/6.jpeg" data-fancybox="gallery">
+                  <Link data-fancybox="gallery">
                     <img className="image-1" src={img2} />
-                  </a>
+                  </Link>
                 </div>
                 <div className="image-wrapper">
-                  <a href="assets/images/demo/7.jpeg" data-fancybox="gallery">
+                  <Link data-fancybox="gallery">
                     <img className="image-1" src={img3} />
-                  </a>
+                  </Link>
                 </div>
                 <div className="image-wrapper">
-                  <a href="assets/images/demo-card/4.jpeg"data-fancybox="gallery">
+                  <Link data-fancybox="gallery">
                     <img className="image-1" src={img4} />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
