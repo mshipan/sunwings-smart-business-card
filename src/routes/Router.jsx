@@ -11,6 +11,9 @@ import DemoCard from "../pages/DemoCard";
 import Profile from "../pages/profile/Profile";
 import EditProfile from "../pages/dashboard/EditProfile";
 import DemoProfile from "../pages/profile/demo-profile/DemoProfile";
+import EditQrCode from "../pages/dashboard/EditQrCode";
+import SocialMedia from "../pages/dashboard/SocialMedia";
+import UserInquiry from "../pages/dashboard/UserInquiry";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
       {
         path: "edit-profile",
         element: <EditProfile />,
+      },
+      {
+        path: "edit-qr-code",
+        element: <EditQrCode />,
+      },
+      {
+        path: "social-media",
+        element: <SocialMedia />,
+      },
+      {
+        path: "user-inquiries",
+        element: <UserInquiry />,
       },
     ],
   },
