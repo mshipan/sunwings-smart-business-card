@@ -19,9 +19,33 @@ const usersApi = baseApi.injectEndpoints({
       invalidatesTags: ["users"],
     }),
     updateAuserProfilePicture: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/users/${id}`,
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/profile-image`,
         method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateAuserCoverPhoto: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/profile-cover`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateAuserAboutMe: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/about-me`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateAuserBasicInfo: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/basic-info`,
+        method: "PUT",
         body: data,
       }),
       invalidatesTags: ["users"],
@@ -34,4 +58,7 @@ export const {
   useGetUserByIdQuery,
   useCreateAuserMutation,
   useUpdateAuserProfilePictureMutation,
+  useUpdateAuserCoverPhotoMutation,
+  useUpdateAuserAboutMeMutation,
+  useUpdateAuserBasicInfoMutation,
 } = usersApi;
