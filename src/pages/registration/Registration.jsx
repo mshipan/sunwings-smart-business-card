@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import "./Registration.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import logo from "../../assets/images/info_card_logo.png";
 import Footer from "../../components/shared/Footer";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -26,7 +26,6 @@ const Registration = () => {
     handleSubmit,
     watch,
     reset,
-    control,
     formState: { errors },
   } = useForm();
 
@@ -78,6 +77,7 @@ const Registration = () => {
             updateUserProfile(data.fullName, data.profileImage, data.phone)
               .then(() => {
                 const newUser = {
+                  uid: loggedUser.uid,
                   name: data.fullName,
                   email: data.email,
                   phone: data.phone,
@@ -155,15 +155,6 @@ const Registration = () => {
       });
     }
   };
-
-  const {
-    fields: socialMediaFields,
-    append: appendSocialMedia,
-    remove: removeSocialMedia,
-  } = useFieldArray({
-    control,
-    name: "socialMedia",
-  });
 
   return (
     <div>
