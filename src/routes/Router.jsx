@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         element: <EditProfile />,
       },
       {
-        path: "education",
+        path: "education/:uid",
         element: <Education />,
       },
       {
