@@ -5,11 +5,20 @@ import { AiOutlineCamera } from "react-icons/ai";
 import PhoneInput from "react-phone-input-2";
 import { FaXmark } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useUpdateAuserProfilePictureMutation } from "../../redux/features/allApis/usersApi";
+import Swal from "sweetalert2";
 
 const EditProfile = () => {
+  const { id } = useParams();
+  console.log(id);
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phone1, setPhone1] = useState("");
   const [phone2, setPhone2] = useState("");
+
+  const img_host_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
+  const img_host_url = `https://api.imgbb.com/1/upload?key=${img_host_token}`;
   const {
     register,
     handleSubmit,
@@ -18,6 +27,8 @@ const EditProfile = () => {
     control,
     formState: { errors },
   } = useForm();
+
+  const [updateProfilePicture] = useUpdateAuserProfilePictureMutation();
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -42,6 +53,67 @@ const EditProfile = () => {
   };
   const handlePhoneChange2 = (value) => {
     setPhone2(value);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", data.profileImage[0]); // Add 'image' parameter
+      formData.append("key", img_host_token);
+      setLoading(true);
+
+      const response = await fetch(img_host_url, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const imgResponse = await response.json();
+
+        const profilePictureUrl = imgResponse?.data?.display_url;
+
+        if (profilePictureUrl) {
+          data.profileImage = profilePictureUrl;
+
+          const result = await updateProfilePicture({
+            id: id,
+            data: data,
+          });
+
+          if (result.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Profile Picture Updated Successfully!",
+              text: "Press OK to continue",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+            reset();
+          }
+        }
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error uploading Profile Picture to Image Host Server.",
+          text: `${response.statusText}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error uploading Profile Picture.",
+        text: `${error}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   return (
@@ -137,62 +209,10 @@ const EditProfile = () => {
             </div>
           </div>
         </div>
-        {/* experience and education */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* job experience */}
-          <div className="border-2 border-gray-500 w-full rounded-md p-3 flex flex-col items-start gap-4">
-            <h1 className="underline underline-offset-4 leading-3">
-              Job Experiences:
-            </h1>
-            <div className="w-full flex flex-col gap-2">
-              <div className="bg-white p-2 rounded-md flex flex-col gap-1">
-                <h1 className="text-sm">Company: Sunwings Tours and Travels</h1>
-                <h1 className="text-sm">Designation: Web Developer</h1>
-                <h1 className="text-sm">Experience: 2 Years</h1>
-                <h1 className="text-sm">Duration: Feb 2024 - Present</h1>
-              </div>
-
-              <div className="bg-white p-2 rounded-md flex flex-col gap-1">
-                <h1 className="text-sm">Company: Sunwings Tours and Travels</h1>
-                <h1 className="text-sm">Designation: Web Developer</h1>
-                <h1 className="text-sm">Experience: 2 Years</h1>
-                <h1 className="text-sm">Duration: Feb 2024 - Present</h1>
-              </div>
-            </div>
-          </div>
-          {/* Education */}
-          <div className="border-2 border-gray-500 w-full rounded-md p-3 flex flex-col items-start gap-4">
-            <h1 className="underline underline-offset-4 leading-3">
-              Education:
-            </h1>
-            <div className="w-full flex flex-col gap-2">
-              <div className="bg-white p-2 rounded-md flex flex-col gap-1">
-                <h1 className="text-sm">
-                  Degree: BSc in Computer Science & Engineering
-                </h1>
-                <h1 className="text-sm">
-                  Institution: Daffodil International University
-                </h1>
-                <h1 className="text-sm">Duration: 4 Years</h1>
-                <h1 className="text-sm">Passing Year: Apr 2019</h1>
-              </div>
-              <div className="bg-white p-2 rounded-md flex flex-col gap-1">
-                <h1 className="text-sm">
-                  Degree: BSc in Computer Science & Engineering
-                </h1>
-                <h1 className="text-sm">
-                  Institution: Daffodil International University
-                </h1>
-                <h1 className="text-sm">Duration: 4 Years</h1>
-                <h1 className="text-sm">Passing Year: Apr 2019</h1>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       {/* Modal */}
       <dialog open={isModalOpen} className="modal z-50">
-        <div className="modal-box w-11/12 max-w-5xl bg-white">
+        <div className="modal-box w-11/12 max-w-3xl bg-white">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button
@@ -215,22 +235,26 @@ const EditProfile = () => {
                     className="rounded-full w-40 h-40"
                   />
                 </div>
-                <div>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <label
-                    htmlFor="fileInput"
+                    htmlFor="profileImage"
                     className="flex items-center justify-center cursor-pointer bg-gray-300 p-2 md:px-3 md:py-2"
                   >
                     <AiOutlineCamera className="mr-2" />
-                    <span>Edit Profile Picture</span>
+                    <span>
+                      {loading ? "Uploading..." : "Edit Profile Picture"}
+                    </span>
                   </label>
                   <input
                     type="file"
-                    id="fileInput"
+                    id="profileImage"
+                    name="profileImage"
+                    {...register("profileImage")}
                     accept="image/*"
                     className="hidden"
                     onChange={handleProfilPhotoChange}
                   />
-                </div>
+                </form>
               </div>
             </div>
             {/* Cover Photo */}
@@ -442,183 +466,6 @@ const EditProfile = () => {
                     </button>
                   </div>
                 </form>
-              </div>
-            </div>
-            {/* Job Experience */}
-            <div className="flex flex-col gap-4 my-10">
-              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 w-full">
-                <div className="flex flex-col gap-4 md:w-1/2">
-                  <h1 className="text-xl">Job Experiences</h1>
-                  <div className="flex flex-col gap-4">
-                    <div className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative ">
-                      <div className="p-2 bg-gray-500 rounded-full flex items-center justify-center absolute -right-2 -top-2">
-                        <FaXmark className="text-white" />
-                      </div>
-                      <h1 className="text-sm">
-                        Company: Sunwings Tours and Travels
-                      </h1>
-                      <h1 className="text-sm">Designation: Web Developer</h1>
-                      <h1 className="text-sm">Experience: 2 Years</h1>
-                      <h1 className="text-sm">Duration: Feb 2024 - Present</h1>
-                    </div>
-
-                    <div className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative">
-                      <div className="p-2 bg-gray-500 rounded-full flex items-center justify-center absolute -right-2 -top-2">
-                        <FaXmark className="text-white" />
-                      </div>
-                      <h1 className="text-sm">
-                        Company: Sunwings Tours and Travels
-                      </h1>
-                      <h1 className="text-sm">Designation: Web Developer</h1>
-                      <h1 className="text-sm">Experience: 2 Years</h1>
-                      <h1 className="text-sm">Duration: Feb 2024 - Present</h1>
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-1/2 flex flex-col gap-3">
-                  <h1 className="text-lg leading-3 underline">
-                    Add Job Experience
-                  </h1>
-                  <form className=" flex flex-col gap-2 items-center">
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="companyName">Company Name:</label>
-                      <input
-                        type="text"
-                        name="companyName"
-                        placeholder="Company Name"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="designation">Designation:</label>
-                      <input
-                        type="text"
-                        name="designation"
-                        placeholder="Designation"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="experience">Experience:</label>
-                      <input
-                        type="text"
-                        name="experience"
-                        placeholder="Experience in Years"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="startDate">Start Date:</label>
-                      <input
-                        type="date"
-                        name="startDate"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="endDate">End Date:</label>
-                      <input
-                        type="date"
-                        name="endDate"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div>
-                      <button
-                        type="submit"
-                        className="bg-[#ffb700] p-2 md:px-3 md:py-2"
-                      >
-                        Add Experience
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            {/* Education */}
-            <div className="flex flex-col gap-4 my-10">
-              <div className="flex flex-col md:flex-row md:items-start justify-betweeb gap-4 w-full">
-                <div className="flex flex-col gap-4 md:w-1/2">
-                  <h1 className="text-xl">Education</h1>
-                  <div className="flex flex-col gap-4">
-                    <div className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative w-full">
-                      <div className="p-2 bg-gray-500 rounded-full flex items-center justify-center absolute -right-2 -top-2">
-                        <FaXmark className="text-white" />
-                      </div>
-                      <h1 className="text-sm">
-                        Degree: BSc in Computer Science & Engineering
-                      </h1>
-                      <h1 className="text-sm">
-                        Institution: Daffodil International University
-                      </h1>
-                      <h1 className="text-sm">Duration: 4 Years</h1>
-                      <h1 className="text-sm">Passing Year: Apr 2019</h1>
-                    </div>
-                    <div className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative">
-                      <div className="p-2 bg-gray-500 rounded-full flex items-center justify-center absolute -right-2 -top-2">
-                        <FaXmark className="text-white" />
-                      </div>
-                      <h1 className="text-sm">
-                        Degree: BSc in Computer Science & Engineering
-                      </h1>
-                      <h1 className="text-sm">
-                        Institution: Daffodil International University
-                      </h1>
-                      <h1 className="text-sm">Duration: 4 Years</h1>
-                      <h1 className="text-sm">Passing Year: Apr 2019</h1>
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-1/2 flex flex-col gap-3">
-                  <h1 className="text-lg leading-3 underline">Add Education</h1>
-                  <form className="flex flex-col gap-2 items-center">
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="degree">Degree:</label>
-                      <input
-                        type="text"
-                        name="degree"
-                        placeholder="Degree"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="institution">Institution:</label>
-                      <input
-                        type="text"
-                        name="institution"
-                        placeholder="Institution"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="duration">Duration:</label>
-                      <input
-                        type="text"
-                        name="duration"
-                        placeholder="Duration in Years"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="form-control p-0 border-0">
-                      <label htmlFor="passingYear">Passing Year:</label>
-                      <input
-                        type="text"
-                        name="passingYear"
-                        placeholder="Passing Year"
-                        className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
-                      />
-                    </div>
-
-                    <div>
-                      <button
-                        type="submit"
-                        className="bg-[#ffb700] p-2 md:px-3 md:py-2"
-                      >
-                        Add Education
-                      </button>
-                    </div>
-                  </form>
-                </div>
               </div>
             </div>
           </div>
