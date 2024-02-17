@@ -14,11 +14,13 @@ import { BsQrCode } from "react-icons/bs";
 import { FaPersonCircleQuestion, FaMoneyCheckDollar } from "react-icons/fa6";
 import { TiEdit } from "react-icons/ti";
 import "./DashboardLayout.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
 import MobileBottomNav from "../components/shared/MobileBottomNav";
+import { AuthContext } from "../providers/AuthProvider";
 
 const DashboardLayout = () => {
+  const { user } = useContext(AuthContext);
   const [sidebarHidden, setSidebarHidden] = useState(true);
   const navigate = useNavigate();
   const dasboardRoute = window.location.pathname;
@@ -60,7 +62,7 @@ const DashboardLayout = () => {
       </li>
       <li>
         <NavLink
-          to="edit-profile"
+          to={`edit-profile/${user?.uid}`}
           className={({ isActive }) => isActive && "topNavActive"}
         >
           <div className="flex items-center gap-2">
