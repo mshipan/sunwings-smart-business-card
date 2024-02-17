@@ -50,6 +50,10 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+    getUserEducation: builder.query({
+      query: (uid) => `/users/${uid}/education`,
+      providesTags: ["users"],
+    }),
   }),
 });
 
@@ -61,4 +65,5 @@ export const {
   useUpdateAuserCoverPhotoMutation,
   useUpdateAuserAboutMeMutation,
   useUpdateAuserBasicInfoMutation,
+  useGetUserEducationQuery,
 } = usersApi;
