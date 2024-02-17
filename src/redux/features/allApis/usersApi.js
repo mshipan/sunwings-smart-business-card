@@ -6,6 +6,10 @@ const usersApi = baseApi.injectEndpoints({
       query: () => "/users",
       providesTags: ["users"],
     }),
+    getUserById: builder.query({
+      query: (id) => `/users/${id}`,
+      providesTags: ["users"],
+    }),
     createAuser: builder.mutation({
       query: (data) => ({
         url: "/users",
@@ -14,7 +18,20 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+    updateAuserProfilePicture: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/users/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useCreateAuserMutation } = usersApi;
+export const {
+  useGetUsersQuery,
+  useGetUserByIdQuery,
+  useCreateAuserMutation,
+  useUpdateAuserProfilePictureMutation,
+} = usersApi;

@@ -14,6 +14,10 @@ import DemoProfile from "../pages/profile/demo-profile/DemoProfile";
 import EditQrCode from "../pages/dashboard/EditQrCode";
 import SocialMedia from "../pages/dashboard/SocialMedia";
 import UserInquiry from "../pages/dashboard/UserInquiry";
+import Themes from "../pages/dashboard/Themes";
+import Gallery from "../pages/dashboard/Gallery";
+import Education from "../pages/dashboard/Education";
+import JobExperience from "../pages/dashboard/JobExperience";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +51,14 @@ const router = createBrowserRouter([
         element: <EditProfile />,
       },
       {
+        path: "education",
+        element: <Education />,
+      },
+      {
+        path: "job-experience",
+        element: <JobExperience />,
+      },
+      {
         path: "edit-qr-code",
         element: <EditQrCode />,
       },
@@ -57,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: "user-inquiries",
         element: <UserInquiry />,
+      },
+      {
+        path: "themes",
+        element: <Themes />,
+      },
+      {
+        path: "gallery",
+        element: <Gallery />,
       },
     ],
   },

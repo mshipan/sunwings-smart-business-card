@@ -1,11 +1,18 @@
 import logo from "../assets/images/info_card_logo.png";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdDashboard, MdMenu } from "react-icons/md";
-import { FaAddressCard, FaShareAltSquare } from "react-icons/fa";
-import { LuImagePlus } from "react-icons/lu";
+import {
+  FaAddressCard,
+  FaShareAltSquare,
+  FaImage,
+  FaBriefcase,
+  FaUserGraduate,
+} from "react-icons/fa";
+import { LuImagePlus, LuReceipt } from "react-icons/lu";
 import { RiProfileFill } from "react-icons/ri";
 import { BsQrCode } from "react-icons/bs";
-import { FaPersonCircleQuestion } from "react-icons/fa6";
+import { FaPersonCircleQuestion, FaMoneyCheckDollar } from "react-icons/fa6";
+import { TiEdit } from "react-icons/ti";
 import "./DashboardLayout.css";
 import { useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
@@ -64,6 +71,28 @@ const DashboardLayout = () => {
       </li>
       <li>
         <NavLink
+          to="education"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaUserGraduate />
+            <span>Education</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="job-experience"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaBriefcase />
+            <span>Job Experience</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="edit-qr-code"
           className={({ isActive }) => isActive && "topNavActive"}
         >
@@ -92,6 +121,50 @@ const DashboardLayout = () => {
           <div className="flex items-center gap-2">
             <FaPersonCircleQuestion />
             <span>User Inquiry</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="themes"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <TiEdit />
+            <span>Themes</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="gallery"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaImage />
+            <span>Gallery</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="plans"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaMoneyCheckDollar />
+            <span>Plans</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="transactions"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <LuReceipt />
+            <span>Transactions</span>
           </div>
         </NavLink>
       </li>
