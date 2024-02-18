@@ -4,13 +4,17 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaAddressBook } from "react-icons/fa6";
 import { FaAddressCard } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdDashboard } from "react-icons/md";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi";
 
 const Menu = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
+
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -50,16 +54,16 @@ const Menu = () => {
                 <li>
                   <Link className="btn1" to="/demo-card">
                     <span className="flex items-center justify-center gap-2">
-                      <FaAddressCard className="m_icon" />
-                      ডেমো কার্ড ডিজাইন
+                      <FaAddressCard className="text-[#ff8400] text-xl" />
+                      <small>ডেমো কার্ড ডিজাইন</small>
                     </span>
                   </Link>
                 </li>
                 <li>
                   <Link className="btn1" to="/order">
                     <span className="flex items-center justify-center gap-2">
-                      <FaCartShopping className="m_icon" />
-                      কার্ড অর্ডার করুন
+                      <FaCartShopping className="text-[#ff8400] text-xl" />
+                      <small>কার্ড অর্ডার করুন</small>
                     </span>
                   </Link>
                 </li>
@@ -72,18 +76,29 @@ const Menu = () => {
                 {user ? (
                   <>
                     <li>
-                      <Link className="btn1" to="/user-profile">
+                      <Link className="btn1" to="/dashboard">
                         <span className="flex items-center justify-center gap-2">
-                          <FaAddressBook className="m_icon" />
-                          প্রোফাইল দেখুন
+                          <MdDashboard className="text-[#ff8400] text-xl" />
+                          <small>ড্যাশবোর্ড</small>
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="btn1"
+                        to={`/user-profile/${singleUser?._id}`}
+                      >
+                        <span className="flex items-center justify-center gap-2">
+                          <FaAddressBook className="text-[#ff8400] text-xl" />
+                          <small>প্রোফাইল দেখুন</small>
                         </span>
                       </Link>
                     </li>
                     <li onClick={handleLogOut}>
                       <button className="btn1">
                         <span className="flex items-center justify-center gap-2">
-                          <MdLogout className="text-[#ff8400] text-2xl mr-[6px]" />
-                          লগ আউট
+                          <MdLogout className="text-[#ff8400] text-xl" />
+                          <small>লগ আউট</small>
                         </span>
                       </button>
                     </li>
@@ -93,16 +108,16 @@ const Menu = () => {
                     <li>
                       <Link className="btn1" to="/registration">
                         <span className="flex items-center justify-center gap-2">
-                          <FaAddressBook className="m_icon" />
-                          প্রোফাইল তৈরি করুন
+                          <FaAddressBook className="text-[#ff8400] text-xl" />
+                          <small>প্রোফাইল তৈরি করুন</small>
                         </span>
                       </Link>
                     </li>
                     <li>
                       <Link className="btn1" to="/login">
                         <span className="flex items-center justify-center gap-2">
-                          <RiLoginBoxFill className="m_icon" />
-                          লগইন করুন
+                          <RiLoginBoxFill className="text-[#ff8400] text-xl" />
+                          <small>লগইন করুন</small>
                         </span>
                       </Link>
                     </li>

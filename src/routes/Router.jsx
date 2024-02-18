@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <Education />,
       },
       {
-        path: "job-experience",
+        path: "job-experiences/:uid",
         element: <JobExperience />,
       },
       {
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
     element: <Order />,
   },
   {
-    path: "/user-profile",
+    path: "/user-profile/:id",
     element: <Profile />,
   },
   {

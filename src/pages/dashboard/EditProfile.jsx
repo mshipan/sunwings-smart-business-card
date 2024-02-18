@@ -424,8 +424,8 @@ const EditProfile = () => {
         </div>
       </div>
       {/* Modal */}
-      <dialog open={isModalOpen} className="modal z-50">
-        <div className="modal-box w-11/12 max-w-3xl bg-white">
+      <dialog open={isModalOpen} className="modal z-50 mt-10">
+        <div className="modal-box w-11/12 max-w-4xl bg-white rounded-none">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button
@@ -442,11 +442,22 @@ const EditProfile = () => {
               <h1 className="text-xl">Profile Picture</h1>
               <div className="flex flex-col items-center justify-center gap-2">
                 <div className="p-2 bg-gray-600 rounded-full">
-                  <img
-                    src={singleUser?.profileImage}
-                    alt="User Photo"
-                    className="rounded-full w-40 h-40"
-                  />
+                  {singleUser?.profileImage ? (
+                    <img
+                      src={singleUser?.profileImage}
+                      alt="User Photo"
+                      className="rounded-full w-40 h-40"
+                    />
+                  ) : (
+                    <div className="size-24 md:size-40 rounded-full flex items-center justify-center border border-solid border-black">
+                      <div className="flex flex-col items-center justify-center">
+                        <CiImageOff className="size-8" />
+                        <h1 className="text-sm text-center">
+                          No Profile Photo Added
+                        </h1>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <form
                   onSubmit={handleSubmit(onProfilePictureSubmit)}
@@ -478,11 +489,20 @@ const EditProfile = () => {
               <h1 className="text-xl">Cover Photo</h1>
               <div className="flex flex-col items-center justify-center gap-2">
                 <div className="w-full md:w-3/4">
-                  <img
-                    src={singleUser?.profileCover}
-                    alt="User Photo"
-                    className="w-full h-56"
-                  />
+                  {singleUser?.profileCover ? (
+                    <img
+                      src={singleUser?.profileCover}
+                      alt="User Photo"
+                      className="w-full h-56"
+                    />
+                  ) : (
+                    <div className="h-48 md:h-56 flex items-center justify-center border border-solid border-black">
+                      <div className="flex flex-col items-center">
+                        <CiImageOff className="size-16" />
+                        <h1 className="text-xl">No Cover Photo Added</h1>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <form
                   onSubmit={handleSubmit(onCoverPhotoSubmit)}
@@ -522,7 +542,7 @@ const EditProfile = () => {
                       cols="30"
                       rows="5"
                       defaultValue={singleUser?.aboutMe}
-                      className="border-2 border-gray-400"
+                      className="border-2 border-gray-400 p-1"
                     ></textarea>
                   </div>
 
@@ -543,7 +563,7 @@ const EditProfile = () => {
             <div className="flex flex-col gap-4 mb-2">
               <h1 className="text-xl">Basic Info</h1>
               <div className="flex flex-col items-center justify-center gap-2">
-                <p className="text-red-500 text-sm italic">
+                <p className="text-red-600 text-sm italic">
                   ** Please fill up all fields to update all data. Otherwise
                   some fields will be empty. **
                 </p>
