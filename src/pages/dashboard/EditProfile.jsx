@@ -4,7 +4,7 @@ import { CiImageOff } from "react-icons/ci";
 import PhoneInput from "react-phone-input-2";
 import { useForm } from "react-hook-form";
 import {
-  useGetUsersQuery,
+  useGetUserByUidQuery,
   useUpdateAuserAboutMeMutation,
   useUpdateAuserBasicInfoMutation,
   useUpdateAuserCoverPhotoMutation,
@@ -27,9 +27,8 @@ const EditProfile = () => {
   const img_host_url = `https://api.imgbb.com/1/upload?key=${img_host_token}`;
   const { register, handleSubmit, reset } = useForm();
 
-  const { data: allUsers } = useGetUsersQuery();
-
-  const singleUser = allUsers?.find((user) => user.uid === uid);
+  const { data: singleUser } = useGetUserByUidQuery(uid);
+  console.log(singleUser);
 
   const [updateProfilePicture] = useUpdateAuserProfilePictureMutation();
   const [updateProfileCover] = useUpdateAuserCoverPhotoMutation();
@@ -544,6 +543,10 @@ const EditProfile = () => {
             <div className="flex flex-col gap-4 mb-2">
               <h1 className="text-xl">Basic Info</h1>
               <div className="flex flex-col items-center justify-center gap-2">
+                <p className="text-red-500 text-sm italic">
+                  ** Please fill up all fields to update all data. Otherwise
+                  some fields will be empty. **
+                </p>
                 <form
                   onSubmit={handleSubmit(onBasicInfoSubmit)}
                   className="w-full md:w-2/3 flex flex-col gap-2 items-center"
@@ -730,12 +733,14 @@ const EditProfile = () => {
                       Language
                     </label>
                     <select
-                      name="preferedLanguage"
                       {...register("preferedLanguage")}
+                      name="preferedLanguage"
                       defaultValue={singleUser?.preferedLanguage}
                       className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500"
                     >
-                      <option value="">Select One</option>
+                      <option value="" disabled>
+                        Select One
+                      </option>
                       <option value="bangla">Bangla</option>
                       <option value="english">English</option>
                     </select>
