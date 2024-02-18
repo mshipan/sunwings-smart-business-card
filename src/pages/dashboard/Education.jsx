@@ -43,7 +43,7 @@ const Education = () => {
 
   const singleUserEducation = allEducation?.filter((edu) => edu.uid === uid);
   const [deleteEducation] = useDeleteEducationMutation();
-  const handleDelete = async (uid) => {
+  const handleDelete = async (_id) => {
     Swal.fire({
       title: `Are you sure to Delete this ?`,
       icon: "warning",
@@ -54,12 +54,16 @@ const Education = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const result = await deleteEducation({ uid: uid });
+          const result = await deleteEducation({ id: _id });
           if (result.data.deletedCount > 0) {
-            Swal.fire("Deleted!", "This package has been deleted.", "success");
+            Swal.fire(
+              "Deleted!",
+              "This education has been deleted.",
+              "success"
+            );
           }
         } catch (error) {
-          console.error("error deleting package", error);
+          console.error("error deleting education", error);
         }
       }
     });
@@ -73,11 +77,11 @@ const Education = () => {
             {singleUserEducation &&
               singleUserEducation.map((userEducation) => (
                 <div
-                  key={userEducation?.uid}
+                  key={userEducation?._id}
                   className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative w-full"
                 >
                   <div
-                    onClick={() => handleDelete(uid)}
+                    onClick={() => handleDelete(userEducation?._id)}
                     className="p-2 bg-gray-500 rounded-full flex items-center justify-center absolute -right-2 -top-2 cursor-pointer"
                   >
                     <FaXmark className="text-white" />

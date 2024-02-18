@@ -12,6 +12,7 @@ const baseApi = createApi({
     "pCardImg",
     "users",
     "education",
+    "jobExperience",
   ],
   endpoints: () => ({}),
 });
