@@ -1,6 +1,5 @@
 import "./Profile.css";
 import { Link } from "react-router-dom";
-import profileImage from "../../assets/images/demo/vismo-1.jpeg";
 import img1 from "../../assets/images/demo/5.jpeg";
 import img2 from "../../assets/images/demo/6.jpeg";
 import img3 from "../../assets/images/demo/7.jpeg";
@@ -28,20 +27,67 @@ import {
 } from "react-icons/fa";
 
 import { TbWorldWww } from "react-icons/tb";
+import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useGetAllEducationQuery } from "../../redux/features/allApis/educationApi";
+import { useGetAllJobExperienceQuery } from "../../redux/features/allApis/jobExperienceApi";
 const Profile = () => {
+  const { user } = useContext(AuthContext);
+
+  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
+  const { data: allEducations } = useGetAllEducationQuery();
+  const { data: allExperiences } = useGetAllJobExperienceQuery();
+
+  const singleUserEducations = allEducations?.filter(
+    (edu) => edu.uid === singleUser?.uid
+  );
+
+  const singleUserExperiences = allExperiences?.filter(
+    (exp) => exp.uid === singleUser?.uid
+  );
+
+  const formatDate = (date) => {
+    if (!date) {
+      return "Present";
+    }
+    const dateObj = new Date(date);
+    const day = dateObj.getDate();
+    const month = dateObj.toLocaleString("default", { month: "short" });
+    const year = dateObj.getFullYear();
+
+    // Determine the suffix for the day
+    let suffix;
+    if (day === 1 || day === 21 || day === 31) {
+      suffix = "st";
+    } else if (day === 2 || day === 22) {
+      suffix = "nd";
+    } else if (day === 3 || day === 23) {
+      suffix = "rd";
+    } else {
+      suffix = "th";
+    }
+
+    return `${day}${suffix} ${month} ${year}`;
+  };
+
   return (
     <section className="profile_demo1_area">
       <div className="container">
         <div className="our-team">
           {/* <!-- profile picture --> */}
           <div className="picture">
-            <img className="img-fluid" src={profileImage} />
+            <img
+              src={singleUser?.profileImage}
+              alt="User Photo"
+              className="size-24 md:size-40 rounded-full"
+            />
           </div>
 
           {/* <!-- team content --> */}
           <div className="team-content">
-            <h3 className="name">Vismo Dev</h3>
-            <h4 className="title">Expert Web Designer</h4>
+            <h3 className="name">{singleUser?.name}</h3>
+            <h4 className="title">{singleUser?.designation}</h4>
           </div>
 
           {/* <!-- star social icon --> */}
@@ -72,13 +118,7 @@ const Profile = () => {
           {/* <!-- about --> */}
           <div className="about_text">
             <h2 className="text_26">About</h2>
-            <p>
-              I&apos;m Front End Developer, Working with Frontend 3+ years
-              experience, I Love to help others. My Great skills in HTML5, CSS3,
-              Bootstrap 5, JavaScript, jQuery, php, MySQL and Laravel. My code
-              fully Responsive, Cross Browser Supported and 100% W3C Validated.
-              I would love to do creative ideas to implement in the real world.
-            </p>
+            <p>{singleUser?.aboutMe}</p>
           </div>
 
           {/* <!-- start contact & skills --> */}
@@ -202,23 +242,45 @@ const Profile = () => {
                   <li>Git</li>
                 </ul>
               </div>
+              {/* <!-- Education --> */}
+              {singleUserEducations && singleUserEducations.length > 0 && (
+                <div className="job_experience contact_info">
+                  <h2 className="text_26">Education</h2>
+                  <div className="flex flex-col gap-4">
+                    {singleUserEducations?.map((education) => (
+                      <ul key={education._id}>
+                        <li>Degree : {education?.degree}</li>
+                        <li>Institution : {education?.institution}</li>
+                        <li>Duration : {education?.duration} Years</li>
+                        <li>Passing Year : {education?.passingYear} </li>
+                      </ul>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* <!-- Job Experience --> */}
-              <div className="job_experience contact_info">
-                <h2 className="text_26">Job Experience</h2>
-                <ul>
-                  <li>Company : SunWings Tours and Travels</li>
-                  <li>Designation : Expert Web Designer</li>
-                  <li>Duration : Jan 2023 - Jul 2024</li>
-                </ul>
-              </div>
-              {/* <!-- Job Experience --> */}
-              <div className="job_experience contact_info">
-                <ul>
-                  <li>Company : ABC Company</li>
-                  <li>Designation : Expert Web Designer</li>
-                  <li>Duration : Jan 2021 - Jul 2022</li>
-                </ul>
-              </div>
+              {singleUserExperiences && singleUserExperiences.length > 0 && (
+                <div className="job_experience contact_info">
+                  <h2 className="text_26">Job Experience</h2>
+                  <div className="flex flex-col gap-4">
+                    {singleUserExperiences?.map((experience) => (
+                      <ul key={experience._id}>
+                        <li>Company : {experience?.companyName}</li>
+                        <li>Designation : {experience?.designation}</li>
+                        <li>Experience : {experience?.experience} </li>
+                        <li>
+                          Duration : {formatDate(experience?.startDate)} -{" "}
+                          {experience.endDate &&
+                          /\d{4}-\d{2}-\d{2}/.test(experience.endDate)
+                            ? formatDate(experience.endDate)
+                            : "Present"}{" "}
+                        </li>
+                      </ul>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           {/* <!-- end contact & skills --> */}

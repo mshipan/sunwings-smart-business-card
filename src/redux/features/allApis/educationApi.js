@@ -15,8 +15,8 @@ const educationApi = baseApi.injectEndpoints({
       invalidatesTags: ["education"],
     }),
     deleteEducation: builder.mutation({
-      query: ({ uid }) => ({
-        url: `/educations/${uid}`,
+      query: ({ id }) => ({
+        url: `/educations/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["education"],
