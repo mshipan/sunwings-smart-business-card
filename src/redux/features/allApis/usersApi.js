@@ -6,8 +6,8 @@ const usersApi = baseApi.injectEndpoints({
       query: () => "/users",
       providesTags: ["users"],
     }),
-    getUserById: builder.query({
-      query: (id) => `/users/${id}`,
+    getUserByUid: builder.query({
+      query: (uid) => `/users/${uid}`,
       providesTags: ["users"],
     }),
     createAuser: builder.mutation({
@@ -59,7 +59,7 @@ const usersApi = baseApi.injectEndpoints({
 
 export const {
   useGetUsersQuery,
-  useGetUserByIdQuery,
+  useGetUserByUidQuery,
   useCreateAuserMutation,
   useUpdateAuserProfilePictureMutation,
   useUpdateAuserCoverPhotoMutation,
