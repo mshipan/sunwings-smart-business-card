@@ -11,6 +11,13 @@ import DemoCard from "../pages/DemoCard";
 import Profile from "../pages/profile/Profile";
 import EditProfile from "../pages/dashboard/EditProfile";
 import DemoProfile from "../pages/profile/demo-profile/DemoProfile";
+import EditQrCode from "../pages/dashboard/EditQrCode";
+import SocialMedia from "../pages/dashboard/SocialMedia";
+import UserInquiry from "../pages/dashboard/UserInquiry";
+import Themes from "../pages/dashboard/Themes";
+import Gallery from "../pages/dashboard/Gallery";
+import Education from "../pages/dashboard/Education";
+import JobExperience from "../pages/dashboard/JobExperience";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +47,36 @@ const router = createBrowserRouter([
         element: <AllCards />,
       },
       {
-        path: "edit-profile",
+        path: "edit-profile/:uid",
         element: <EditProfile />,
+      },
+      {
+        path: "education/:uid",
+        element: <Education />,
+      },
+      {
+        path: "job-experiences/:uid",
+        element: <JobExperience />,
+      },
+      {
+        path: "edit-qr-code",
+        element: <EditQrCode />,
+      },
+      {
+        path: "social-media",
+        element: <SocialMedia />,
+      },
+      {
+        path: "user-inquiries",
+        element: <UserInquiry />,
+      },
+      {
+        path: "themes",
+        element: <Themes />,
+      },
+      {
+        path: "gallery",
+        element: <Gallery />,
       },
     ],
   },
@@ -58,7 +93,7 @@ const router = createBrowserRouter([
     element: <Order />,
   },
   {
-    path: "/user-profile",
+    path: "/user-profile/:id",
     element: <Profile />,
   },
   {

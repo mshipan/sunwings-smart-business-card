@@ -1,15 +1,26 @@
 import logo from "../assets/images/info_card_logo.png";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdDashboard, MdMenu } from "react-icons/md";
-import { FaAddressCard } from "react-icons/fa";
-import { LuImagePlus } from "react-icons/lu";
+import {
+  FaAddressCard,
+  FaShareAltSquare,
+  FaImage,
+  FaBriefcase,
+  FaUserGraduate,
+} from "react-icons/fa";
+import { LuImagePlus, LuReceipt } from "react-icons/lu";
 import { RiProfileFill } from "react-icons/ri";
+import { BsQrCode } from "react-icons/bs";
+import { FaPersonCircleQuestion, FaMoneyCheckDollar } from "react-icons/fa6";
+import { TiEdit } from "react-icons/ti";
 import "./DashboardLayout.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import vismo from "../assets/images/vismo.jpg";
 import MobileBottomNav from "../components/shared/MobileBottomNav";
+import { AuthContext } from "../providers/AuthProvider";
 
 const DashboardLayout = () => {
+  const { user } = useContext(AuthContext);
   const [sidebarHidden, setSidebarHidden] = useState(true);
   const navigate = useNavigate();
   const dasboardRoute = window.location.pathname;
@@ -51,12 +62,111 @@ const DashboardLayout = () => {
       </li>
       <li>
         <NavLink
-          to="edit-profile"
+          to={`edit-profile/${user?.uid}`}
           className={({ isActive }) => isActive && "topNavActive"}
         >
           <div className="flex items-center gap-2">
             <RiProfileFill />
             <span>Edit Profile</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={`education/${user?.uid}`}
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaUserGraduate />
+            <span>Education</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={`job-experiences/${user?.uid}`}
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaBriefcase />
+            <span>Job Experience</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="edit-qr-code"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <BsQrCode />
+            <span>QR Code</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="social-media"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaShareAltSquare />
+            <span>Social Media</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="user-inquiries"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaPersonCircleQuestion />
+            <span>User Inquiry</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="themes"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <TiEdit />
+            <span>Themes</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="gallery"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaImage />
+            <span>Gallery</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="plans"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <FaMoneyCheckDollar />
+            <span>Plans</span>
+          </div>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="transactions"
+          className={({ isActive }) => isActive && "topNavActive"}
+        >
+          <div className="flex items-center gap-2">
+            <LuReceipt />
+            <span>Transactions</span>
           </div>
         </NavLink>
       </li>
@@ -99,7 +209,7 @@ const DashboardLayout = () => {
         {/* <!-- CONTENT --> */}
         <section id="content" className={sidebarHidden ? "expanded" : ""}>
           {/* <!-- NAVBAR --> */}
-          <nav className="flex items-center justify-between">
+          <nav className="flex items-center justify-between z-10">
             <MdMenu
               className="bx bx-menu text-4xl md:text-2xl"
               onClick={handleSidebarToggle}

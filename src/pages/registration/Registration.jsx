@@ -77,6 +77,7 @@ const Registration = () => {
             updateUserProfile(data.fullName, data.profileImage, data.phone)
               .then(() => {
                 const newUser = {
+                  uid: loggedUser.uid,
                   name: data.fullName,
                   email: data.email,
                   phone: data.phone,
@@ -154,15 +155,6 @@ const Registration = () => {
       });
     }
   };
-
-  // const {
-  //   fields: socialMediaFields,
-  //   append: appendSocialMedia,
-  //   remove: removeSocialMedia,
-  // } = useFieldArray({
-  //   control,
-  //   name: "socialMedia",
-  // });
 
   return (
     <div>
@@ -373,113 +365,6 @@ const Registration = () => {
                             <option value="english">English</option>
                           </select>
                         </div>
-
-                        {/* social media */}
-                        {/* <div className="form-control border-0 p-0">
-                          <label htmlFor="socialMedia" className="fieldlabels">
-                            Social Media Links:{" "}
-                            <span className="text-red-600 mr-1">*</span>
-                          </label>
-
-                          {errors.socialMedia && errors.socialMedia[0] && (
-                            <span className="text-red-600 text-sm italic">
-                              {errors.socialMedia[0]?.link?.type ===
-                                "required" && "This field is required."}
-                            </span>
-                          )}
-
-                          {errors.socialMedia &&
-                            errors.socialMedia[0]?.link?.type === "pattern" && (
-                              <span className="text-red-600 text-sm italic">
-                                Invalid URL format
-                              </span>
-                            )}
-
-                          <div className="flex items-center gap-2 mb-1">
-                            <input
-                              type="text"
-                              name={`socialMedia[0].link`}
-                              placeholder={`SocialMedia 1`}
-                              {...register(`socialMedia[0].link`, {
-                                required: true,
-                                pattern: {
-                                  value: /^(ftp|http|https):\/\/[^ "]+$/,
-                                  message: "Invalid URL format",
-                                },
-                              })}
-                              className="m-0"
-                            />
-
-                            Button to remove the first social media input field disabled initially
-                            <button
-                              type="button"
-                              onClick={() => removeSocialMedia(0)}
-                              className="border border-[#131D4E] p-2 "
-                              title="Remove"
-                              disabled={socialMediaFields.length === 1} 
-                              Disable if there's only one social media field
-                            >
-                              <FaXmark className="text-[#131D4E] text-lg" />
-                            </button>
-                          </div>
-
-                          <div className="grid grid-cols-1 gap-1 form-control border-0 p-0">
-                            {socialMediaFields.slice(1).map((field, index) => (
-                              <div key={field.id}>
-                                {errors.socialMedia &&
-                                  errors.socialMedia[index] && (
-                                    <span className="text-red-600 text-sm italic">
-                                      This field is required.
-                                    </span>
-                                  )}
-
-                                <div className="flex flex-col justify-between gap-3">
-                                  <div className="flex items-center gap-2">
-                                    <input
-                                      type="text"
-                                      name={`socialMedia[${index + 1}].link`}
-                                      placeholder={`SocialMedia ${index + 2}`}
-                                      defaultValue={field.socialMedia}
-                                      className="m-0"
-                                      {...register(
-                                        `socialMedia[${index + 1}].link`,
-                                        {
-                                          required: true,
-                                          pattern: {
-                                            value:
-                                              /^(ftp|http|https):\/\/[^ "]+$/,
-                                            message: "Invalid URL format",
-                                          },
-                                        }
-                                      )}
-                                    />
-
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        removeSocialMedia(index + 1)
-                                      }
-                                      className="border border-[#131D4E] p-2 "
-                                      title="Remove"
-                                    >
-                                      <FaXmark className="text-[#131D4E] text-lg" />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => appendSocialMedia({ link: "" })}
-                          className="p-1 mt-3 bg-[#ff7c15] hover:bg-[#e47d2d] text-white"
-                          title="Add more"
-                        >
-                          <BiSolidPlusCircle className="text-black text-lg inline-block" />{" "}
-                          Add more
-                        </button> */}
                       </div>
                       <input
                         type="button"

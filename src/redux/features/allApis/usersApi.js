@@ -6,6 +6,10 @@ const usersApi = baseApi.injectEndpoints({
       query: () => "/users",
       providesTags: ["users"],
     }),
+    getUserByUid: builder.query({
+      query: (uid) => `/users/${uid}`,
+      providesTags: ["users"],
+    }),
     createAuser: builder.mutation({
       query: (data) => ({
         url: "/users",
@@ -14,7 +18,52 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+    updateAuserProfilePicture: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/profile-image`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateAuserCoverPhoto: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/profile-cover`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateAuserAboutMe: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/about-me`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateAuserBasicInfo: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/basic-info`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    getUserEducation: builder.query({
+      query: (uid) => `/users/${uid}/education`,
+      providesTags: ["users"],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useCreateAuserMutation } = usersApi;
+export const {
+  useGetUsersQuery,
+  useGetUserByUidQuery,
+  useCreateAuserMutation,
+  useUpdateAuserProfilePictureMutation,
+  useUpdateAuserCoverPhotoMutation,
+  useUpdateAuserAboutMeMutation,
+  useUpdateAuserBasicInfoMutation,
+  useGetUserEducationQuery,
+} = usersApi;
