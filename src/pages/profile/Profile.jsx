@@ -32,6 +32,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useGetAllEducationQuery } from "../../redux/features/allApis/educationApi";
 import { useGetAllJobExperienceQuery } from "../../redux/features/allApis/jobExperienceApi";
+import { Accordion } from "react-bootstrap";
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
@@ -127,104 +128,130 @@ const Profile = () => {
               {/* <!-- Contact --> */}
               <div className="contact_info">
                 <h2 className="text_26">Contact</h2>
-                <ul className="contact">
-                  <li>
-                    <Link to="javascript:void(0)">
-                      <div className="flex flex-row items-center">
+
+                <div className="visiting_faq">
+                  <Accordion>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
                         <FaPhone className="demo_icon" />
-                        +880-1737-300000
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://mail.google.com/mail/" target="_blank">
-                      <div className="flex flex-row items-center">
+                        Phone 
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        +880 173 7351 549
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="1">
+                      <Accordion.Header>
                         <FaEnvelope className="demo_icon" />
+                        Email
+                      </Accordion.Header>
+                      <Accordion.Body>
                         example0000@gmail.com
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://www.facebook.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="2">
+                      <Accordion.Header>
                         <FaFacebook className="demo_icon" />
                         Facebook
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://web.whatsapp.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.facebook.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="3">
+                      <Accordion.Header>
                         <FaWhatsapp className="demo_icon" />
                         WhatsApp
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://www.linkedin.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.whatsapp.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="4">
+                      <Accordion.Header>
                         <FaLinkedin className="demo_icon" />
                         Linkedin
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://twitter.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.linkedin.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="5">
+                      <Accordion.Header>
                         <FaTwitter className="demo_icon" />
                         Twitter
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://www.instagram.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.twitter.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="6">
+                      <Accordion.Header>
                         <FaInstagram className="demo_icon" />
                         Instagram
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://www.youtube.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.instagram.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="7">
+                      <Accordion.Header>
                         <FaYoutube className="demo_icon" />
                         YouTube
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://www.tiktok.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.YouTube.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="8">
+                      <Accordion.Header>
                         <FaTiktok className="demo_icon" />
                         Tiktok
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://accounts.snapchat.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.Tiktok.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="9">
+                      <Accordion.Header>
                         <FaSnapchat className="demo_icon" />
                         Snapchat
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://accounts.snapchat.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.Snapchat.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="10">
+                      <Accordion.Header>
                         <TbWorldWww className="demo_icon" />
                         Website
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="https://accounts.snapchat.com/" target="_blank">
-                      <div className="flex flex-row items-center">
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www.Website.com
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item eventKey="11">
+                      <Accordion.Header>
                         <FaMapMarkerAlt className="demo_icon" />
                         Location
-                      </div>
-                    </Link>
-                  </li>
-                </ul>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        https://www..com
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                </div>
               </div>
             </div>
 
