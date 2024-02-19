@@ -1,18 +1,21 @@
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { BiSolidPlusCircle } from "react-icons/bi";
 import { FaTiktok } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import {
+  useCreateTiktokLinkMutation,
+  useDeleteTiktokLinkMutation,
+  useGetAllTiktokLinksQuery,
+} from "../../../redux/features/allApis/socialMediaApi/tiktokApi";
+import Swal from "sweetalert2";
 
-const TikTok = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    control,
-    formState: { errors },
-  } = useForm();
+const TikTok = ({ uid }) => {
+  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit, reset, control } = useForm();
+  const { data: allTiktok } = useGetAllTiktokLinksQuery();
+  const [createTiktokLink] = useCreateTiktokLinkMutation();
 
   const {
     fields: tiktok,
@@ -22,9 +25,68 @@ const TikTok = () => {
     control,
     name: "tiktok",
   });
+
+  const onSubmit = async (data) => {
+    data.uid = uid;
+    try {
+      setLoading(true);
+      const result = await createTiktokLink(data);
+
+      if (result.data) {
+        Swal.fire({
+          title: "Link Added Successfully!",
+          text: "Press OK to continue",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        reset();
+        setLoading(false);
+      } else {
+        Swal.fire({
+          title: "Link Added Failed!",
+          text: "Press OK to continue",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred", error);
+      setLoading(false);
+    }
+  };
+
+  const singleUserTiktok = allTiktok?.filter((tik) => tik.uid === uid);
+
+  const [deleteTiktok] = useDeleteTiktokLinkMutation();
+
+  const handleDelete = async (_id, index) => {
+    Swal.fire({
+      title: `Are you sure to Delete this ?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const result = await deleteTiktok({ id: _id, index: index });
+          if (result.data.deletedCount > 0) {
+            Swal.fire("Deleted!", "This Link has been deleted.", "success");
+          }
+        } catch (error) {
+          console.error("error deleting Link", error);
+        }
+      }
+    });
+  };
   return (
     <div className="flex flex-col md:flex-row items-start gap-4">
-      <form className="flex flex-col gap-4 w-full">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 w-full"
+      >
         <div className="flex items-center justify-between">
           <h1 className="text-xl">Tiktok Profiles</h1>
           <button
@@ -45,6 +107,7 @@ const TikTok = () => {
                   <input
                     type="text"
                     name={`tiktok[0].link`}
+                    {...register(`tiktok[0].link`)}
                     placeholder={`Tiktok Link 1`}
                     className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500 w-full"
                   />
@@ -71,6 +134,7 @@ const TikTok = () => {
                           <input
                             type="text"
                             name={`tiktok[${index + 1}].link`}
+                            {...register(`tiktok[${index + 1}].link`)}
                             placeholder={`Tiktok Link ${index + 2}`}
                             defaultValue={field.tiktok}
                             className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500 w-full "
@@ -94,7 +158,7 @@ const TikTok = () => {
 
             <div>
               <button type="submit" className="bg-gray-300 md:px-10 md:py-2">
-                Save
+                {loading ? "Uploading..." : "Upload"}
               </button>
             </div>
           </div>
@@ -105,30 +169,39 @@ const TikTok = () => {
           Tiktok Profiles:
         </h1>
         <div className="w-full flex flex-col gap-2">
-          <div className="flex items-center rounded-full w-full bg-white">
-            <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-              <FaTiktok className="text-white" size={25} />
-            </div>
-            <div className="">
-              <Link to="">https://www.tiktok...</Link>
-            </div>
-          </div>
-          <div className="flex items-center rounded-full w-full bg-white">
-            <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-              <FaTiktok className="text-white" size={25} />
-            </div>
-            <div className="">
-              <Link to="">https://www.tiktok...</Link>
-            </div>
-          </div>
-          <div className="flex items-center rounded-full w-full bg-white">
-            <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-              <FaTiktok className="text-white" size={25} />
-            </div>
-            <div className="">
-              <Link to="">https://www.tiktok...</Link>
-            </div>
-          </div>
+          {singleUserTiktok &&
+            singleUserTiktok?.map((ti) =>
+              ti?.tiktok?.map((t, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between rounded-full w-full bg-white pr-2"
+                >
+                  <div className="flex items-center ">
+                    <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
+                      <FaTiktok className="text-white" size={25} />
+                    </div>
+                    <div className="">
+                      <Link
+                        to={
+                          t.link.startsWith("http")
+                            ? t.link
+                            : `http://${t.link}`
+                        }
+                      >
+                        {typeof t.link === "string" ? t.link.slice(0, 35) : ""}
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => handleDelete(ti._id, index)}
+                    className="border-2 border-black rounded-full cursor-pointer"
+                  >
+                    <FaXmark />
+                  </div>
+                </div>
+              ))
+            )}
         </div>
       </div>
     </div>

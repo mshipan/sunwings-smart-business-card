@@ -106,7 +106,7 @@ const DashboardLayout = () => {
       </li>
       <li>
         <NavLink
-          to="social-media"
+          to={`social-media/${user?.uid}`}
           className={({ isActive }) => isActive && "topNavActive"}
         >
           <div className="flex items-center gap-2">

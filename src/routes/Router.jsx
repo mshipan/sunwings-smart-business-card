@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         element: <EditQrCode />,
       },
       {
-        path: "social-media",
+        path: "social-media/:uid",
         element: <SocialMedia />,
       },
       {
