@@ -2,30 +2,22 @@ import baseApi from "../../baseApi";
 
 const tiktokApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllTiktokLinks: builder.query({
-      query: () => "/tiktok",
-      providesTags: ["tiktok"],
-    }),
-    createTiktokLink: builder.mutation({
-      query: (data) => ({
-        url: "/tiktok",
+    createTiktok: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/tiktok`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["tiktok"],
+      invalidatesTags: ["users"],
     }),
-    deleteTiktokLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/tiktok/${id}/${index}`,
+    deleteTiktok: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/tiktok/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["tiktok"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllTiktokLinksQuery,
-  useCreateTiktokLinkMutation,
-  useDeleteTiktokLinkMutation,
-} = tiktokApi;
+export const { useCreateTiktokMutation, useDeleteTiktokMutation } = tiktokApi;

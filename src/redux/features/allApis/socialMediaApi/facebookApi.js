@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const facebookApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllFacebookLinks: builder.query({
-      query: () => "/facebook",
-      providesTags: ["facebook"],
-    }),
-    createFacebookLink: builder.mutation({
-      query: (data) => ({
-        url: "/facebook",
+    createFacebook: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/facebook`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["facebook"],
+      invalidatesTags: ["users"],
     }),
-    deleteFacebookLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/facebook/${id}/${index}`,
+    deleteFacebook: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/facebook/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["facebook"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllFacebookLinksQuery,
-  useCreateFacebookLinkMutation,
-  useDeleteFacebookLinkMutation,
-} = facebookApi;
+export const { useCreateFacebookMutation, useDeleteFacebookMutation } =
+  facebookApi;

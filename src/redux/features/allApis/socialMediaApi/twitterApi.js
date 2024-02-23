@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const twitterApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllTwitterLinks: builder.query({
-      query: () => "/twitter",
-      providesTags: ["twitter"],
-    }),
-    createTwitterLink: builder.mutation({
-      query: (data) => ({
-        url: "/twitter",
+    createTwitter: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/twitter`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["twitter"],
+      invalidatesTags: ["users"],
     }),
-    deleteTwitterLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/twitter/${id}/${index}`,
+    deleteTwitter: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/twitter/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["twitter"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllTwitterLinksQuery,
-  useCreateTwitterLinkMutation,
-  useDeleteTwitterLinkMutation,
-} = twitterApi;
+export const { useCreateTwitterMutation, useDeleteTwitterMutation } =
+  twitterApi;

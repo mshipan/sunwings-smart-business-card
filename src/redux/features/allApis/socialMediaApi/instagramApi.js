@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const instagramApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllInstagramLinks: builder.query({
-      query: () => "/instagram",
-      providesTags: ["instagram"],
-    }),
-    createInstagramLink: builder.mutation({
-      query: (data) => ({
-        url: "/instagram",
+    createInstagram: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/instagram`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["instagram"],
+      invalidatesTags: ["users"],
     }),
-    deleteInstagramLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/instagram/${id}/${index}`,
+    deleteInstagram: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/instagram/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["instagram"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllInstagramLinksQuery,
-  useCreateInstagramLinkMutation,
-  useDeleteInstagramLinkMutation,
-} = instagramApi;
+export const { useCreateInstagramMutation, useDeleteInstagramMutation } =
+  instagramApi;

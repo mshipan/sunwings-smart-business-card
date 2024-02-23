@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const snapChatApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllSnapChatLinks: builder.query({
-      query: () => "/snapchat",
-      providesTags: ["snapchat"],
-    }),
-    createSnapChatLink: builder.mutation({
-      query: (data) => ({
-        url: "/snapchat",
+    createSnapchat: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/snapchat`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["snapchat"],
+      invalidatesTags: ["users"],
     }),
-    deleteSnapChatLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/snapchat/${id}/${index}`,
+    deleteSnapchat: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/snapchat/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["snapchat"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllSnapChatLinksQuery,
-  useCreateSnapChatLinkMutation,
-  useDeleteSnapChatLinkMutation,
-} = snapChatApi;
+export const { useCreateSnapchatMutation, useDeleteSnapchatMutation } =
+  snapChatApi;

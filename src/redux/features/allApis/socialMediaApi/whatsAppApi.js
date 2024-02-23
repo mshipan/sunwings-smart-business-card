@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const whatsAppApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllWhatsAppLinks: builder.query({
-      query: () => "/whatsapp",
-      providesTags: ["whatsApp"],
-    }),
-    createWhatsAppLink: builder.mutation({
-      query: (data) => ({
-        url: "/whatsapp",
+    createWhatsApp: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/whatsapp`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["whatsApp"],
+      invalidatesTags: ["users"],
     }),
-    deleteWhatsAppLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/whatsapp/${id}/${index}`,
+    deleteWhatsApp: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/whatsapp/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["whatsApp"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllWhatsAppLinksQuery,
-  useCreateWhatsAppLinkMutation,
-  useDeleteWhatsAppLinkMutation,
-} = whatsAppApi;
+export const { useCreateWhatsAppMutation, useDeleteWhatsAppMutation } =
+  whatsAppApi;

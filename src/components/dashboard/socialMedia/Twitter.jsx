@@ -1,35 +1,30 @@
 import { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import { BiSolidPlusCircle } from "react-icons/bi";
+import { useForm } from "react-hook-form";
 import { FaTwitter } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import {
-  useCreateTwitterLinkMutation,
-  useDeleteTwitterLinkMutation,
-  useGetAllTwitterLinksQuery,
+  useCreateTwitterMutation,
+  useDeleteTwitterMutation,
 } from "../../../redux/features/allApis/socialMediaApi/twitterApi";
 import Swal from "sweetalert2";
+import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi";
 
 const Twitter = ({ uid }) => {
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, reset, control } = useForm();
-  const { data: allTwitter } = useGetAllTwitterLinksQuery();
-  const [createTwitterLink] = useCreateTwitterLinkMutation();
   const {
-    fields: twitter,
-    append: appendTwitter,
-    remove: removeTwitter,
-  } = useFieldArray({
-    control,
-    name: "twitter",
-  });
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [createTwitterLink] = useCreateTwitterMutation();
+  const { data: singleUser } = useGetUserByUidQuery(uid);
 
   const onSubmit = async (data) => {
-    data.uid = uid;
     try {
       setLoading(true);
-      const result = await createTwitterLink(data);
+      const result = await createTwitterLink({ uid: uid, data: data });
 
       if (result.data) {
         Swal.fire({
@@ -55,11 +50,9 @@ const Twitter = ({ uid }) => {
     }
   };
 
-  const singleUserTwitter = allTwitter?.filter((twi) => twi.uid === uid);
+  const [deleteTwitter] = useDeleteTwitterMutation();
 
-  const [deleteTwitter] = useDeleteTwitterLinkMutation();
-
-  const handleDelete = async (_id, index) => {
+  const handleDelete = async (_id) => {
     Swal.fire({
       title: `Are you sure to Delete this ?`,
       icon: "warning",
@@ -70,12 +63,17 @@ const Twitter = ({ uid }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const result = await deleteTwitter({ id: _id, index: index });
-          if (result.data.deletedCount > 0) {
+          const result = await deleteTwitter({ uid: uid, id: _id });
+          if (result.data.message === "Twitter link deleted successfully") {
             Swal.fire("Deleted!", "This Link has been deleted.", "success");
           }
         } catch (error) {
-          console.error("error deleting Link", error);
+          console.error("Error deleting Link", error);
+          Swal.fire(
+            "Error",
+            "An error occurred while deleting the link.",
+            "error"
+          );
         }
       }
     });
@@ -89,15 +87,6 @@ const Twitter = ({ uid }) => {
       >
         <div className="flex items-center justify-between">
           <h1 className="text-xl">Twitter Profiles</h1>
-          <button
-            type="button"
-            onClick={() => appendTwitter({ link: "" })}
-            className="p-1 bg-[#ff7c15] hover:bg-[#e47d2d] text-white"
-            title="Add more"
-          >
-            <BiSolidPlusCircle className="text-black text-lg inline-block" />{" "}
-            Add more
-          </button>
         </div>
         <div className="flex flex-col items-start justify-center gap-2 w-full">
           <div className="w-full flex flex-col gap-2 items-start">
@@ -106,53 +95,24 @@ const Twitter = ({ uid }) => {
                 <div className="form-control border-0 p-0 w-full">
                   <input
                     type="text"
-                    name={`twitter[0].link`}
-                    {...register(`twitter[0].link`)}
-                    placeholder={`Twitter Link 1`}
+                    name="twitter"
+                    {...register("twitter", {
+                      required: "Twitter link is required.",
+                      pattern: {
+                        value:
+                          /^(https?:\/\/)?(www\.)?(twitter\.com|x\.com)\/[a-zA-Z0-9(\.\?)?]/,
+                        message: "Please enter a valid Twitter link.",
+                      },
+                    })}
+                    placeholder="Twitter Link"
                     className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500 w-full"
                   />
+                  {errors.twitter && (
+                    <p className="text-red-500 text-xs">
+                      {errors.twitter.message}
+                    </p>
+                  )}
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => removeTwitter(0)}
-                  className="border-2 border-solid border-yellow-400 p-2 hover:bg-white transition-all ease-in-out duration-300"
-                  title="Remove"
-                  disabled={twitter.length === 1}
-                  // Disable if there's only one social media field
-                >
-                  <FaXmark className="text-[#131D4E] text-lg" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 gap-1">
-                {twitter.slice(1).map((field, index) => (
-                  <div key={field.id}>
-                    <div className="flex flex-col justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <div className="form-control border-0 p-0">
-                          <input
-                            type="text"
-                            name={`twitter[${index + 1}].link`}
-                            placeholder={`Twitter Link ${index + 2}`}
-                            {...register(`twitter[${index + 1}].link`)}
-                            defaultValue={field.twitter}
-                            className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500 w-full "
-                          />
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => removeTwitter(index + 1)}
-                          className="border-2 border-solid border-yellow-400 p-2 hover:bg-white transition-all ease-in-out duration-300 "
-                          title="Remove"
-                        >
-                          <FaXmark className="text-[#131D4E] text-lg" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
 
@@ -170,39 +130,38 @@ const Twitter = ({ uid }) => {
           Twitter Profiles:
         </h1>
         <div className="w-full flex flex-col gap-2">
-          {singleUserTwitter &&
-            singleUserTwitter?.map((tw) =>
-              tw?.twitter?.map((t, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between rounded-full w-full bg-white pr-2"
-                >
-                  <div className="flex items-center ">
-                    <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-                      <FaTwitter className="text-white" size={25} />
-                    </div>
-                    <div className="">
-                      <Link
-                        to={
-                          t.link.startsWith("http")
-                            ? t.link
-                            : `http://${t.link}`
-                        }
-                      >
-                        {typeof t.link === "string" ? t.link.slice(0, 35) : ""}
-                      </Link>
-                    </div>
+          {singleUser &&
+            singleUser?.twitter?.map((tw, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between rounded-full w-full bg-white pr-2"
+              >
+                <div className="flex items-center">
+                  <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
+                    <FaTwitter className="text-white" size={25} />
                   </div>
-
-                  <div
-                    onClick={() => handleDelete(tw._id, index)}
-                    className="border-2 border-black rounded-full cursor-pointer"
-                  >
-                    <FaXmark />
+                  <div className="">
+                    <Link to={tw.twitter.twitter}>
+                      {tw.twitter.twitter.length > 35 ? (
+                        <>
+                          {tw.twitter.twitter.slice(0, 35)}
+                          ...
+                        </>
+                      ) : (
+                        tw.twitter.twitter
+                      )}
+                    </Link>
                   </div>
                 </div>
-              ))
-            )}
+
+                <div
+                  onClick={() => handleDelete(tw._id)}
+                  className="border-2 border-black rounded-full cursor-pointer"
+                >
+                  <FaXmark />
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </div>

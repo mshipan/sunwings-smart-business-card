@@ -33,12 +33,26 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useGetAllEducationQuery } from "../../redux/features/allApis/educationApi";
 import { useGetAllJobExperienceQuery } from "../../redux/features/allApis/jobExperienceApi";
 import { Accordion } from "react-bootstrap";
+
+import { QRCode } from "react-qrcode-logo";
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
   const { data: singleUser } = useGetUserByUidQuery(user?.uid);
+  console.log(singleUser);
+  // console.log(
+  //   "fa",
+  //   singleUser?.facebook?.map((fv) => console.log(fv?.facebook?.facebook))
+  // );
+  const firstFacebookLink = singleUser?.facebook?.[0]?.facebook.facebook;
+  const firstTwitterLink = singleUser?.twitter?.[0]?.twitter.twitter;
+  const firstWhatsAppLink = singleUser?.whatsapp?.[0].whatsapp.whatsapp;
+  const firstLinkedInLink = singleUser?.linkedin?.[0].linkedin.linkedin;
   const { data: allEducations } = useGetAllEducationQuery();
   const { data: allExperiences } = useGetAllJobExperienceQuery();
+  // console.log("s", singleUser.qrCode.qrCode);
+
+  // console.log("facebook all links", facebookAllLinks);
 
   const singleUserEducations = allEducations?.filter(
     (edu) => edu.uid === singleUser?.uid
@@ -94,22 +108,50 @@ const Profile = () => {
           {/* <!-- star social icon --> */}
           <ul className="social">
             <li>
-              <Link to="https://www.facebook.com/" target="_blank">
+              <Link
+                to={
+                  firstFacebookLink && firstFacebookLink.startsWith("http")
+                    ? firstFacebookLink
+                    : `http://${firstFacebookLink}`
+                }
+                target="_blank"
+              >
                 <FaFacebook />
               </Link>
             </li>
             <li>
-              <Link to="https://www.linkedin.com/" target="_blank">
+              <Link
+                to={
+                  firstLinkedInLink && firstLinkedInLink.startsWith("http")
+                    ? firstLinkedInLink
+                    : `http://${firstLinkedInLink}`
+                }
+                target="_blank"
+              >
                 <FaLinkedin />
               </Link>
             </li>
             <li>
-              <Link to="https://web.whatsapp.com/" target="_blank">
+              <Link
+                to={
+                  firstWhatsAppLink && firstWhatsAppLink.startsWith("http")
+                    ? firstWhatsAppLink
+                    : `http://${firstWhatsAppLink}`
+                }
+                target="_blank"
+              >
                 <FaWhatsapp />
               </Link>
             </li>
             <li>
-              <Link to="https://twitter.com/" target="_blank">
+              <Link
+                to={
+                  firstTwitterLink && firstTwitterLink.startsWith("http")
+                    ? firstTwitterLink
+                    : `http://${firstTwitterLink}`
+                }
+                target="_blank"
+              >
                 <FaTwitter />
               </Link>
             </li>
@@ -134,10 +176,13 @@ const Profile = () => {
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>
                         <FaPhone className="demo_icon" />
-                        Phone 
+                        Phone
                       </Accordion.Header>
                       <Accordion.Body>
-                        +880 173 7351 549
+                        <p className="break-words">+ {singleUser?.phone}</p>
+                        <p className="break-words">
+                          + {singleUser?.alternatePhone}
+                        </p>
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -147,7 +192,10 @@ const Profile = () => {
                         Email
                       </Accordion.Header>
                       <Accordion.Body>
-                        example0000@gmail.com
+                        <p className="break-words">{singleUser?.email}</p>
+                        <p className="break-words">
+                          {singleUser?.alternateEmail}
+                        </p>
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -157,7 +205,17 @@ const Profile = () => {
                         Facebook
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.facebook.com
+                        {singleUser?.facebook?.map((fb, i) => (
+                          <Link
+                            key={i}
+                            to={fb?.facebook?.facebook}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {fb?.facebook?.facebook}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -167,7 +225,17 @@ const Profile = () => {
                         WhatsApp
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.whatsapp.com
+                        {singleUser?.whatsapp?.map((wha, i) => (
+                          <Link
+                            key={i}
+                            to={wha?.whatsapp?.whatsapp}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {wha?.whatsapp?.whatsapp}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -177,7 +245,17 @@ const Profile = () => {
                         Linkedin
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.linkedin.com
+                        {singleUser?.linkedin?.map((lin, i) => (
+                          <Link
+                            key={i}
+                            to={lin?.linkedin?.linkedin}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {lin?.linkedin?.linkedin}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -187,7 +265,17 @@ const Profile = () => {
                         Twitter
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.twitter.com
+                        {singleUser?.twitter?.map((fb, i) => (
+                          <Link
+                            key={i}
+                            to={fb?.twitter?.twitter}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {fb?.twitter?.twitter}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -197,7 +285,17 @@ const Profile = () => {
                         Instagram
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.instagram.com
+                        {singleUser?.instagram?.map((fb, i) => (
+                          <Link
+                            key={i}
+                            to={fb?.instagram?.instagram}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {fb?.instagram?.instagram}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -207,7 +305,17 @@ const Profile = () => {
                         YouTube
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.YouTube.com
+                        {singleUser?.youtube?.map((yu, i) => (
+                          <Link
+                            key={i}
+                            to={yu?.youtube?.youtube}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {yu?.youtube?.youtube}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -217,7 +325,15 @@ const Profile = () => {
                         Tiktok
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.Tiktok.com
+                        {singleUser?.tiktok?.map((ti, i) => (
+                          <Link
+                            key={i}
+                            to={ti?.tiktok?.tiktok}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">{ti?.tiktok?.tiktok}</p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -227,7 +343,17 @@ const Profile = () => {
                         Snapchat
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.Snapchat.com
+                        {singleUser?.snapchat?.map((sn, i) => (
+                          <Link
+                            key={i}
+                            to={sn?.snapchat?.snapchat}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {sn?.snapchat?.snapchat}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -237,7 +363,17 @@ const Profile = () => {
                         Website
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www.Website.com
+                        {singleUser?.website?.map((we, i) => (
+                          <Link
+                            key={i}
+                            to={we?.website?.website}
+                            className="hover:text-blue-500"
+                          >
+                            <p className="break-words">
+                              {we?.website?.website}
+                            </p>
+                          </Link>
+                        ))}
                       </Accordion.Body>
                     </Accordion.Item>
 
@@ -247,7 +383,7 @@ const Profile = () => {
                         Location
                       </Accordion.Header>
                       <Accordion.Body>
-                        https://www..com
+                        {singleUser?.presentAddress}
                       </Accordion.Body>
                     </Accordion.Item>
                   </Accordion>
@@ -496,6 +632,17 @@ const Profile = () => {
             </div>
           </div>
           {/* <!-- end Products --> */}
+
+          {/* Qr Code Start */}
+          <div className="flex items-center justify-center">
+            <QRCode
+              value={singleUser?.qrCode?.qrCode}
+              fgColor={singleUser?.qrCode?.fgColor}
+              bgColor={singleUser?.qrCode?.bgColor}
+              size={300}
+            />
+          </div>
+          {/* Qr Code end */}
 
           {/* <!-- start footre area --> */}
           <footer className="footer_profile_area">

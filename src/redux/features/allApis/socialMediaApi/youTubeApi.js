@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const youTubeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllYouTubeLinks: builder.query({
-      query: () => "/youtube",
-      providesTags: ["youtube"],
-    }),
-    createYouTubeLink: builder.mutation({
-      query: (data) => ({
-        url: "/youtube",
+    createYoutube: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/youtube`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["youtube"],
+      invalidatesTags: ["users"],
     }),
-    deleteYouTubeLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/youtube/${id}/${index}`,
+    deleteYoutube: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/youtube/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["youtube"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllYouTubeLinksQuery,
-  useCreateYouTubeLinkMutation,
-  useDeleteYouTubeLinkMutation,
-} = youTubeApi;
+export const { useCreateYoutubeMutation, useDeleteYoutubeMutation } =
+  youTubeApi;
