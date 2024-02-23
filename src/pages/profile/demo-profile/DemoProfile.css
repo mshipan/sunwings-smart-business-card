@@ -89,6 +89,12 @@
 .fancybox-image, .fancybox-spaceball {
     padding: 44px;
 }
+.contact_profile {
+  padding: 36px 20px;
+}
+.contact_profile h2{
+  text-align: center;
+}
 
 /* media query */
 @media (max-width: 991px) {

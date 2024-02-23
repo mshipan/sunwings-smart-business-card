@@ -1,41 +1,95 @@
-import { useFieldArray, useForm } from "react-hook-form";
-import { BiSolidPlusCircle } from "react-icons/bi";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { FaGlobe } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import {
+  useCreatePersonalWebsiteMutation,
+  useDeletePersonalWebsiteMutation,
+} from "../../../redux/features/allApis/socialMediaApi/personalWebsiteApi";
+import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi";
 
-const PersonalWebsite = () => {
+const PersonalWebsite = ({ uid }) => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
-    watch,
     reset,
-    control,
     formState: { errors },
   } = useForm();
 
-  const {
-    fields: website,
-    append: appendWebsite,
-    remove: removeWebsite,
-  } = useFieldArray({
-    control,
-    name: "website",
-  });
+  const [createPersonalWebsiteLink] = useCreatePersonalWebsiteMutation();
+  const { data: singleUser } = useGetUserByUidQuery(uid);
+
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      const result = await createPersonalWebsiteLink({ uid: uid, data: data });
+
+      if (result.data) {
+        Swal.fire({
+          title: "Link Added Successfully!",
+          text: "Press OK to continue",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        reset();
+        setLoading(false);
+      } else {
+        Swal.fire({
+          title: "Link Added Failed!",
+          text: "Press OK to continue",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred", error);
+      setLoading(false);
+    }
+  };
+
+  const [deletePersonalWebsite] = useDeletePersonalWebsiteMutation();
+
+  const handleDelete = async (_id) => {
+    Swal.fire({
+      title: `Are you sure to Delete this ?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const result = await deletePersonalWebsite({ uid: uid, id: _id });
+          if (
+            result.data.message === "Personal Website link deleted successfully"
+          ) {
+            Swal.fire("Deleted!", "This Link has been deleted.", "success");
+          }
+        } catch (error) {
+          console.error("Error deleting Link", error);
+          Swal.fire(
+            "Error",
+            "An error occurred while deleting the link.",
+            "error"
+          );
+        }
+      }
+    });
+  };
   return (
     <div className="flex flex-col md:flex-row items-start gap-4">
-      <form className="flex flex-col gap-4 w-full">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 w-full"
+      >
         <div className="flex items-center justify-between">
           <h1 className="text-xl">Personal Websites</h1>
-          <button
-            type="button"
-            onClick={() => appendWebsite({ link: "" })}
-            className="p-1 bg-[#ff7c15] hover:bg-[#e47d2d] text-white"
-            title="Add more"
-          >
-            <BiSolidPlusCircle className="text-black text-lg inline-block" />{" "}
-            Add more
-          </button>
         </div>
         <div className="flex flex-col items-start justify-center gap-2 w-full">
           <div className="w-full flex flex-col gap-2 items-start">
@@ -44,57 +98,30 @@ const PersonalWebsite = () => {
                 <div className="form-control border-0 p-0 w-full">
                   <input
                     type="text"
-                    name={`website[0].link`}
-                    placeholder={`Website Link 1`}
+                    name="website"
+                    {...register("website", {
+                      required: "Website link is required",
+                      pattern: {
+                        value:
+                          /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?/,
+                        message: "Please enter a valid website link",
+                      },
+                    })}
+                    placeholder="Website Link"
                     className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500 w-full"
                   />
+                  {errors.website && (
+                    <p className="text-red-500 text-xs">
+                      {errors.website.message}
+                    </p>
+                  )}
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => removeWebsite(0)}
-                  className="border-2 border-solid border-yellow-400 p-2 hover:bg-white transition-all ease-in-out duration-300"
-                  title="Remove"
-                  disabled={website.length === 1}
-                  // Disable if there's only one social media field
-                >
-                  <FaXmark className="text-[#131D4E] text-lg" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 gap-1">
-                {website.slice(1).map((field, index) => (
-                  <div key={field.id}>
-                    <div className="flex flex-col justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <div className="form-control border-0 p-0">
-                          <input
-                            type="text"
-                            name={`website[${index + 1}].link`}
-                            placeholder={`Website Link ${index + 2}`}
-                            defaultValue={field.website}
-                            className="p-1 border-2 border-solid border-yellow-400 rounded-none outline-none placeholder:text-gray-500 w-full "
-                          />
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => removeWebsite(index + 1)}
-                          className="border-2 border-solid border-yellow-400 p-2 hover:bg-white transition-all ease-in-out duration-300"
-                          title="Remove"
-                        >
-                          <FaXmark className="text-[#131D4E] text-lg" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
 
             <div>
               <button type="submit" className="bg-gray-300 md:px-10 md:py-2">
-                Save
+                {loading ? "Uploading..." : "Upload"}
               </button>
             </div>
           </div>
@@ -105,30 +132,38 @@ const PersonalWebsite = () => {
           Personal Websites:
         </h1>
         <div className="w-full flex flex-col gap-2">
-          <div className="flex items-center rounded-full w-full bg-white">
-            <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-              <FaGlobe className="text-white" size={25} />
-            </div>
-            <div className="">
-              <Link to="">https://www.example...</Link>
-            </div>
-          </div>
-          <div className="flex items-center rounded-full w-full bg-white">
-            <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-              <FaGlobe className="text-white" size={25} />
-            </div>
-            <div className="">
-              <Link to="">https://www.example...</Link>
-            </div>
-          </div>
-          <div className="flex items-center rounded-full w-full bg-white">
-            <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
-              <FaGlobe className="text-white" size={25} />
-            </div>
-            <div className="">
-              <Link to="">https://www.example...</Link>
-            </div>
-          </div>
+          {singleUser &&
+            singleUser?.website?.map((we, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between rounded-full w-full bg-white pr-2"
+              >
+                <div className="flex items-center">
+                  <div className="bg-[#ffb700] rounded-s-full w-14 p-2 flex items-center justify-center  mr-2">
+                    <FaGlobe className="text-white" size={25} />
+                  </div>
+                  <div className="">
+                    <Link to={we?.website?.website}>
+                      {we?.website?.website?.length > 35 ? (
+                        <>
+                          {we?.website?.website?.slice(0, 35)}
+                          ...
+                        </>
+                      ) : (
+                        we?.website?.website
+                      )}
+                    </Link>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => handleDelete(we._id)}
+                  className="border-2 border-black rounded-full cursor-pointer"
+                >
+                  <FaXmark />
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </div>
