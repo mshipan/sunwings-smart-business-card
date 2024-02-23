@@ -2,30 +2,25 @@ import baseApi from "../../baseApi";
 
 const personalWebsiteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllPersonalWebsiteLinks: builder.query({
-      query: () => "/personal-websites",
-      providesTags: ["personalWebsite"],
-    }),
-    createPersonalWebsiteLink: builder.mutation({
-      query: (data) => ({
-        url: "/personal-websites",
+    createPersonalWebsite: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/personal-website`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["personalWebsite"],
+      invalidatesTags: ["users"],
     }),
-    deletePersonalWebsiteLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/personal-websites/${id}/${index}`,
+    deletePersonalWebsite: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/personal-website/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["personalWebsite"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
 export const {
-  useGetAllPersonalWebsiteLinksQuery,
-  useCreatePersonalWebsiteLinkMutation,
-  useDeletePersonalWebsiteLinkMutation,
+  useCreatePersonalWebsiteMutation,
+  useDeletePersonalWebsiteMutation,
 } = personalWebsiteApi;

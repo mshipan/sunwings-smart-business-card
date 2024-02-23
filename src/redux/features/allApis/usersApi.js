@@ -42,6 +42,25 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+
+    createQrCode: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/qr-code`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
+    updateQRCode: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/qr-code`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
     updateAuserBasicInfo: builder.mutation({
       query: ({ uid, data }) => ({
         url: `/users/${uid}/basic-info`,
@@ -64,6 +83,8 @@ export const {
   useUpdateAuserProfilePictureMutation,
   useUpdateAuserCoverPhotoMutation,
   useUpdateAuserAboutMeMutation,
+  useCreateQrCodeMutation,
+  useUpdateQRCodeMutation,
   useUpdateAuserBasicInfoMutation,
   useGetUserEducationQuery,
 } = usersApi;

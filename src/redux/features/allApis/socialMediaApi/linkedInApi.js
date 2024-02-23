@@ -2,30 +2,23 @@ import baseApi from "../../baseApi";
 
 const linkedInApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllLinkedInLinks: builder.query({
-      query: () => "/linkedin",
-      providesTags: ["linkedin"],
-    }),
-    createLinkedInLink: builder.mutation({
-      query: (data) => ({
-        url: "/linkedin",
+    createLinkedIn: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/linkedin`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["linkedin"],
+      invalidatesTags: ["users"],
     }),
-    deleteLinkedInLink: builder.mutation({
-      query: ({ id, index }) => ({
-        url: `/linkedin/${id}/${index}`,
+    deleteLinkedIn: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/linkedin/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["linkedin"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllLinkedInLinksQuery,
-  useCreateLinkedInLinkMutation,
-  useDeleteLinkedInLinkMutation,
-} = linkedInApi;
+export const { useCreateLinkedInMutation, useDeleteLinkedInMutation } =
+  linkedInApi;
