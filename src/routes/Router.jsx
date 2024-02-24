@@ -19,6 +19,7 @@ import Gallery from "../pages/dashboard/Gallery";
 import Education from "../pages/dashboard/Education";
 import JobExperience from "../pages/dashboard/JobExperience";
 import Test from "../pages/Test";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "add-images",
@@ -95,7 +100,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/user-profile/:id",
-    element: <Profile />,
+    element: (
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/demo-profile",
