@@ -39,20 +39,17 @@ const Profile = () => {
   const { user } = useContext(AuthContext);
 
   const { data: singleUser } = useGetUserByUidQuery(user?.uid);
-  console.log(singleUser);
-  // console.log(
-  //   "fa",
-  //   singleUser?.facebook?.map((fv) => console.log(fv?.facebook?.facebook))
-  // );
-  const firstFacebookLink = singleUser?.facebook?.[0]?.facebook.facebook;
-  const firstTwitterLink = singleUser?.twitter?.[0]?.twitter.twitter;
-  const firstWhatsAppLink = singleUser?.whatsapp?.[0].whatsapp.whatsapp;
-  const firstLinkedInLink = singleUser?.linkedin?.[0].linkedin.linkedin;
+
+  const firstFacebookLink = singleUser?.facebook?.[0]?.facebook?.facebook;
+
+  const firstTwitterLink = singleUser?.twitter?.[0]?.twitter?.twitter;
+
+  const firstWhatsAppLink = singleUser?.whatsapp?.[0]?.whatsapp?.whatsapp;
+
+  const firstLinkedInLink = singleUser?.linkedin?.[0]?.linkedin.linkedin;
+
   const { data: allEducations } = useGetAllEducationQuery();
   const { data: allExperiences } = useGetAllJobExperienceQuery();
-  // console.log("s", singleUser.qrCode.qrCode);
-
-  // console.log("facebook all links", facebookAllLinks);
 
   const singleUserEducations = allEducations?.filter(
     (edu) => edu.uid === singleUser?.uid
@@ -91,78 +88,94 @@ const Profile = () => {
       <div className="container">
         <div className="our-team">
           {/* <!-- profile picture --> */}
-          <div className="picture">
-            <img
-              src={singleUser?.profileImage}
-              alt="User Photo"
-              className="size-24 md:size-40 rounded-full"
-            />
-          </div>
+          {singleUser?.profileImage && (
+            <div className="picture">
+              <img
+                src={singleUser.profileImage}
+                alt="User Photo"
+                className="size-24 md:size-40 rounded-full"
+              />
+            </div>
+          )}
 
           {/* <!-- team content --> */}
-          <div className="team-content">
-            <h3 className="name">{singleUser?.name}</h3>
-            <h4 className="title">{singleUser?.designation}</h4>
-          </div>
+          {singleUser?.name?.length > 0 &&
+            singleUser?.designation?.length > 0 && (
+              <div className="team-content">
+                <h3 className="name">{singleUser.name}</h3>
+                <h4 className="title">{singleUser.designation}</h4>
+              </div>
+            )}
 
           {/* <!-- star social icon --> */}
           <ul className="social">
-            <li>
-              <Link
-                to={
-                  firstFacebookLink && firstFacebookLink.startsWith("http")
-                    ? firstFacebookLink
-                    : `http://${firstFacebookLink}`
-                }
-                target="_blank"
-              >
-                <FaFacebook />
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={
-                  firstLinkedInLink && firstLinkedInLink.startsWith("http")
-                    ? firstLinkedInLink
-                    : `http://${firstLinkedInLink}`
-                }
-                target="_blank"
-              >
-                <FaLinkedin />
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={
-                  firstWhatsAppLink && firstWhatsAppLink.startsWith("http")
-                    ? firstWhatsAppLink
-                    : `http://${firstWhatsAppLink}`
-                }
-                target="_blank"
-              >
-                <FaWhatsapp />
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={
-                  firstTwitterLink && firstTwitterLink.startsWith("http")
-                    ? firstTwitterLink
-                    : `http://${firstTwitterLink}`
-                }
-                target="_blank"
-              >
-                <FaTwitter />
-              </Link>
-            </li>
+            {firstFacebookLink && (
+              <li>
+                <Link
+                  to={
+                    firstFacebookLink.startsWith("http")
+                      ? firstFacebookLink
+                      : `http://${firstFacebookLink}`
+                  }
+                  target="_blank"
+                >
+                  <FaFacebook />
+                </Link>
+              </li>
+            )}
+            {firstLinkedInLink && (
+              <li>
+                <Link
+                  to={
+                    firstLinkedInLink.startsWith("http")
+                      ? firstLinkedInLink
+                      : `http://${firstLinkedInLink}`
+                  }
+                  target="_blank"
+                >
+                  <FaLinkedin />
+                </Link>
+              </li>
+            )}
+            {firstWhatsAppLink && (
+              <li>
+                <Link
+                  to={
+                    firstWhatsAppLink.startsWith("http")
+                      ? firstWhatsAppLink
+                      : `http://${firstWhatsAppLink}`
+                  }
+                  target="_blank"
+                >
+                  <FaWhatsapp />
+                </Link>
+              </li>
+            )}
+            {firstTwitterLink && (
+              <li>
+                <Link
+                  to={
+                    firstTwitterLink.startsWith("http")
+                      ? firstTwitterLink
+                      : `http://${firstTwitterLink}`
+                  }
+                  target="_blank"
+                >
+                  <FaTwitter />
+                </Link>
+              </li>
+            )}
           </ul>
+
           {/* <!-- end social icon --> */}
 
           {/* <!-- about --> */}
-          <div className="about_text">
-            <h2 className="text_26">About</h2>
-            <p>{singleUser?.aboutMe}</p>
-          </div>
+          {singleUser?.aboutMe?.length > 0 && (
+            <div className="about_text">
+              <h2 className="text_26">About</h2>
+              <p>{singleUser.aboutMe}</p>
+            </div>
+          )}
 
           {/* <!-- start contact & skills --> */}
           <div className="row">
@@ -173,219 +186,257 @@ const Profile = () => {
 
                 <div className="visiting_faq">
                   <Accordion>
-                    <Accordion.Item eventKey="0">
-                      <Accordion.Header>
-                        <FaPhone className="demo_icon" />
-                        Phone
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        <p className="break-words">+ {singleUser?.phone}</p>
-                        <p className="break-words">
-                          + {singleUser?.alternatePhone}
-                        </p>
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.phone?.length > 0 &&
+                      singleUser?.alternatePhone?.length > 0 && (
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <FaPhone className="demo_icon" />
+                            Phone
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            {singleUser?.phone && (
+                              <p className="break-words">
+                                + {singleUser.phone}
+                              </p>
+                            )}
+                            {singleUser?.alternatePhone && (
+                              <p className="break-words">
+                                + {singleUser.alternatePhone}
+                              </p>
+                            )}
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      )}
 
-                    <Accordion.Item eventKey="1">
-                      <Accordion.Header>
-                        <FaEnvelope className="demo_icon" />
-                        Email
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        <p className="break-words">{singleUser?.email}</p>
-                        <p className="break-words">
-                          {singleUser?.alternateEmail}
-                        </p>
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.email?.length > 0 &&
+                      singleUser?.alternateEmail?.length > 0 && (
+                        <Accordion.Item eventKey="1">
+                          <Accordion.Header>
+                            <FaEnvelope className="demo_icon" />
+                            Email
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            {singleUser?.email && (
+                              <p className="break-words">{singleUser.email}</p>
+                            )}
+                            {singleUser?.alternateEmail && (
+                              <p className="break-words">
+                                {singleUser.alternateEmail}
+                              </p>
+                            )}
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      )}
 
-                    <Accordion.Item eventKey="2">
-                      <Accordion.Header>
-                        <FaFacebook className="demo_icon" />
-                        Facebook
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.facebook?.map((fb, i) => (
-                          <Link
-                            key={i}
-                            to={fb?.facebook?.facebook}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {fb?.facebook?.facebook}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.facebook?.length > 0 && (
+                      <Accordion.Item eventKey="2">
+                        <Accordion.Header>
+                          <FaFacebook className="demo_icon" />
+                          Facebook
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.facebook.map((fb, i) => (
+                            <Link
+                              key={i}
+                              to={fb?.facebook?.facebook}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {fb?.facebook?.facebook}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="3">
-                      <Accordion.Header>
-                        <FaWhatsapp className="demo_icon" />
-                        WhatsApp
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.whatsapp?.map((wha, i) => (
-                          <Link
-                            key={i}
-                            to={wha?.whatsapp?.whatsapp}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {wha?.whatsapp?.whatsapp}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.whatsapp?.length > 0 && (
+                      <Accordion.Item eventKey="3">
+                        <Accordion.Header>
+                          <FaWhatsapp className="demo_icon" />
+                          WhatsApp
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.whatsapp.map((wha, i) => (
+                            <Link
+                              key={i}
+                              to={wha.whatsapp.whatsapp}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {wha.whatsapp.whatsapp}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="4">
-                      <Accordion.Header>
-                        <FaLinkedin className="demo_icon" />
-                        Linkedin
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.linkedin?.map((lin, i) => (
-                          <Link
-                            key={i}
-                            to={lin?.linkedin?.linkedin}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {lin?.linkedin?.linkedin}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.linkedin?.length > 0 && (
+                      <Accordion.Item eventKey="4">
+                        <Accordion.Header>
+                          <FaLinkedin className="demo_icon" />
+                          Linkedin
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.linkedin.map((lin, i) => (
+                            <Link
+                              key={i}
+                              to={lin?.linkedin?.linkedin}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {lin.linkedin.linkedin}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="5">
-                      <Accordion.Header>
-                        <FaTwitter className="demo_icon" />
-                        Twitter
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.twitter?.map((fb, i) => (
-                          <Link
-                            key={i}
-                            to={fb?.twitter?.twitter}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {fb?.twitter?.twitter}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.twitter?.length > 0 && (
+                      <Accordion.Item eventKey="5">
+                        <Accordion.Header>
+                          <FaTwitter className="demo_icon" />
+                          Twitter
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.twitter.map((fb, i) => (
+                            <Link
+                              key={i}
+                              to={fb?.twitter?.twitter}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {fb?.twitter?.twitter}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="6">
-                      <Accordion.Header>
-                        <FaInstagram className="demo_icon" />
-                        Instagram
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.instagram?.map((fb, i) => (
-                          <Link
-                            key={i}
-                            to={fb?.instagram?.instagram}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {fb?.instagram?.instagram}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.instagram?.length > 0 && (
+                      <Accordion.Item eventKey="6">
+                        <Accordion.Header>
+                          <FaInstagram className="demo_icon" />
+                          Instagram
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.instagram.map((fb, i) => (
+                            <Link
+                              key={i}
+                              to={fb?.instagram?.instagram}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {fb.instagram.instagram}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="7">
-                      <Accordion.Header>
-                        <FaYoutube className="demo_icon" />
-                        YouTube
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.youtube?.map((yu, i) => (
-                          <Link
-                            key={i}
-                            to={yu?.youtube?.youtube}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {yu?.youtube?.youtube}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.youtube && singleUser.youtube.length > 0 && (
+                      <Accordion.Item eventKey="7">
+                        <Accordion.Header>
+                          <FaYoutube className="demo_icon" />
+                          YouTube
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.youtube.map((yu, i) => (
+                            <Link
+                              key={i}
+                              to={yu?.youtube?.youtube}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {yu?.youtube?.youtube}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="8">
-                      <Accordion.Header>
-                        <FaTiktok className="demo_icon" />
-                        Tiktok
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.tiktok?.map((ti, i) => (
-                          <Link
-                            key={i}
-                            to={ti?.tiktok?.tiktok}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">{ti?.tiktok?.tiktok}</p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.tiktok?.length > 0 && (
+                      <Accordion.Item eventKey="8">
+                        <Accordion.Header>
+                          <FaTiktok className="demo_icon" />
+                          Tiktok
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.tiktok.map((ti, i) => (
+                            <Link
+                              key={i}
+                              to={ti?.tiktok?.tiktok}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {ti?.tiktok?.tiktok}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="9">
-                      <Accordion.Header>
-                        <FaSnapchat className="demo_icon" />
-                        Snapchat
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.snapchat?.map((sn, i) => (
-                          <Link
-                            key={i}
-                            to={sn?.snapchat?.snapchat}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {sn?.snapchat?.snapchat}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.snapchat?.length > 0 && (
+                      <Accordion.Item eventKey="9">
+                        <Accordion.Header>
+                          <FaSnapchat className="demo_icon" />
+                          Snapchat
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.snapchat.map((sn, i) => (
+                            <Link
+                              key={i}
+                              to={sn?.snapchat?.snapchat}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {sn?.snapchat?.snapchat}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="10">
-                      <Accordion.Header>
-                        <TbWorldWww className="demo_icon" />
-                        Website
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.website?.map((we, i) => (
-                          <Link
-                            key={i}
-                            to={we?.website?.website}
-                            className="hover:text-blue-500"
-                          >
-                            <p className="break-words">
-                              {we?.website?.website}
-                            </p>
-                          </Link>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.website?.length > 0 && (
+                      <Accordion.Item eventKey="10">
+                        <Accordion.Header>
+                          <TbWorldWww className="demo_icon" />
+                          Website
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.website.map((we, i) => (
+                            <Link
+                              key={i}
+                              to={we?.website?.website}
+                              className="hover:text-blue-500"
+                            >
+                              <p className="break-words">
+                                {we?.website?.website}
+                              </p>
+                            </Link>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
 
-                    <Accordion.Item eventKey="11">
-                      <Accordion.Header>
-                        <FaMapMarkerAlt className="demo_icon" />
-                        Location
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        {singleUser?.presentAddress}
-                      </Accordion.Body>
-                    </Accordion.Item>
+                    {singleUser?.presentAddress?.length > 0 && (
+                      <Accordion.Item eventKey="11">
+                        <Accordion.Header>
+                          <FaMapMarkerAlt className="demo_icon" />
+                          Location
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {singleUser.presentAddress}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    )}
                   </Accordion>
                 </div>
               </div>
