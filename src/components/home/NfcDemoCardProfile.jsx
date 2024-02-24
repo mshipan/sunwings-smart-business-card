@@ -72,8 +72,8 @@ const NfcDemoCardProfile = () => {
           </div>
         </div>
         <div className="all_card_view">
-          <Link to="demo-card.html" className="btn4">
-            <span>সকল কার্ড দেখুন</span>
+          <Link to="/demo-profile" className="btn4">
+            <span>সকল ডেমো প্রোফাইল দেখুন</span>
           </Link>
         </div>
       </div>
