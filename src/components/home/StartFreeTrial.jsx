@@ -12,7 +12,10 @@ const StartFreeTrial = () => {
           দেখুন
         </h2>
         <div className="free_trial_btn">
-          <Link to="/" className="btn2 flex items-center justify-center gap-2">
+          <Link
+            to="/registration"
+            className="btn2 flex items-center justify-center gap-2"
+          >
             <FaAddressCard className="trial_icon" />
             <p>ফ্রি ট্রায়াল দেখতে রেজিস্টার করুন</p>
           </Link>

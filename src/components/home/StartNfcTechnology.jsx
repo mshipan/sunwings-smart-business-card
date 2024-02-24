@@ -104,17 +104,17 @@ const StartNfcTechnology = () => {
           <div className="row">
             <div className="col-md-6">
               <div className="nfc_img_1 NFC_card_item">
-                <Link to="order.html">
+                <Link to="/order">
                   {" "}
                   <img src={demoCardImg1} alt="NFC-QR" />{" "}
                 </Link>
                 <div className="nfc_img_contain">
-                  <Link to="order.html">
+                  <Link to="/order">
                     <h3 className="text_26">প্রিমিয়াম স্মার্ট বিজনেস কার্ড</h3>
                   </Link>
                   <del>১৯৯৯ টাকা</del>
                   <p>৯৯৯ টাকা</p>
-                  <Link to="order.html" className="btn3">
+                  <Link to="/order" className="btn3">
                     অর্ডার করুন
                   </Link>
                 </div>
@@ -123,18 +123,18 @@ const StartNfcTechnology = () => {
 
             <div className="col-md-6 nfc_price_box0">
               <div className="nfc_img_2 NFC_card_item">
-                <Link to="order.html">
+                <Link to="/order">
                   <img src={officeIdImg1} alt="NFC-QR-2" />
                 </Link>
                 <div className="nfc_img_contain">
-                  <Link to="order.html">
+                  <Link to="/order">
                     <h3 className="text_26">
                       প্রিমিয়াম স্মার্ট অফিস আইডি কার্ড
                     </h3>
                   </Link>
                   <del>১৯৯৯ টাকা</del>
                   <p>১৬৯৯ টাকা</p>
-                  <Link to="order.html" className="btn3">
+                  <Link to="/order" className="btn3">
                     অর্ডার করুন
                   </Link>
                 </div>

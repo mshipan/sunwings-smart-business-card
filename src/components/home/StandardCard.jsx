@@ -1,6 +1,7 @@
 import demoCardImg5 from "../../assets/images/demo-card/normal/5.jpeg";
 import demoCardImg3 from "../../assets/images/demo-card/normal/3.jpeg";
 import { FaRegCircleCheck, FaRegCircleXmark } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 const StandardCard = () => {
   return (
     <section className="standard_card">
@@ -137,9 +138,9 @@ const StandardCard = () => {
               <div className="nfc_img_contain card_price">
                 <del>১৪৯৯ টাকা</del>
                 <p className="text">১২৫০ টাকা</p>
-                <a href="order.html" className="btn3">
+                <Link to="/order" className="btn3">
                   অর্ডার করুন
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -258,9 +259,9 @@ const StandardCard = () => {
               <div className="nfc_img_contain card_price">
                 <del>১৯৯৯ টাকা</del>
                 <p className="text">১৬৯৯ টাকা</p>
-                <a href="order.html" className="btn3">
+                <Link to="/order" className="btn3">
                   অর্ডার করুন
-                </a>
+                </Link>
               </div>
             </div>
           </div>
