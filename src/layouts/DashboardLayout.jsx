@@ -160,7 +160,7 @@ const DashboardLayout = () => {
           </li>
           <li>
             <NavLink
-              to="themes"
+              to={`themes/${singleUser?.uid}`}
               className={({ isActive }) =>
                 isActive ? "activeNavLink" : "nonactiveNavLink"
               }

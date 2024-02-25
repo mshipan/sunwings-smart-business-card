@@ -1,16 +1,15 @@
-import "./Profile.css";
+import "../Profile.css";
 import { Link } from "react-router-dom";
-import img1 from "../../assets/images/demo/5.jpeg";
-import img2 from "../../assets/images/demo/6.jpeg";
-import img3 from "../../assets/images/demo/7.jpeg";
-import img4 from "../../assets/images/demo-card/4.jpeg";
-import img5 from "../../assets/images/demo/vismo.jpeg";
-import img6 from "../../assets/images/demo/5.jpeg";
-import img7 from "../../assets/images/demo-card/5.jpeg";
-import img8 from "../../assets/images/demo/5.jpeg";
-import img9 from "../../assets/images/demo/6.jpeg";
-import img10 from "../../assets/images/demo/7.jpeg";
-
+import img1 from "../../../assets/images/demo/5.jpeg";
+import img2 from "../../../assets/images/demo/6.jpeg";
+import img3 from "../../../assets/images/demo/7.jpeg";
+import img4 from "../../../assets/images/demo/5.jpeg";
+import img5 from "../../../assets/images/demo/vismo.jpeg";
+import img6 from "../../../assets/images/demo/5.jpeg";
+import img7 from "../../../assets/images/demo-card/5.jpeg";
+import img8 from "../../../assets/images/demo/5.jpeg";
+import img9 from "../../../assets/images/demo/6.jpeg";
+import img10 from "../../../assets/images/demo/7.jpeg";
 import {
   FaFacebook,
   FaLinkedin,
@@ -25,51 +24,18 @@ import {
   FaMapMarkerAlt,
   FaRegStar,
 } from "react-icons/fa";
-
 import { TbWorldWww } from "react-icons/tb";
-import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { QRCode } from "react-qrcode-logo";
 import { Accordion } from "react-bootstrap";
 
-import { QRCode } from "react-qrcode-logo";
-const Profile = () => {
-  const { user } = useContext(AuthContext);
-
-  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
-
-  const firstFacebookLink = singleUser?.facebook?.[0]?.facebook?.facebook;
-
-  const firstTwitterLink = singleUser?.twitter?.[0]?.twitter?.twitter;
-
-  const firstWhatsAppLink = singleUser?.whatsapp?.[0]?.whatsapp?.whatsapp;
-
-  const firstLinkedInLink = singleUser?.linkedin?.[0]?.linkedin.linkedin;
-
-  const formatDate = (date) => {
-    if (!date) {
-      return "Present";
-    }
-    const dateObj = new Date(date);
-    const day = dateObj.getDate();
-    const month = dateObj.toLocaleString("default", { month: "short" });
-    const year = dateObj.getFullYear();
-
-    // Determine the suffix for the day
-    let suffix;
-    if (day === 1 || day === 21 || day === 31) {
-      suffix = "st";
-    } else if (day === 2 || day === 22) {
-      suffix = "nd";
-    } else if (day === 3 || day === 23) {
-      suffix = "rd";
-    } else {
-      suffix = "th";
-    }
-
-    return `${day}${suffix} ${month} ${year}`;
-  };
-
+const Theme1 = ({
+  firstFacebookLink,
+  firstTwitterLink,
+  firstWhatsAppLink,
+  firstLinkedInLink,
+  singleUser,
+  formatDate,
+}) => {
   return (
     <section className="profile_demo1_area">
       <div className="container">
@@ -696,4 +662,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Theme1;

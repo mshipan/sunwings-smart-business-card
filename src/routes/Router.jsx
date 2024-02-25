@@ -21,6 +21,7 @@ import JobExperience from "../pages/dashboard/JobExperience";
 import Test from "../pages/Test";
 import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "../components/dashboard/DashboardHome";
+import DynamicProfile from "../pages/profile/DynamicProfile";
 
 const router = createBrowserRouter([
   {
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
         element: <UserInquiry />,
       },
       {
-        path: "themes",
+        path: "themes/:uid",
         element: <Themes />,
       },
       {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
   {
     path: "/demo-profile",
     element: <DemoProfile />,
+  },
+  {
+    path: "/profile/:uid/:theme",
+    element: <DynamicProfile />,
   },
   {
     path: "/test",
