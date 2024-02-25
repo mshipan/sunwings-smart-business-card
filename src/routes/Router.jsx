@@ -20,6 +20,7 @@ import Education from "../pages/dashboard/Education";
 import JobExperience from "../pages/dashboard/JobExperience";
 import Test from "../pages/Test";
 import PrivateRoute from "./PrivateRoute";
+import DashboardHome from "../components/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "home",
+        element: <DashboardHome />,
+      },
       {
         path: "add-images",
         element: <CustomizeHome />,

@@ -350,7 +350,7 @@ const EditProfile = () => {
                     </td>
                     <td>Alternate Phone</td>
                     <td>
-                      :{" "}
+                      : +
                       {singleUser?.alternatePhone
                         ? `${singleUser?.alternatePhone}`
                         : "No Data"}
