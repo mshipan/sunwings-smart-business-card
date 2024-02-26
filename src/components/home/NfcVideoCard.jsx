@@ -17,7 +17,7 @@ const NfcVideoCard = () => {
             একবার কিনেই লাইফটাইম ব্যবহার করতে পারবেন।
           </p>
           <div className="NFC_btn">
-            <Link to="order.html" className="btn2">
+            <Link to="/order" className="btn2">
               অর্ডার করুন
             </Link>
           </div>

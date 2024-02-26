@@ -48,6 +48,26 @@
     margin: 0;
     font-weight: 400;
   }
+
+  .activeNavLink {
+    color: #ff4838;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    text-align: start;
+  }
+
+  .nonactiveNavLink {
+    color: #000000;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    text-align: start;
+  }
   
   ul, ol {
     margin: 0;

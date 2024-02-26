@@ -21,6 +21,7 @@ import JobExperience from "../pages/dashboard/JobExperience";
 import Test from "../pages/Test";
 import PrivateRoute from "./PrivateRoute";
 import DemoProfile1 from "../pages/profile/demo-profile-1/DemoProfile1";
+import DashboardHome from "../components/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "home",
+        element: <DashboardHome />,
+      },
       {
         path: "add-images",
         element: <CustomizeHome />,
