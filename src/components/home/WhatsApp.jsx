@@ -5,9 +5,9 @@ const WhatsApp = () => {
   return (
     <section className="discount_area">
       <div className="container">
-        <div className="whatsApp_contain">
+        <div className="whatsApp_contain px-6">
           <div className="whatsapp_item">
-            <h2 className="text-3xl font-semibold text-center text-[#ff7201] mb-7 leading-10">
+            <h2 className="text-3xl font-semibold text-[#ff7201] mb-7 leading-10">
               কর্পোরেট অফিসের জন্য নিতে চাচ্ছেন?
             </h2>
             <p className="text mb-3">
