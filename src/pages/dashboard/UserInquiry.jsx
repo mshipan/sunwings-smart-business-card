@@ -2,9 +2,9 @@ import { FaEye, FaRegTrashAlt } from "react-icons/fa";
 
 const UserInquiry = () => {
   return (
-    <div className="h-screen">
+    <div className="h-screen mt-10">
       <div className="flex flex-col gap-4">
-        <h1 className="text_db_36 mb-3">User Inquiries</h1>
+        <h1 className="text_db_36 mb-1">User Inquiries</h1>
         <div className="w-[99%] md:w-full overflow-x-auto">
           <table className="table">
             <thead>
@@ -25,11 +25,17 @@ const UserInquiry = () => {
                 <td>13/02/2024</td>
                 <td>10.20 AM</td>
                 <td>
-                  <span className="flex items-center gap-1">
-                    <button className="bg-gray-400 p-1">
+                  <span className="flex items-center gap-3">
+                    <button
+                      className="bg-gray-400 p-1 hover:bg-white border border-solid border-gray-400 size-8 flex items-center justify-center transition-all ease-in-out duration-300"
+                      title="View"
+                    >
                       <FaEye />
                     </button>
-                    <button className="bg-gray-400 p-1">
+                    <button
+                      className=" p-1 hover:bg-gray-400 border border-solid border-gray-400 size-8 flex items-center justify-center transition-all ease-in-out duration-300"
+                      title="Delete"
+                    >
                       <FaRegTrashAlt />
                     </button>
                   </span>
@@ -42,11 +48,17 @@ const UserInquiry = () => {
                 <td>13/02/2024</td>
                 <td>10.20 AM</td>
                 <td>
-                  <span className="flex items-center gap-1">
-                    <button className="bg-gray-400 p-1">
+                  <span className="flex items-center gap-3">
+                    <button
+                      className="bg-gray-400 p-1 hover:bg-white border border-solid border-gray-400 size-8 flex items-center justify-center transition-all ease-in-out duration-300"
+                      title="View"
+                    >
                       <FaEye />
                     </button>
-                    <button className="bg-gray-400 p-1">
+                    <button
+                      className=" p-1 hover:bg-gray-400 border border-solid border-gray-400 size-8 flex items-center justify-center transition-all ease-in-out duration-300"
+                      title="Delete"
+                    >
                       <FaRegTrashAlt />
                     </button>
                   </span>
@@ -59,11 +71,17 @@ const UserInquiry = () => {
                 <td>13/02/2024</td>
                 <td>10.20 AM</td>
                 <td>
-                  <span className="flex items-center gap-1">
-                    <button className="bg-gray-400 p-1">
+                  <span className="flex items-center gap-3">
+                    <button
+                      className="bg-gray-400 p-1 hover:bg-white border border-solid border-gray-400 size-8 flex items-center justify-center transition-all ease-in-out duration-300"
+                      title="View"
+                    >
                       <FaEye />
                     </button>
-                    <button className="bg-gray-400 p-1">
+                    <button
+                      className=" p-1 hover:bg-gray-400 border border-solid border-gray-400 size-8 flex items-center justify-center transition-all ease-in-out duration-300"
+                      title="Delete"
+                    >
                       <FaRegTrashAlt />
                     </button>
                   </span>

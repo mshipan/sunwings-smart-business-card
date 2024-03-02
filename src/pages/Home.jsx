@@ -7,6 +7,7 @@ import StandardCard from "../components/home/StandardCard";
 import StartFreeTrial from "../components/home/StartFreeTrial";
 import StartNfcTechnology from "../components/home/StartNfcTechnology";
 import TimeLineArea from "../components/home/TimeLineArea";
+import UserContactForm from "../components/home/UserContactForm";
 import VisitingInformation from "../components/home/VisitingInformation";
 import WhatIsNfcCard from "../components/home/WhatIsNfcCard";
 import WhatsApp from "../components/home/WhatsApp";
@@ -27,6 +28,7 @@ const Home = () => {
       <StandardCard />
       <WhatsApp />
       <FaqQuestions />
+      <UserContactForm />
     </div>
   );
 };

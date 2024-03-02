@@ -2,30 +2,23 @@ import baseApi from "../baseApi";
 
 const educationApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllEducation: builder.query({
-      query: () => "/educations",
-      providesTags: ["education"],
-    }),
     createEducation: builder.mutation({
-      query: (data) => ({
-        url: "/educations",
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/education`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["education"],
+      invalidatesTags: ["users"],
     }),
     deleteEducation: builder.mutation({
-      query: ({ id }) => ({
-        url: `/educations/${id}`,
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/education/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["education"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
-export const {
-  useGetAllEducationQuery,
-  useCreateEducationMutation,
-  useDeleteEducationMutation,
-} = educationApi;
+export const { useCreateEducationMutation, useDeleteEducationMutation } =
+  educationApi;

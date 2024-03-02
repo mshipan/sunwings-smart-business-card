@@ -2,50 +2,55 @@ import { FaXmark } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import {
   useCreateEducationMutation,
   useDeleteEducationMutation,
-  useGetAllEducationQuery,
 } from "../../redux/features/allApis/educationApi";
-import Swal from "sweetalert2";
+import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi";
 
 const Education = () => {
   const { uid } = useParams();
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  const { data: allEducation } = useGetAllEducationQuery();
+  const { data: singleUser } = useGetUserByUidQuery(uid);
   const [createEducation] = useCreateEducationMutation();
 
   const onSubmit = async (data) => {
-    data.uid = uid;
+    // data.uid = uid;
     try {
       setLoading(true);
-      const result = await createEducation(data);
+      const result = await createEducation({ uid: uid, data: data });
+
       if (result.data) {
         Swal.fire({
-          title: "Education Created Successfully!",
+          title: "Education Added Successfully!",
           text: "Press OK to continue",
           icon: "success",
           confirmButtonText: "OK",
         });
         reset();
         setLoading(false);
+      } else {
+        Swal.fire({
+          title: "Education Added Failed!",
+          text: "Press OK to continue",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        setLoading(false);
       }
     } catch (error) {
-      Swal.fire({
-        title: "Error Creating Education Info!",
-        text: `${error}`,
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      console.error("An unexpected error occurred", error);
+      setLoading(false);
     }
   };
 
-  const singleUserEducation = allEducation?.filter((edu) => edu.uid === uid);
   const [deleteEducation] = useDeleteEducationMutation();
+
   const handleDelete = async (_id) => {
     Swal.fire({
-      title: `Are you sure to Delete this ?`,
+      title: `Are you sure to Delete ?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -54,28 +59,34 @@ const Education = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const result = await deleteEducation({ id: _id });
-          if (result.data.deletedCount > 0) {
+          const result = await deleteEducation({ uid: uid, id: _id });
+          if (result.data.message === "Education deleted successfully") {
             Swal.fire(
               "Deleted!",
-              "This education has been deleted.",
+              "This Education has been deleted.",
               "success"
             );
           }
         } catch (error) {
-          console.error("error deleting education", error);
+          console.error("Error deleting Education", error);
+          Swal.fire(
+            "Error",
+            "An error occurred while deleting education.",
+            "error"
+          );
         }
       }
     });
   };
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text_db_36 mb-3">Education</h1>
       <div className="flex flex-col md:flex-row-reverse md:items-start justify-betweeb gap-4 w-full">
         <div className="flex flex-col gap-4 md:w-1/2">
           <div className="flex flex-col gap-4">
-            {singleUserEducation &&
-              singleUserEducation.map((userEducation) => (
+            {singleUser &&
+              singleUser?.education?.map((userEducation) => (
                 <div
                   key={userEducation?._id}
                   className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative w-full"
@@ -98,20 +109,6 @@ const Education = () => {
                   </h1>
                 </div>
               ))}
-
-            {/* <div className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative">
-              <div className="p-2 bg-gray-500 rounded-full flex items-center justify-center absolute -right-2 -top-2">
-                <FaXmark className="text-white" />
-              </div>
-              <h1 className="text-sm">
-                Degree: BSc in Computer Science & Engineering
-              </h1>
-              <h1 className="text-sm">
-                Institution: Daffodil International University
-              </h1>
-              <h1 className="text-sm">Duration: 4 Years</h1>
-              <h1 className="text-sm">Passing Year: Apr 2019</h1>
-            </div> */}
           </div>
         </div>
         <div className="md:w-1/2 flex flex-col gap-3">

@@ -5,17 +5,18 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import {
   useCreateJobExperienceMutation,
-  useDeleteExperienceMutation,
-  useGetAllJobExperienceQuery,
+  useDeleteJobExperienceMutation,
 } from "../../redux/features/allApis/jobExperienceApi";
+import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi";
 
 const JobExperience = () => {
   const { uid } = useParams();
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [isCurrentlyWorking, setIsCurrentlyWorking] = useState(false);
-  const { data: allExperiences } = useGetAllJobExperienceQuery();
-  const [createExperience] = useCreateJobExperienceMutation();
+  const [createJobExperience] = useCreateJobExperienceMutation();
+  const { data: singleUser } = useGetUserByUidQuery(uid);
+
   const onSubmit = async (data) => {
     data.uid = uid;
     if (isCurrentlyWorking) {
@@ -23,29 +24,33 @@ const JobExperience = () => {
     }
     try {
       setLoading(true);
-      const result = await createExperience(data);
+      const result = await createJobExperience({ uid: uid, data: data });
+
       if (result.data) {
         Swal.fire({
-          title: "Job Experience Created Successfully!",
+          title: "Job Experience Added Successfully!",
           text: "Press OK to continue",
           icon: "success",
           confirmButtonText: "OK",
         });
         reset();
         setLoading(false);
+      } else {
+        Swal.fire({
+          title: "Job Experience Added Failed!",
+          text: "Press OK to continue",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        setLoading(false);
       }
     } catch (error) {
-      Swal.fire({
-        title: "Error Creating Job Experience!",
-        text: `${error}`,
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      console.error("An unexpected error occurred", error);
+      setLoading(false);
     }
   };
-  const singleUserExperience = allExperiences?.filter((exp) => exp.uid === uid);
 
-  const [deleteExperience] = useDeleteExperienceMutation();
+  const [deleteExperience] = useDeleteJobExperienceMutation();
 
   const handleCheckboxChange = (e) => {
     setIsCurrentlyWorking(e.target.checked);
@@ -53,7 +58,7 @@ const JobExperience = () => {
 
   const handleDelete = async (_id) => {
     Swal.fire({
-      title: `Are you sure to Delete this ?`,
+      title: `Are you sure to Delete ?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -62,16 +67,21 @@ const JobExperience = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const result = await deleteExperience({ id: _id });
-          if (result.data.deletedCount > 0) {
+          const result = await deleteExperience({ uid: uid, id: _id });
+          if (result.data.message === "Job Experience deleted successfully") {
             Swal.fire(
               "Deleted!",
-              "This job experience has been deleted.",
+              "This Experience has been deleted.",
               "success"
             );
           }
         } catch (error) {
-          console.error("error deleting job experience", error);
+          console.error("Error deleting Experience", error);
+          Swal.fire(
+            "Error",
+            "An error occurred while deleting experience.",
+            "error"
+          );
         }
       }
     });
@@ -106,8 +116,8 @@ const JobExperience = () => {
       <div className="flex flex-col md:flex-row-reverse md:items-start justify-between gap-4 w-full">
         <div className="flex flex-col gap-4 md:w-1/2">
           <div className="flex flex-col gap-4">
-            {singleUserExperience &&
-              singleUserExperience?.map((userExperience) => (
+            {singleUser &&
+              singleUser?.jobExperience?.map((userExperience) => (
                 <div
                   key={userExperience?._id}
                   className="bg-gray-200 p-4 rounded-md flex flex-col gap-1 relative w-full"

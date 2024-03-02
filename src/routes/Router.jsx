@@ -22,6 +22,8 @@ import Test from "../pages/Test";
 import PrivateRoute from "./PrivateRoute";
 import DemoProfile1 from "../pages/profile/demo-profile-1/DemoProfile1";
 import DashboardHome from "../components/dashboard/DashboardHome";
+import DynamicProfile from "../pages/profile/DynamicProfile";
+import ManageUsers from "../pages/dashboard/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -79,11 +81,15 @@ const router = createBrowserRouter([
         element: <SocialMedia />,
       },
       {
+        path: "manage-users/:uid",
+        element: <ManageUsers />,
+      },
+      {
         path: "user-inquiries",
         element: <UserInquiry />,
       },
       {
-        path: "themes",
+        path: "themes/:uid",
         element: <Themes />,
       },
       {
@@ -115,6 +121,10 @@ const router = createBrowserRouter([
   {
     path: "/demo-profile",
     element: <DemoProfile />,
+  },
+  {
+    path: "/profile/:uid/:theme",
+    element: <DynamicProfile />,
   },
   {
     path: "/test",

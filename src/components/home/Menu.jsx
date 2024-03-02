@@ -76,7 +76,7 @@ const Menu = () => {
                 {user ? (
                   <>
                     <li>
-                      <Link className="btn1" to="/dashboard">
+                      <Link className="btn1" to="/dashboard/home">
                         <span className="flex items-center justify-center gap-2">
                           <MdDashboard className="text-[#ff8400] text-xl" />
                           <small>ড্যাশবোর্ড</small>
@@ -86,7 +86,7 @@ const Menu = () => {
                     <li>
                       <Link
                         className="btn1"
-                        to={`/user-profile/${singleUser?._id}`}
+                        to={`/profile/${user?.uid}/${singleUser?.theme}`}
                       >
                         <span className="flex items-center justify-center gap-2">
                           <FaAddressBook className="text-[#ff8400] text-xl" />

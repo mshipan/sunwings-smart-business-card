@@ -2,30 +2,25 @@ import baseApi from "../baseApi";
 
 const jobExperienceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllJobExperience: builder.query({
-      query: () => "/job-experiences",
-      providesTags: ["jobExperience"],
-    }),
     createJobExperience: builder.mutation({
-      query: (data) => ({
-        url: "/job-experiences",
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/job-experience`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["jobExperience"],
+      invalidatesTags: ["users"],
     }),
-    deleteExperience: builder.mutation({
-      query: ({ id }) => ({
-        url: `/job-experiences/${id}`,
+    deleteJobExperience: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `/users/${uid}/job-experience/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["jobExperience"],
+      invalidatesTags: ["users"],
     }),
   }),
 });
 
 export const {
-  useGetAllJobExperienceQuery,
   useCreateJobExperienceMutation,
-  useDeleteExperienceMutation,
+  useDeleteJobExperienceMutation,
 } = jobExperienceApi;
