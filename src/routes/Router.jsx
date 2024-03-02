@@ -22,6 +22,7 @@ import Test from "../pages/Test";
 import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "../components/dashboard/DashboardHome";
 import DynamicProfile from "../pages/profile/DynamicProfile";
+import ManageUsers from "../pages/dashboard/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "social-media/:uid",
         element: <SocialMedia />,
+      },
+      {
+        path: "manage-users/:uid",
+        element: <ManageUsers />,
       },
       {
         path: "user-inquiries",

@@ -1,6 +1,6 @@
 import logo from "../assets/images/info_card_logo.png";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { MdDashboard, MdMenu } from "react-icons/md";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { MdDashboard, MdManageAccounts } from "react-icons/md";
 import {
   FaAddressCard,
   FaShareAltSquare,
@@ -14,20 +14,15 @@ import { BsQrCode } from "react-icons/bs";
 import { FaPersonCircleQuestion, FaMoneyCheckDollar } from "react-icons/fa6";
 import { TiEdit } from "react-icons/ti";
 import "./DashboardLayout.css";
-import { useContext, useState } from "react";
-import vismo from "../assets/images/vismo.jpg";
+import { useContext } from "react";
 import MobileBottomNav from "../components/shared/MobileBottomNav";
 import { AuthContext } from "../providers/AuthProvider";
 import { useGetUserByUidQuery } from "../redux/features/allApis/usersApi";
 import { IoMdMenu } from "react-icons/io";
-import DashboardHome from "../components/dashboard/DashboardHome";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const { data: singleUser } = useGetUserByUidQuery(user?.uid);
-  const [sidebarHidden, setSidebarHidden] = useState(true);
-  const navigate = useNavigate();
-  const dasboardRoute = window.location.pathname;
 
   const topMenuItems = (
     <>
@@ -49,7 +44,6 @@ const DashboardLayout = () => {
           <li>
             <NavLink
               to="add-images"
-              // className={({ isActive }) => isActive && "topNavActive"}
               className={({ isActive }) =>
                 isActive ? "activeNavLink" : "nonactiveNavLink"
               }
@@ -63,7 +57,6 @@ const DashboardLayout = () => {
           <li>
             <NavLink
               to="all-cards"
-              // className={({ isActive }) => isActive && "topNavActive"}
               className={({ isActive }) =>
                 isActive ? "activeNavLink" : "nonactiveNavLink"
               }
@@ -76,8 +69,33 @@ const DashboardLayout = () => {
           </li>
           <li>
             <NavLink
+              to={`manage-users/${singleUser?.uid}`}
+              className={({ isActive }) =>
+                isActive ? "activeNavLink" : "nonactiveNavLink"
+              }
+            >
+              <div className="flex items-center gap-2">
+                <MdManageAccounts />
+                <span>Manage Users</span>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={`manage-orders/${singleUser?.uid}`}
+              className={({ isActive }) =>
+                isActive ? "activeNavLink" : "nonactiveNavLink"
+              }
+            >
+              <div className="flex items-center gap-2">
+                <MdManageAccounts />
+                <span>Manage Order</span>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="user-inquiries"
-              // className={({ isActive }) => isActive && "topNavActive"}
               className={({ isActive }) =>
                 isActive ? "activeNavLink" : "nonactiveNavLink"
               }
@@ -214,10 +232,6 @@ const DashboardLayout = () => {
       )}
     </>
   );
-
-  const handleSidebarToggle = () => {
-    setSidebarHidden(!sidebarHidden);
-  };
 
   return (
     <>

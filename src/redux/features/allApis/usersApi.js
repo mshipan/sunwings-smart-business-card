@@ -82,6 +82,15 @@ const usersApi = baseApi.injectEndpoints({
       query: (uid) => `/users/${uid}/education`,
       providesTags: ["users"],
     }),
+
+    updateUserRole: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/role`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -97,4 +106,5 @@ export const {
   useUpdateThemeMutation,
   useUpdateAuserBasicInfoMutation,
   useGetUserEducationQuery,
+  useUpdateUserRoleMutation,
 } = usersApi;
