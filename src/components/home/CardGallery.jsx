@@ -58,7 +58,7 @@ const CardGallery = () => {
           {/* <!-- all card gallery --> */}
           <div>
             <div className="all_card_gallery">
-              {demoImages.map((image, index) => (
+              {demoImages?.map((image, index) => (
                 <div key={index} onClick={() => openLightbox(index)}>
                   <img
                     src={image.url}
@@ -97,7 +97,7 @@ const CardGallery = () => {
           {/* <!-- all card gallery --> */}
           <div>
             <div className="office_card_gallery">
-              {officeImages.map((image, index) => (
+              {officeImages?.map((image, index) => (
                 <div key={index} onClick={() => openOfficeLightbox(index)}>
                   <img
                     src={image.url}

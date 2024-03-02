@@ -271,7 +271,7 @@ const EditProfile = () => {
               </div>
             )}
 
-            <div className="absolute left-0 -bottom-14 md:-bottom-20 px-3 md:px-8 z-10">
+            <div className="absolute left-0 -bottom-14 md:-bottom-20 px-3 md:px-8 ">
               <div className="p-2 bg-gray-400 rounded-full">
                 {singleUser?.profileImage ? (
                   <img

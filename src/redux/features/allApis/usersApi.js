@@ -61,6 +61,15 @@ const usersApi = baseApi.injectEndpoints({
       invalidatesTags: ["users"],
     }),
 
+    updateTheme: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/theme`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
     updateAuserBasicInfo: builder.mutation({
       query: ({ uid, data }) => ({
         url: `/users/${uid}/basic-info`,
@@ -72,6 +81,15 @@ const usersApi = baseApi.injectEndpoints({
     getUserEducation: builder.query({
       query: (uid) => `/users/${uid}/education`,
       providesTags: ["users"],
+    }),
+
+    updateUserRole: builder.mutation({
+      query: ({ uid, data }) => ({
+        url: `/users/${uid}/role`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
     }),
   }),
 });
@@ -85,6 +103,8 @@ export const {
   useUpdateAuserAboutMeMutation,
   useCreateQrCodeMutation,
   useUpdateQRCodeMutation,
+  useUpdateThemeMutation,
   useUpdateAuserBasicInfoMutation,
   useGetUserEducationQuery,
+  useUpdateUserRoleMutation,
 } = usersApi;
