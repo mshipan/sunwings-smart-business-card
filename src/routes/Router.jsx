@@ -24,6 +24,7 @@ import DemoProfile1 from "../pages/profile/demo-profile-1/DemoProfile1";
 import DashboardHome from "../components/dashboard/DashboardHome";
 import DynamicProfile from "../pages/profile/DynamicProfile";
 import ManageUsers from "../pages/dashboard/ManageUsers";
+import Theme3 from "../pages/profile/themes/theme3/Theme3";
 
 const router = createBrowserRouter([
   {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
   {
     path: "/profile-1",
     element: <DemoProfile1 />,
+  },
+  {
+    path: "/test2",
+    element: <Theme3 />,
   },
 ]);
 
