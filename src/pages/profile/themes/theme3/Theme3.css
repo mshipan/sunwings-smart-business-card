@@ -12,7 +12,6 @@
 .contact_area .container{
   width: 90%;
 }
-
 .save_btn {
   font-size: 14px;
   padding: 5px 20px;
@@ -42,17 +41,6 @@
   color: #fff;
   background: rgb(179, 3, 3);
 }
-.theme_text_18{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  padding: 4px 18px;
-  color: #fff;
-  background: #ff7a00;
-  font-weight: 600;
-  transition: all 360ms ease;
-}
 .them_text_26{
   font-size: 26px;
   font-family: "Anta", sans-serif;
@@ -74,7 +62,6 @@
   text-shadow: 2px 4px 4px rgb(131 150 183 / 60%);
   color: #000000;
 }
-
 .header_bg_img{
   padding: 148px 50px;
   background: url(../../../../assets/images/theme3/banner.jpeg) no-repeat scroll center center / cover;
@@ -151,49 +138,14 @@
 .message_bg{
   background: #177c00 !important;
 }
-.chart ul{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+.theme3_faq{
+  margin-top: 36px;
+  max-width: 100%;
 }
-.chart ul li{
-  width: 100%;
-  border-radius: 20px;
-  background: #c35f01;
-}
-.chart ul li a{
-  text-align: center;
-}
-.chart .what_btn {
-  font-size: 18px;
-  padding: 10px;
-  width: 49%;
-  text-align: center;
-  margin: auto;
-  display: inline-block;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.info_icon_single{
-  display: flex;
-  gap: 10px;
-}
-.info_icon_single .fa_icon{
-  width: 22px;
-  height: 20px;
-  padding: 16px;
-  font-size: 24px;
-  color: #fff;
-  background: #ff7a00;
-  border-radius: 50px;
-}
-
 .footer_bg_img{
   padding: 230px 0 50px 0;
   background: url(../../../../assets/images/theme3/footer.jpeg) no-repeat scroll center center / cover;
 }
-
 
 @media (max-width: 1400px) {
   .footer_bg_img {
@@ -257,14 +209,6 @@
   .header_social_icon {
     margin-top: 10px;
   }
-  .chart .what_btn {
-    font-size: 16px;
-    padding: 8px;
-  }
-  .info_icon_single .fa_icon {
-    padding: 10px;
-    font-size: 24px;
-  }
   .header_area .container,
   .footer_area .container{
     --bs-gutter-x: 0rem;
@@ -292,9 +236,6 @@
     margin: 16px 0 0 80px;
     position: absolute;
   }
-  /* .text_36 {
-    font-size: 24px;
-  } */
 }
 
 @media (max-width: 367px) {
@@ -303,8 +244,5 @@
   }
   .theme_text_40 {
     font-size: 22px;
-  }
-  .chart .what_btn {
-    font-size: 14px;
   }
 }
