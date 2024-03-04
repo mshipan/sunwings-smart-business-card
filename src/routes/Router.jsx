@@ -24,6 +24,7 @@ import DemoProfile1 from "../pages/profile/demo-profile-1/DemoProfile1";
 import DashboardHome from "../components/dashboard/DashboardHome";
 import DynamicProfile from "../pages/profile/DynamicProfile";
 import ManageUsers from "../pages/dashboard/ManageUsers";
+import ManageOrder from "../pages/dashboard/ManageOrder";
 import Theme3 from "../pages/profile/themes/theme3/Theme3";
 
 const router = createBrowserRouter([
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "manage-users/:uid",
         element: <ManageUsers />,
+      },
+      {
+        path: "manage-orders/:uid",
+        element: <ManageOrder />,
       },
       {
         path: "user-inquiries",
