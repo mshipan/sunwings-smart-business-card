@@ -1,30 +1,26 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useSendEmailMutation } from "../../redux/features/allApis/emailApi/userContactApi";
 
 const UserContactForm = () => {
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+
+  const [sendEmail] = useSendEmailMutation();
 
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/email/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.text();
-      console.log(result); // Log success or error message
+      const result = await sendEmail({ data: data });
 
       // Show toast based on response
-      if (response.ok) {
+      if (result.data) {
+        reset();
         setLoading(false);
-        toast.success("Email sent successfully.");
+        toast.success("Message sent successfully.");
       } else {
-        toast.error("Failed to send email.");
+        toast.error("Failed to send message.");
       }
     } catch (error) {
       setLoading(false);
