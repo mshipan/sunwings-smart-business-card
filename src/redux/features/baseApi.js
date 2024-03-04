@@ -22,6 +22,7 @@ const baseApi = createApi({
     "tiktok",
     "snapchat",
     "personalWebsite",
+    "orders",
   ],
   endpoints: () => ({}),
 });
