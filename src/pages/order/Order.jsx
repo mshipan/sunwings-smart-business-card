@@ -232,11 +232,16 @@ const Order = () => {
                         className="form-control"
                         id="name"
                         name="name"
-                        {...register("name")}
+                        {...register("name", { required: true })}
                         aria-describedby="emailHelp"
                         placeholder="নাম লিখুন *"
                       />
                       <label htmlFor="name">আপনার সম্পূর্ন নাম লিখুন *</label>
+                      {errors.name && (
+                        <span className="text-red-600 text-sm italic">
+                          ** Name is required. **
+                        </span>
+                      )}
                     </div>
 
                     <div className="form-floating mb-3">
@@ -245,13 +250,18 @@ const Order = () => {
                         className="form-control"
                         id="example12"
                         name="phone"
-                        {...register("phone")}
+                        {...register("phone", { required: true })}
                         aria-describedby="emailHelp"
                         placeholder="যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন *"
                       />
                       <label htmlFor="example12">
                         যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন *
                       </label>
+                      {errors.phone && (
+                        <span className="text-red-600 text-sm italic">
+                          ** Phone is required. **
+                        </span>
+                      )}
                     </div>
 
                     <div className="form-floating mb-3">
@@ -260,11 +270,16 @@ const Order = () => {
                         className="form-control"
                         id="village"
                         name="address"
-                        {...register("address")}
+                        {...register("address", { required: true })}
                         aria-describedby="emailHelp"
                         placeholder="আপনার ঠিকানা লিখুন *"
                       />
                       <label htmlFor="village">আপনার ঠিকানা লিখুন *</label>
+                      {errors.address && (
+                        <span className="text-red-600 text-sm italic">
+                          ** Address is required. **
+                        </span>
+                      )}
                     </div>
 
                     <div className="mb-3">
@@ -277,6 +292,11 @@ const Order = () => {
                         onChange={setSelectedDistrictOption}
                         options={districtOptions}
                       />
+                      {errors.district && (
+                        <span className="text-red-600 text-sm italic">
+                          ** জেলা নির্বাচন করা আবশ্যক **
+                        </span>
+                      )}
                     </div>
 
                     <div className="mb-3">
@@ -290,6 +310,11 @@ const Order = () => {
                         options={paymentGateway}
                         isSearchable={false}
                       />
+                      {errors.payment && (
+                        <span className="text-red-600 text-sm italic">
+                          ** পেমেন্ট গেটওয়ে নির্বাচন করা আবশ্যক **
+                        </span>
+                      )}
                     </div>
 
                     {selectedPaymentOption &&
@@ -301,10 +326,15 @@ const Order = () => {
                             type="text"
                             className="form-control"
                             name="transactionId"
-                            {...register("transactionId")}
+                            {...register("transactionId", { required: true })}
                             placeholder="ট্রানজেকশন আইডি"
                           />
                           <label htmlFor="village">ট্রানজেকশন আইডি</label>
+                          {errors.transactionId && (
+                            <span className="text-red-600 text-sm italic">
+                              ** Transaction Id is required. **
+                            </span>
+                          )}
                         </div>
                       )}
 
@@ -314,12 +344,17 @@ const Order = () => {
                         placeholder="স্পেশাল কোন দিক নির্দেশনা থাকলে এখানে লিখুন"
                         id="textarea"
                         name="specialNote"
-                        {...register("specialNote")}
+                        {...register("specialNote", { required: true })}
                         rows="3"
                       ></textarea>
                       <label htmlFor="textarea">
                         স্পেশাল দিক নির্দেশনা থাকলে লিখুন
                       </label>
+                      {errors.specialNote && (
+                        <span className="text-red-600 text-sm italic">
+                          ** Special Note Id is required. **
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -436,6 +471,12 @@ const Order = () => {
                             </div>
                           </div>
                         </div>
+                        {!shippingCost && (
+                          <span className="text-red-600 text-sm italic">
+                            ** Please select a shipping option to Place Order.
+                            **
+                          </span>
+                        )}
                         <div className="totalAmount">
                           <div className="subtotalContain mt-1">
                             <p>Total</p>
@@ -443,7 +484,11 @@ const Order = () => {
                           </div>
                         </div>
                       </div>
-                      <button type="submit" className="btn3">
+                      <button
+                        disabled={shippingCost === 0 || !selectedOption?.price}
+                        type="submit"
+                        className="btn3 disabled:opacity-50"
+                      >
                         {loading ? (
                           <span>Loading...</span>
                         ) : (

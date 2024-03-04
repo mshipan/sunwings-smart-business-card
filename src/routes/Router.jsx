@@ -23,6 +23,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "../components/dashboard/DashboardHome";
 import DynamicProfile from "../pages/profile/DynamicProfile";
 import ManageUsers from "../pages/dashboard/ManageUsers";
+import ManageOrder from "../pages/dashboard/ManageOrder";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "manage-users/:uid",
         element: <ManageUsers />,
+      },
+      {
+        path: "manage-orders/:uid",
+        element: <ManageOrder />,
       },
       {
         path: "user-inquiries",
