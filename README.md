@@ -1,8 +1,73 @@
-# React + Vite
+# Sunwings Smart Business Card
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Link:
 
-Currently, two official plugins are available:
+https://sunwings-smart-business-card.web.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Server Github Repo:
+
+https://github.com/mshipan/sunwings-smart-business-card-server
+
+## Technology Used:
+
+### FrontEnd
+
+---
+
+- React (Vite)
+- react-router-dom
+- react-bootstrap
+- tailwind css
+
+#### Form
+
+---
+
+- react-hook-form
+
+#### Slider & Image
+
+---
+
+- swiper
+- react-awesome-lightbox
+
+### Alerts
+
+---
+
+- react-hot-toast
+- sweetalert2
+
+### Icons
+
+---
+
+- react-icons
+
+### Auth
+
+---
+
+- firebase
+- Custom Auth
+
+### State Managesment
+
+---
+
+- react-redux
+- @reduxjs/toolkit
+- RTk Query
+
+#### Others
+
+---
+
+- qrcode.react
+- react-phone-input-2
+- react-qrcode-logo
+- react-spinners
+- react-select
+- react-vertical-timeline-component
+- react-tabs
