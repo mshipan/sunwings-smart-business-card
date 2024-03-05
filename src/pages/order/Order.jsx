@@ -10,16 +10,23 @@ import bkash from "../../assets/images/paymentGateway/bkash.svg";
 import nagad from "../../assets/images/paymentGateway/Nagad.svg";
 import rocket from "../../assets/images/paymentGateway/rocket.svg";
 import cardImg from "../../assets/images/paymentGateway/card.png";
+import visaCard from "../../assets/images/paymentGateway/visa.png";
 import { FaShieldHalved } from "react-icons/fa6";
 import { FaHeadset } from "react-icons/fa";
 import Select from "react-select";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import districts from "../../assets/districts.json";
 import { useCreateOrderMutation } from "../../redux/features/allApis/orderApi";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi";
+import { RxSlash } from "react-icons/rx";
 
 const Order = () => {
+  const { user } = useContext(AuthContext);
+  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
+
   const cardOptions = [
     {
       value: "standardCard",
@@ -109,12 +116,12 @@ const Order = () => {
       ),
     },
     {
-      value: "card",
+      value: "visa",
       label: (
         <div className="flex items-center gap-3 my-1">
-          <img src={cardImg} alt="selectCard" className="w-12" />
+          <img src={visaCard} alt="selectCard" className="w-8" />
 
-          <h2 className="text-lg">কার্ড</h2>
+          <h2 className="text-lg">ভিসা কার্ড</h2>
         </div>
       ),
     },
@@ -125,6 +132,57 @@ const Order = () => {
     label: district.bn_name,
     bnName: district.bn_name,
   }));
+
+  const months = [
+    { value: "", label: "Select One" },
+    { value: "01", label: "জানুয়ারি" },
+    { value: "02", label: "ফেব্রুয়ারি" },
+    { value: "03", label: "মার্চ" },
+    { value: "04", label: "এপ্রিল" },
+    { value: "05", label: "মে" },
+    { value: "06", label: "জুন" },
+    { value: "07", label: "জুলাই" },
+    { value: "08", label: "আগস্ট" },
+    { value: "09", label: "সেপ্টেম্বর" },
+    { value: "10", label: "অক্টোবর" },
+    { value: "11", label: "নভেম্বর" },
+    { value: "12", label: "ডিসেম্বর" },
+  ];
+
+  const years = [
+    { value: "", label: "Select One" },
+    { value: "20", label: "২০২০" },
+    { value: "21", label: "২০২১" },
+    { value: "22", label: "২০২২" },
+    { value: "23", label: "২০২৩" },
+    { value: "24", label: "২০২৪" },
+    { value: "25", label: "২০২৫" },
+    { value: "26", label: "২০২৬" },
+    { value: "27", label: "২০২৭" },
+    { value: "28", label: "২০২৮" },
+    { value: "29", label: "২০২৯" },
+    { value: "30", label: "২০৩০" },
+    { value: "31", label: "২০৩১" },
+    { value: "32", label: "২০৩২" },
+    { value: "33", label: "২০৩৩" },
+    { value: "34", label: "২০৩৪" },
+    { value: "35", label: "২০৩৫" },
+    { value: "36", label: "২০৩৬" },
+    { value: "37", label: "২০৩৭" },
+    { value: "38", label: "২০৩৮" },
+    { value: "39", label: "২০৩৯" },
+    { value: "40", label: "২০৪০" },
+    { value: "41", label: "২০৪১" },
+    { value: "42", label: "২০৪২" },
+    { value: "43", label: "২০৪৩" },
+    { value: "44", label: "২০৪৪" },
+    { value: "45", label: "২০৪৫" },
+    { value: "46", label: "২০৪৬" },
+    { value: "47", label: "২০৪৭" },
+    { value: "48", label: "২০৪৮" },
+    { value: "49", label: "২০৪৯" },
+    { value: "50", label: "২০৫০" },
+  ];
 
   const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -226,6 +284,7 @@ const Order = () => {
                 >
                   <div className="col-lg-6">
                     <h5 className="text_26 mb-4">আপনার তথ্য দিন</h5>
+                    {/* name */}
                     <div className="form-floating mb-3">
                       <input
                         type="text"
@@ -233,6 +292,7 @@ const Order = () => {
                         id="name"
                         name="name"
                         {...register("name", { required: true })}
+                        defaultValue={singleUser ? singleUser?.name : ""}
                         aria-describedby="emailHelp"
                         placeholder="নাম লিখুন *"
                       />
@@ -244,26 +304,7 @@ const Order = () => {
                       )}
                     </div>
 
-                    <div className="form-floating mb-3">
-                      <input
-                        type="number"
-                        className="form-control"
-                        id="example12"
-                        name="phone"
-                        {...register("phone", { required: true })}
-                        aria-describedby="emailHelp"
-                        placeholder="যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন *"
-                      />
-                      <label htmlFor="example12">
-                        যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন *
-                      </label>
-                      {errors.phone && (
-                        <span className="text-red-600 text-sm italic">
-                          ** Phone is required. **
-                        </span>
-                      )}
-                    </div>
-
+                    {/* address */}
                     <div className="form-floating mb-3">
                       <input
                         type="text"
@@ -278,6 +319,27 @@ const Order = () => {
                       {errors.address && (
                         <span className="text-red-600 text-sm italic">
                           ** Address is required. **
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="form-floating mb-3">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="example12"
+                        name="phone"
+                        {...register("phone", { required: true })}
+                        aria-describedby="emailHelp"
+                        placeholder="আপনার মোবাইল নাম্বারটি লিখুন *"
+                      />
+                      {/* যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন  */}
+                      <label htmlFor="example12">
+                        আপনার মোবাইল নাম্বার লিখুন *
+                      </label>
+                      {errors.phone && (
+                        <span className="text-red-600 text-sm italic">
+                          ** Phone is required. **
                         </span>
                       )}
                     </div>
@@ -318,24 +380,340 @@ const Order = () => {
                     </div>
 
                     {selectedPaymentOption &&
-                      (selectedPaymentOption.value === "bkash" ||
-                        selectedPaymentOption.value === "nagad" ||
-                        selectedPaymentOption.value === "rocket") && (
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="transactionId"
-                            {...register("transactionId", { required: true })}
-                            placeholder="ট্রানজেকশন আইডি"
-                          />
-                          <label htmlFor="village">ট্রানজেকশন আইডি</label>
-                          {errors.transactionId && (
-                            <span className="text-red-600 text-sm italic">
-                              ** Transaction Id is required. **
-                            </span>
-                          )}
-                        </div>
+                      selectedPaymentOption.value === "bkash" && (
+                        <>
+                          <div className="form-floating mb-3">
+                            <table className="table">
+                              <tbody>
+                                <tr className="border-b-transparent">
+                                  <td>
+                                    <img
+                                      src={bkash}
+                                      alt="bkash"
+                                      className="w-12"
+                                    />
+                                  </td>
+                                  <td>
+                                    <p>01622543390</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="example12"
+                              name="bkashPhone"
+                              {...register("bkashPhone", { required: true })}
+                              aria-describedby="emailHelp"
+                              placeholder="যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন  *"
+                            />
+
+                            <label htmlFor="example12">
+                              যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটি লিখুন *
+                            </label>
+                            {errors.bkashPhone && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Phone Number is required. **
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="transactionId"
+                              {...register("transactionId", { required: true })}
+                              placeholder="ট্রানজেকশন আইডি"
+                            />
+                            <label htmlFor="village">ট্রানজেকশন আইডি *</label>
+                            {errors.transactionId && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Transaction Id is required. **
+                              </span>
+                            )}
+                          </div>
+                        </>
+                      )}
+
+                    {selectedPaymentOption &&
+                      selectedPaymentOption.value === "nagad" && (
+                        <>
+                          <div className="form-floating mb-3">
+                            <table className="table">
+                              <tbody>
+                                <tr className="border-b-transparent">
+                                  <td>
+                                    <img
+                                      src={nagad}
+                                      alt="nagad"
+                                      className="w-12"
+                                    />
+                                  </td>
+                                  <td>
+                                    <p>01622543390</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="example12"
+                              name="nagadPhone"
+                              {...register("nagadPhone", { required: true })}
+                              aria-describedby="emailHelp"
+                              placeholder="যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন  *"
+                            />
+
+                            <label htmlFor="example12">
+                              যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটি লিখুন *
+                            </label>
+                            {errors.nagadPhone && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Phone Number is required. **
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="transactionId"
+                              {...register("transactionId", { required: true })}
+                              placeholder="ট্রানজেকশন আইডি"
+                            />
+                            <label htmlFor="village">ট্রানজেকশন আইডি *</label>
+                            {errors.transactionId && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Transaction Id is required. **
+                              </span>
+                            )}
+                          </div>
+                        </>
+                      )}
+
+                    {selectedPaymentOption &&
+                      selectedPaymentOption.value === "rocket" && (
+                        <>
+                          <div className="form-floating mb-3">
+                            <table className="table">
+                              <tbody>
+                                <tr className="border-b-transparent">
+                                  <td>
+                                    <img
+                                      src={rocket}
+                                      alt="rocket"
+                                      className="w-10"
+                                    />
+                                  </td>
+                                  <td>
+                                    <p>01622543390</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="example12"
+                              name="rocketPhone"
+                              {...register("rocketPhone", { required: true })}
+                              aria-describedby="emailHelp"
+                              placeholder="যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটা লিখুন  *"
+                            />
+
+                            <label htmlFor="example12">
+                              যে মোবাইল নাম্বার থেকে পেমেন্ট করেছেন সেটি লিখুন *
+                            </label>
+                            {errors.rocketPhone && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Phone Number is required. **
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="transactionId"
+                              {...register("transactionId", { required: true })}
+                              placeholder="ট্রানজেকশন আইডি"
+                            />
+                            <label htmlFor="village">ট্রানজেকশন আইডি *</label>
+                            {errors.transactionId && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Transaction Id is required. **
+                              </span>
+                            )}
+                          </div>
+                        </>
+                      )}
+
+                    {selectedPaymentOption &&
+                      selectedPaymentOption.value === "visa" && (
+                        <>
+                          <div className="form-floating mb-3">
+                            <table className="table">
+                              <tbody>
+                                <tr className="border-b-transparent">
+                                  <td>
+                                    <img
+                                      src={visaCard}
+                                      alt="visa card"
+                                      className="w-8"
+                                    />
+                                  </td>
+                                  <td>
+                                    <p>1111 1111 1111 1111</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="visaCardHolderName"
+                              {...register("visaCardHolderName", {
+                                required: true,
+                              })}
+                              placeholder="কার্ড হোল্ডারের নাম *"
+                            />
+                            <label htmlFor="visaCardHolderName">
+                              কার্ড হোল্ডারের নাম *
+                            </label>
+                            {errors.visaCardHolderName && (
+                              <span className="text-red-600 text-sm italic">
+                                ** Card Holder Name is required. **
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="visaCardNumber"
+                              {...register("visaCardNumber", {
+                                required: true,
+                                pattern: {
+                                  value: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
+                                  message: "Invalid Visa Card Number",
+                                },
+                              })}
+                              placeholder="কার্ড নাম্বার *"
+                            />
+                            <label htmlFor="visaCardNumber">
+                              কার্ড নাম্বার *
+                            </label>
+                            {errors.visaCardNumber &&
+                              errors.visaCardNumber.type === "required" && (
+                                <span className="text-red-600 text-sm italic">
+                                  ** Card Number is required. **
+                                </span>
+                              )}
+                            {errors.visaCardNumber &&
+                              errors.visaCardNumber.type === "pattern" && (
+                                <span className="text-red-600 text-sm italic">
+                                  ** {errors.visaCardNumber.message} **
+                                </span>
+                              )}
+                          </div>
+                          <div className="flex flex-row items-end justify-between gap-2">
+                            <div>
+                              <label htmlFor="visaCardExpire" className="mb-2">
+                                মেয়াদ (মাস/বছর) *
+                              </label>
+                              <div className="flex flex-row items-center gap-2 mb-3">
+                                <div>
+                                  <select
+                                    name="visaCardExpireMonth"
+                                    className="form-control"
+                                    {...register("visaCardExpireMonth", {
+                                      required: true,
+                                    })}
+                                    placeholder="মাস *"
+                                  >
+                                    {months?.map((month, i) => (
+                                      <option
+                                        key={i}
+                                        value={month?.value}
+                                        disabled={month.value === ""}
+                                      >
+                                        {month?.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                                <RxSlash />
+                                <div>
+                                  <select
+                                    name="visaCardExpireYear"
+                                    className="form-control"
+                                    {...register("visaCardExpireYear", {
+                                      required: true,
+                                    })}
+                                    placeholder="বছর *"
+                                  >
+                                    {years?.map((year, i) => (
+                                      <option
+                                        key={i}
+                                        value={year?.value}
+                                        disabled={year.value === ""}
+                                      >
+                                        {year?.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+                              {errors.visaCardExpireMonth ||
+                                (errors.visaCardExpireYear && (
+                                  <span className="text-red-600 text-sm italic">
+                                    ** Expiration is required. **
+                                  </span>
+                                ))}
+                            </div>
+                            <div className="mb-3">
+                              <label
+                                htmlFor="visaSecurityCode"
+                                className="mb-2"
+                              >
+                                সিকিউরিটি কোড *
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                name="visaSecurityCode"
+                                {...register("visaSecurityCode", {
+                                  required: true,
+                                })}
+                                placeholder="সিকিউরিটি কোড *"
+                              />
+
+                              {errors.visaSecurityCode && (
+                                <span className="text-red-600 text-sm italic">
+                                  ** Security Code is required. **
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </>
                       )}
 
                     <div className="form-floating mb-3">
@@ -367,60 +745,6 @@ const Order = () => {
                         options={cardOptions}
                         isSearchable={false}
                       />
-                      <div className="flex flex-col gap-3">
-                        <div>
-                          <h1 className="text_26 mb-0">পেমেন্ট ডিটেইলস</h1>
-                          <p className="italic">
-                            <small className="text-xs">
-                              পেমেন্ট করার জন্য নিন্মক্ত তথ্য ব্যবহার করুন।
-                            </small>
-                          </p>
-                        </div>
-                        <table className="table">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img src={bkash} alt="bkash" className="w-12" />
-                              </td>
-                              <td>
-                                <p>01622543390</p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <img src={nagad} alt="nagad" className="w-12" />
-                              </td>
-                              <td>
-                                <p>01622543390</p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <img
-                                  src={rocket}
-                                  alt="rocket"
-                                  className="w-10"
-                                />
-                              </td>
-                              <td>
-                                <p>01622543390</p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <img
-                                  src={cardImg}
-                                  alt="rocket"
-                                  className="w-10"
-                                />
-                              </td>
-                              <td>
-                                <p>4111 1111 1111 1111</p>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
 
                       <div className="subtotalItem mb-3">
                         <div className="subtotalContain">
@@ -439,7 +763,7 @@ const Order = () => {
                           <div>
                             <div className="form-check mt-2">
                               <input
-                                className="form-check-input"
+                                className="form-check-input radio-primary"
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault1"
@@ -455,7 +779,7 @@ const Order = () => {
                             </div>
                             <div className="form-check mt-2">
                               <input
-                                className="form-check-input"
+                                className="form-check-input radio-primary"
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault2"
